@@ -1,19 +1,17 @@
-package xyz.satdg.sao.icaris.function.spicalreply;
+package xyz.satdg.sao.icaris.core.observer.observers;
 
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.message.MessageEvent;
 import xyz.satdg.sao.icaris.api.EventListenerType;
-import xyz.satdg.sao.icaris.api.bases.EventListenerBase;
+import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 import xyz.satdg.sao.icaris.database.SPreplyTable;
-
-import java.util.Arrays;
 
 /**
  * @author GongSunink
  */
-public class SpreplyEventListener extends EventListenerBase {
+public class SpreplyObserver extends ObserverBase {
 
     SPreplyTable sPreplyTable = new SPreplyTable();
 

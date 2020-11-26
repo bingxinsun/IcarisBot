@@ -1,11 +1,13 @@
 package xyz.satdg.sao.icaris.base;
 
+import xyz.satdg.sao.icaris.api.bases.DbObject;
+
 import java.sql.Connection;
 
 /**
  * @author GongSunink
  */
-public class TableStd {
+public class TableStd extends DbObject {
     private String tableName;
     private Connection connection;
 

@@ -1,9 +1,11 @@
 package xyz.satdg.sao.icaris.base;
 
+import xyz.satdg.sao.icaris.api.bases.DbObject;
+
 /**
  * @author GongSunink
  */
-public class MessageStd {
+public class MessageStd extends DbObject {
 
     private long senderId;
     private String message;

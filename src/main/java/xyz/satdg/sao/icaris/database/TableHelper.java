@@ -107,6 +107,5 @@ public class TableHelper {
         }catch (SQLException e){
             loger.error(e);
         }
-
     }
 }

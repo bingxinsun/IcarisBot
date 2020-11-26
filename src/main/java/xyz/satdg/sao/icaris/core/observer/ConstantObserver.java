@@ -5,14 +5,14 @@ import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.message.GroupMessageEvent;
 import net.mamoe.mirai.message.MessageEvent;
 import xyz.satdg.sao.icaris.api.EventListenerType;
-import xyz.satdg.sao.icaris.api.bases.EventListenerBase;
+import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 
 /**
  *常监听器，优先级最高，不能打断或是取消
  * @author GongSunink
  */
-public class ConstantEventListener extends EventListenerBase {
+public class ConstantObserver extends ObserverBase {
 
     @Override
     public EventListenerGroupStd listenerStd() {

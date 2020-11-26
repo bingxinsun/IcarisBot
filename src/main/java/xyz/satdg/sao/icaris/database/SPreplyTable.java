@@ -65,8 +65,10 @@ public class SPreplyTable extends TableBase {
 
     public void insert(long id,String message,String messageReturn,String groupName,long groupId,String author) {
         try {
-            TableHelper.getGobalConnection().createStatement().executeUpdate("INSERT INTO SPLICALREPLYTABLE(ID, MESSAGE,RETURN,GROUPNAME,GROUPID, AUTHOR)" +
-                    "VALUES("+id+",'"+message+"','"+messageReturn+"','"+groupName+"','"+groupId+"','"+author+"');");
+            TableHelper.getGobalConnection().createStatement().executeUpdate(String.format("INSERT INTO SPLICALREPLYTABLE(" +
+                    "ID, MESSAGE,RETURN,GROUPNAME,GROUPID, AUTHOR)" +
+                    "VALUES(%d,'%s','%s','%s','%d','%s');",
+                    id, message, messageReturn, groupName, groupId, author));
             /*
              * 注意statement执行结束后一定要关闭，否则可能会造成SQL_BUSY Exception,这里直接使用临时对象，结束后
              * 对象直接被销毁

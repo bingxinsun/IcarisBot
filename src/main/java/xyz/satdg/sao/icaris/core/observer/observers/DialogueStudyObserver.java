@@ -1,4 +1,4 @@
-package xyz.satdg.sao.icaris.function.studysystem;
+package xyz.satdg.sao.icaris.core.observer.observers;
 
 
 import net.mamoe.mirai.contact.User;
@@ -8,7 +8,7 @@ import net.mamoe.mirai.event.ListeningStatus;
 import net.mamoe.mirai.message.GroupMessageEvent;
 import net.mamoe.mirai.message.MessageEvent;
 import xyz.satdg.sao.icaris.api.EventListenerType;
-import xyz.satdg.sao.icaris.api.bases.EventListenerBase;
+import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 import xyz.satdg.sao.icaris.database.SPreplyTable;
 
@@ -17,7 +17,7 @@ import xyz.satdg.sao.icaris.database.SPreplyTable;
  * 对话学习事件监听器
  * @author GongSunink
  */
-public class DialogueStudyListener extends EventListenerBase {
+public class DialogueStudyObserver extends ObserverBase {
 
     private int studySequence=-1;
     private User user;

@@ -1,4 +1,4 @@
-package xyz.satdg.sao.icaris.function.commands;
+package xyz.satdg.sao.icaris.core.observer.observers;
 
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Listener;
@@ -9,14 +9,15 @@ import net.mamoe.mirai.message.MessageEvent;
 import net.mamoe.mirai.message.TempMessageEvent;
 import xyz.satdg.sao.icaris.api.Command;
 import xyz.satdg.sao.icaris.api.EventListenerType;
-import xyz.satdg.sao.icaris.api.bases.EventListenerBase;
+import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
+import xyz.satdg.sao.icaris.core.command.CommandSystem;
 
 /**
  * 命令事件监听器
  * @author GongSunink
  */
-public class CommandEventListener extends EventListenerBase {
+public class CommandObserver extends ObserverBase {
 
 
     @Override
@@ -30,11 +31,11 @@ public class CommandEventListener extends EventListenerBase {
      * @param event 事件主体
      */
     private void dueCommands(MessageEvent event){
-        Command command= CommandHelper.getCommand(event.getMessage().contentToString());
+        Command command= CommandSystem.getCommand(event.getMessage().contentToString());
         if (command!=null){
             this.log(event.getBot());
             command.log(event.getBot());
-            command.excute(event.getMessage(), CommandHelper.getArgs(event.getMessage().contentToString()),event.getSender(),event.getSubject());
+            command.excute(event.getMessage(), CommandSystem.getArgs(event.getMessage().contentToString()),event.getSender(),event.getSubject());
             event.intercept();
         }
     }

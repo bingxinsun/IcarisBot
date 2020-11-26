@@ -27,11 +27,11 @@ public class MessageTable extends TableBase {
     @TableActions(TableName = "MESSAGETABLE",value = TableActions.actionType.INSERT)
     public void insert(MessageStd messagestd){
         try {
-            TableHelper.getGobalConnection().createStatement().executeUpdate("INSERT INTO " +
-                    "MESSAGETABLE(ID,MESSAGE,AUTHOR,GROUPNAME,GROUPID)"+
-                    "VALUES("+messagestd.getSenderId()+",'"+messagestd.getMessage()+"" +
-                    "','"+messagestd.getSenderNick()+"','"+messagestd.getGroupName()+"'" +
-                    ",'"+messagestd.getGrouopId()+"');");
+            TableHelper.getGobalConnection().createStatement().executeUpdate(String.format("" +
+                    "INSERT INTO MESSAGETABLE(ID,MESSAGE,AUTHOR,GROUPNAME,GROUPID)VALUES(" +
+                    "%d,'%s','%s','%s','%d');", messagestd.getSenderId(),
+                    messagestd.getMessage(), messagestd.getSenderNick(),
+                    messagestd.getGroupName(), messagestd.getGrouopId()));
             /*
              * 注意statement执行结束后一定要关闭，否则可能会造成SQL_BUSY Exception,这里直接使用临时对象，结束后
              * 对象直接被销毁

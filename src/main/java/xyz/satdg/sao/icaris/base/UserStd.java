@@ -1,9 +1,11 @@
 package xyz.satdg.sao.icaris.base;
 
+import xyz.satdg.sao.icaris.api.bases.DbObject;
+
 /**
  * @author GongSunink
  */
-public class UserStd {
+public class UserStd extends DbObject {
     private long QQid;
     private String Nick;
 

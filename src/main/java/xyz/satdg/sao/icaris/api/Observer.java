@@ -7,7 +7,7 @@ import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
  * 事件接口
  * @author GongSunink
  */
-public interface EventListener {
+public interface Observer {
     /**
      * 日志记录
      * @param bot 机器人实例

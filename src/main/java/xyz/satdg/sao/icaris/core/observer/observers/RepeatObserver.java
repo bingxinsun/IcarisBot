@@ -1,11 +1,11 @@
-package xyz.satdg.sao.icaris.function.spicalreply;
+package xyz.satdg.sao.icaris.core.observer.observers;
 
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.ListeningStatus;
 import net.mamoe.mirai.message.GroupMessageEvent;
 import xyz.satdg.sao.icaris.api.EventListenerType;
-import xyz.satdg.sao.icaris.api.bases.EventListenerBase;
+import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 import xyz.satdg.sao.icaris.function.BasicFunction;
 
@@ -13,7 +13,7 @@ import xyz.satdg.sao.icaris.function.BasicFunction;
  * ¸´¶Á»ú
  * @author GongSunink
  */
-public class RepeatEventListener extends EventListenerBase {
+public class RepeatObserver extends ObserverBase {
 
     private int repeaterP = 70;
 

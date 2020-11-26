@@ -25,10 +25,12 @@ public class PlayerTable extends TableBase {
 
     public void insert(PlayerStd playerStd){
         try{
-            TableHelper.getGobalConnection().createStatement().executeUpdate("INSERT INTO" +
-                    " PLAYERTABLE(ID,LEVEL,NICK,FEELINGS,CALL_NAME) " +
-                    "VALUES("+playerStd.getQQid()+","+playerStd.getLevel()+"," +
-                    "'"+playerStd.getNick()+"',"+playerStd.getEXP()+",'"+playerStd.getCallName()+"',");
+            TableHelper.getGobalConnection().createStatement().executeUpdate(String.format("" +
+                    "INSERT INTO PLAYERTABLE(ID,LEVEL,NICK,FEELINGS,CALL_NAME)" +
+                    " VALUES(%d,%d,'%s',%d,'%s',",
+                    playerStd.getQQid(), playerStd.getLevel(),
+                    playerStd.getNick(),
+                    playerStd.getEXP(), playerStd.getCallName()));
         }catch (SQLException e){
             getLogger().error(e);
        }

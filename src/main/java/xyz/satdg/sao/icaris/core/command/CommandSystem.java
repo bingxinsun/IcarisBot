@@ -1,4 +1,4 @@
-package xyz.satdg.sao.icaris.function.commands;
+package xyz.satdg.sao.icaris.core.command;
 
 import xyz.satdg.sao.icaris.api.Command;
 
@@ -11,13 +11,13 @@ import java.util.List;
  * 指令工具类
  * @author GongSunink
  */
-public class CommandHelper   {
+public class CommandSystem {
 
     private static HashMap<String, Command> commandMap =new HashMap<>();
 
-    public static void registCommand(Command ...commands){
+    public static void registCommands(Command ...commands){
         for (Command command: commands) {
-            CommandHelper.commandMap.put(command.command().getCommandHead(),command);
+            CommandSystem.commandMap.put(command.command().getCommandHead(),command);
         }
     }
     /**
