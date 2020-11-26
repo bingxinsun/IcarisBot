@@ -11,7 +11,7 @@ import xyz.satdg.sao.icaris.api.Command;
 import xyz.satdg.sao.icaris.api.EventListenerType;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
-import xyz.satdg.sao.icaris.core.command.CommandSystem;
+import xyz.satdg.sao.icaris.core.CommandSystem;
 
 /**
  * ÃüÁîÊÂ¼ş¼àÌıÆ÷

@@ -5,7 +5,7 @@ import xyz.satdg.sao.icaris.api.bases.DbObject;
 /**
  * @author GongSunink
  */
-public class StydyMessageStd extends DbObject {
+public class StydyMessageStd implements DbObject {
     private long senderId;
     private String message;
     private String messageReturn;

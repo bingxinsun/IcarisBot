@@ -5,7 +5,7 @@ import xyz.satdg.sao.icaris.api.bases.DbObject;
 /**
  * @author GongSunink
  */
-public class UserStd extends DbObject {
+public class UserStd implements DbObject {
     private long QQid;
     private String Nick;
 

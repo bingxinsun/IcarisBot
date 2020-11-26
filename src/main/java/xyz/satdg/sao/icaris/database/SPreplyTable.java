@@ -1,9 +1,12 @@
 package xyz.satdg.sao.icaris.database;
 
+import xyz.satdg.sao.icaris.api.bases.DbObject;
 import xyz.satdg.sao.icaris.api.bases.TableBase;
+import xyz.satdg.sao.icaris.api.marks.Table;
+import xyz.satdg.sao.icaris.base.SpMessageStd;
 import xyz.satdg.sao.icaris.base.TableStd;
+import xyz.satdg.sao.icaris.core.DbSystem;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -11,6 +14,7 @@ import java.sql.SQLException;
  * 特殊回复表
  * @author GongSunink
  */
+@Table(tableName = "SPLICALREPLYTABLE",dbName = "BotDB")
 public class SPreplyTable extends TableBase {
 
 
@@ -22,7 +26,7 @@ public class SPreplyTable extends TableBase {
 
     public boolean delete(String message){
         try{
-            TableHelper.getGobalConnection().createStatement().executeUpdate(
+            DbSystem.getGobalConnection().createStatement().executeUpdate(
                     "DELETE from SPLICALREPLYTABLE where MESSAGE ="+message);
             return true;
         }catch (SQLException e){
@@ -43,7 +47,7 @@ public class SPreplyTable extends TableBase {
      */
     public String select(String message){
         try{
-            ResultSet set= TableHelper.getGobalConnection().createStatement().executeQuery("SELECT * FROM SPLICALREPLYTABLE");
+            ResultSet set= DbSystem.getGobalConnection().createStatement().executeQuery("SELECT * FROM SPLICALREPLYTABLE");
             String result = null;
             while(set.next()){
                 if (message.contains(set.getString("MESSAGE"))){
@@ -62,30 +66,39 @@ public class SPreplyTable extends TableBase {
         return null;
     }
 
-
-    public void insert(long id,String message,String messageReturn,String groupName,long groupId,String author) {
-        try {
-            TableHelper.getGobalConnection().createStatement().executeUpdate(String.format("INSERT INTO SPLICALREPLYTABLE(" +
-                    "ID, MESSAGE,RETURN,GROUPNAME,GROUPID, AUTHOR)" +
-                    "VALUES(%d,'%s','%s','%s','%d','%s');",
-                    id, message, messageReturn, groupName, groupId, author));
-            /*
-             * 注意statement执行结束后一定要关闭，否则可能会造成SQL_BUSY Exception,这里直接使用临时对象，结束后
-             * 对象直接被销毁
-             */
-        }catch (SQLException e){
-            this.getLogger().error("消息记录保存失败<" + this.tableStd().getTableName()+ ">",e);
+    @Override
+    public void insert(DbObject dbObject) {
+        if (dbObject instanceof SpMessageStd){
+            try {
+                DbSystem.getGobalConnection().createStatement().executeUpdate(
+                        String.format("INSERT INTO SPLICALREPLYTABLE(" +
+                                "ID, MESSAGE,RETURN,GROUPNAME,GROUPID, AUTHOR)" +
+                                "VALUES(%d,'%s','%s','%s','%d','%s');",
+                                ((SpMessageStd)dbObject).getSenderId(),
+                                ((SpMessageStd)dbObject).getMessage(),
+                                ((SpMessageStd)dbObject).getReturnMessage(),
+                                ((SpMessageStd)dbObject).getGroupName(),
+                                ((SpMessageStd)dbObject).getGrouopId(),
+                                ((SpMessageStd)dbObject).getSenderNick()));
+                /*
+                 * 注意statement执行结束后一定要关闭，否则可能会造成SQL_BUSY Exception,这里直接使用临时对象，结束后
+                 * 对象直接被销毁
+                 */
+            }catch (SQLException e){
+                this.getLogger().error("消息记录保存失败<" + this.tableStd().getTableName()+ ">",e);
+            }
         }
+
     }
 
     @Override
     public void initTable() {
-        if (TableHelper.isTableExsit(this.tableStd().getTableName())) {
+        if (DbSystem.isTableExsit(this.tableStd().getTableName())) {
             this.getLogger().info("数据表<" + this.tableStd().getTableName() + ">加载完成");
         }else {
             try {
                 this.getLogger().info("数据表<" + this.tableStd().getTableName()+ ">不存在，正在创建表");
-                TableHelper.getGobalConnection().createStatement().execute("CREATE TABLE SPLICALREPLYTABLE(" +
+                DbSystem.getGobalConnection().createStatement().execute("CREATE TABLE SPLICALREPLYTABLE(" +
                         "ID INT  NOT NULL," +
                         "MESSAGE  TEXT  NOT NULL," +
                         "RETURN  TEXT  NOT NULL," +

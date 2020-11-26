@@ -1,47 +1,59 @@
-package xyz.satdg.sao.icaris.database;
+package xyz.satdg.sao.icaris.core;
 
 import xyz.satdg.sao.icaris.api.bases.TableBase;
+import xyz.satdg.sao.icaris.api.marks.Table;
 import xyz.satdg.sao.icaris.core.Mloger.MLoger;
+
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * 数据库工具类
- * 提供功能
- * 1.注册数据表
- * 2.提供全局数据库连接对象
- * 3.检查表是否存在
- * 4.手动关闭方法
  * @author GongSunink
  */
-public class TableHelper {
-
+public class DbSystem {
     private static MLoger loger = new MLoger();
 
-    private static HashMap<String, TableBase> TableMap = new HashMap<>();
+    private static HashMap<String, Class<?>> tableMap = new HashMap<>();
 
     private static Connection gobalConnection;
 
-    /**
-     * 数据库系统初始化
-     */
-    public void dbSystemInit(){
-        for (Map.Entry<String, TableBase> stringDbBaseEntry : TableMap.entrySet()) {
-            stringDbBaseEntry.getValue().initTable();
+    public static void jobStart(){
+        System.out.println(141414);
+        checkDbs("BotDB");
+        System.out.println(141414);
+        Set<Class<?>> classSet = null;
+        try {
+            System.out.println(141414);
+            classSet = ClassScanner.getClasses("xyz.satdg.sao.icaris.database");
+            System.out.println(141414);
+        }catch (Exception e){
+            loger.error(e.getMessage());
         }
-    }
-
-    public TableHelper(String ...dbFiles){
-        checkDbs(dbFiles);
+        if (classSet!=null&&!classSet.isEmpty()){
+            for (Class c : classSet){
+                try {
+                    tableMap.put(c.getName(),c);
+                    Method initMethod = c.getMethod("initTable");
+                    System.out.println(141414);
+                    initMethod.invoke(c.newInstance(), (Object[]) null);
+                }catch (Exception e){
+                    loger.error(e.getCause());
+                }
+            }
+        }
     }
 
     /**
      * 检查数据库是否存在,暂时没有多个数据库
      * @param dbFiles 数据库名
      */
-    private void checkDbs(String ...dbFiles){
+    private static void checkDbs(String ...dbFiles){
         for (String dbfile : dbFiles){
             gobalConnection=creatorConnectDB(dbfile);
         }
@@ -70,11 +82,7 @@ public class TableHelper {
         return true;
     }
 
-    /**
-     * 如果数据库存在则连接数据库,不存在则创建然后再连接
-     * @param dbName 数据库名
-     * @return 数据库连接
-     */
+
     private static Connection creatorConnectDB(String dbName){
         Connection c = null;
         try {
@@ -89,16 +97,6 @@ public class TableHelper {
     }
 
     /**
-     * 注册表
-     * @param tableBases
-     */
-    public void RegistTables(TableBase... tableBases){
-        for (TableBase tableBase : tableBases) {
-            TableMap.put(tableBase.tableStd().getTableName(), tableBase);
-        }
-    }
-
-    /**
      * 手动关闭系统
      */
     public void dumpDbSystem(){
@@ -108,4 +106,5 @@ public class TableHelper {
             loger.error(e);
         }
     }
+
 }

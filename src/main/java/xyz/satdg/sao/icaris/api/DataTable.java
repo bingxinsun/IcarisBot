@@ -1,6 +1,7 @@
 package xyz.satdg.sao.icaris.api;
 
 
+import xyz.satdg.sao.icaris.api.bases.DbObject;
 import xyz.satdg.sao.icaris.base.TableStd;
 import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 
@@ -29,4 +30,10 @@ public interface DataTable {
      * ->检查数据表是否正常
      */
     void initTable();
+
+    /**
+     * 插入函数
+     * @param object 数据
+     */
+    void insert(DbObject object);
 }

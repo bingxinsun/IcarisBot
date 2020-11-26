@@ -1,4 +1,4 @@
-package xyz.satdg.sao.icaris.core.command;
+package xyz.satdg.sao.icaris.core;
 
 import xyz.satdg.sao.icaris.api.Command;
 

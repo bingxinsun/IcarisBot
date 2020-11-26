@@ -1,4 +1,4 @@
-package xyz.satdg.sao.icaris.core.observer;
+package xyz.satdg.sao.icaris.core;
 
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.event.Events;

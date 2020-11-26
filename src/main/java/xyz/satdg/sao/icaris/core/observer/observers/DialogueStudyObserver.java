@@ -10,6 +10,7 @@ import net.mamoe.mirai.message.MessageEvent;
 import xyz.satdg.sao.icaris.api.EventListenerType;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
+import xyz.satdg.sao.icaris.base.SpMessageStd;
 import xyz.satdg.sao.icaris.database.SPreplyTable;
 
 
@@ -56,12 +57,12 @@ public class DialogueStudyObserver extends ObserverBase {
         }
         if (studySequence==1){
             studySequence=-1;
-            sPreplyTable.insert(event.getSender().getId(),this.messageReq,event.getMessage().contentToString()
+            sPreplyTable.insert(new SpMessageStd(event.getSender().getId(),this.messageReq,event.getMessage().contentToString()
                     ,(event instanceof  GroupMessageEvent ?
                             ((GroupMessageEvent) event).getGroup().getName() : null),
                     (event instanceof  GroupMessageEvent ?
                             ((GroupMessageEvent) event).getGroup().getId() : Integer.MIN_VALUE),
-                    event.getSender().getNick());
+                    event.getSender().getNick()));
             event.intercept();
         }
         return ListeningStatus.LISTENING;

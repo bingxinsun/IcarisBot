@@ -7,7 +7,7 @@ import java.sql.Connection;
 /**
  * @author GongSunink
  */
-public class TableStd extends DbObject {
+public class TableStd {
     private String tableName;
     private Connection connection;
 

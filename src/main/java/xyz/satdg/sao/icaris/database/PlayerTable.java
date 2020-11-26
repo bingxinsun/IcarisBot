@@ -1,14 +1,18 @@
 package xyz.satdg.sao.icaris.database;
 
+import xyz.satdg.sao.icaris.api.bases.DbObject;
 import xyz.satdg.sao.icaris.api.bases.TableBase;
+import xyz.satdg.sao.icaris.api.marks.Table;
 import xyz.satdg.sao.icaris.base.PlayerStd;
 import xyz.satdg.sao.icaris.base.TableStd;
+import xyz.satdg.sao.icaris.core.DbSystem;
 
 import java.sql.SQLException;
 
 /**
  * @author GongSunink
  */
+@Table(tableName = "PLAYERTABLE",dbName = "BotDB")
 public class PlayerTable extends TableBase {
 
 
@@ -22,28 +26,33 @@ public class PlayerTable extends TableBase {
 
     }
 
+    @Override
+    public void insert(DbObject dbObject){
+        if (dbObject instanceof PlayerStd){
+            try{
+                DbSystem.getGobalConnection().createStatement().executeUpdate(String.format("" +
+                                "INSERT INTO PLAYERTABLE(ID,LEVEL,NICK,FEELINGS,CALL_NAME)" +
+                                " VALUES(%d,%d,'%s',%d,'%s',",
+                                ((PlayerStd)dbObject).getQQid(),
+                                ((PlayerStd)dbObject).getLevel(),
+                                ((PlayerStd)dbObject).getNick(),
+                                ((PlayerStd)dbObject).getEXP(),
+                                ((PlayerStd)dbObject).getCallName()));
+            }catch (SQLException e){
+                getLogger().error(e);
+            }
+        }
 
-    public void insert(PlayerStd playerStd){
-        try{
-            TableHelper.getGobalConnection().createStatement().executeUpdate(String.format("" +
-                    "INSERT INTO PLAYERTABLE(ID,LEVEL,NICK,FEELINGS,CALL_NAME)" +
-                    " VALUES(%d,%d,'%s',%d,'%s',",
-                    playerStd.getQQid(), playerStd.getLevel(),
-                    playerStd.getNick(),
-                    playerStd.getEXP(), playerStd.getCallName()));
-        }catch (SQLException e){
-            getLogger().error(e);
-       }
     }
 
     @Override
     public void initTable() {
-        if (TableHelper.isTableExsit(this.tableStd().getTableName())) {
+        if (DbSystem.isTableExsit(this.tableStd().getTableName())) {
             this.getLogger().info("数据表<" + this.tableStd().getTableName() + ">加载完成");
         } else {
             try {
                 this.getLogger().info("数据表<" + this.tableStd().getTableName() + ">不存在，正在创建表");
-                TableHelper.getGobalConnection().createStatement().execute("CREATE TABLE PLAYERTABLE"
+                DbSystem.getGobalConnection().createStatement().execute("CREATE TABLE PLAYERTABLE"
                         + "(ID INTEGER NOT NULL," +
                         "LEVEL INTEGER DEFAULT 0," +
                         "NICK TEXT NOT NULL," +
