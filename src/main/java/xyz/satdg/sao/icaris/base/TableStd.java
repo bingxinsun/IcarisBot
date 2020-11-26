@@ -1,45 +1,36 @@
 package xyz.satdg.sao.icaris.base;
 
-import xyz.satdg.sao.icaris.core.Mloger.MLoger;
+import java.sql.Connection;
 
 /**
  * @author GongSunink
  */
 public class TableStd {
     private String tableName;
-    private MLoger mLoger = new MLoger();
+    private Connection connection;
 
-    public void setTableName(String tableName) {
+    public TableStd(String tableName) {
         this.tableName = tableName;
-    }
-
-    public MLoger getmLoger() {
-        return mLoger;
-    }
-
-    public TableStd(String tableName, MLoger mLoger) {
-        this.tableName = tableName;
-        this.mLoger = mLoger;
-    }
-
-    public void setmLoger(MLoger mLoger) {
-        this.mLoger = mLoger;
     }
 
     public String getTableName() {
         return tableName;
     }
 
-
-    @Override
-    public String toString() {
-        return "TableStd{" +
-                "tableName='" + tableName + '\'' +
-                ", mLoger=" + mLoger +
-                '}';
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
-    public TableStd(String tableName){
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public TableStd(String tableName, Connection connection) {
         this.tableName = tableName;
+        this.connection = connection;
     }
 }

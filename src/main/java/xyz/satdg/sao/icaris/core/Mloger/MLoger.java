@@ -4,6 +4,7 @@ import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.MiraiLoggerPlatformBase;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.BufferedWriter;
 import java.util.Date;
 
 /**
@@ -49,6 +50,9 @@ public class MLoger extends MiraiLoggerPlatformBase {
     @Override
     public void verbose0(@Nullable String s, @Nullable Throwable throwable) {
         String logmessage=botName+"-=>V=>"+s+"->"+new Date().toString();
+        if (s == null) {
+            return;
+        }
         if (s.contains("Send")){
             logmessage=botName+"-=>V=>"+s+"->"+new Date().toString();
         }

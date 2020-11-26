@@ -13,12 +13,6 @@ import java.sql.SQLException;
  */
 public class SPreplyTable extends TableBase {
 
-    private Connection connection;
-
-    @Override
-    public Connection getConnection() {
-        return connection;
-    }
 
     @Override
     public TableStd tableStd() {
@@ -26,15 +20,10 @@ public class SPreplyTable extends TableBase {
     }
 
 
-    public SPreplyTable() {
-       this.connection = TableHelper.getGobalConnection();
-    }
-
-
-
     public boolean delete(String message){
         try{
-            connection.createStatement().executeUpdate("DELETE from SPLICALREPLYTABLE where MESSAGE ="+message);
+            TableHelper.getGobalConnection().createStatement().executeUpdate(
+                    "DELETE from SPLICALREPLYTABLE where MESSAGE ="+message);
             return true;
         }catch (SQLException e){
             getLogger().error(e);
@@ -54,10 +43,10 @@ public class SPreplyTable extends TableBase {
      */
     public String select(String message){
         try{
-            ResultSet set= connection.createStatement().executeQuery("SELECT * FROM SPLICALREPLYTABLE");
+            ResultSet set= TableHelper.getGobalConnection().createStatement().executeQuery("SELECT * FROM SPLICALREPLYTABLE");
             String result = null;
             while(set.next()){
-                if (message.equals(set.getString("MESSAGE"))){
+                if (message.contains(set.getString("MESSAGE"))){
                     result = set.getString("RETURN");
                     set.close();
                     return result;
@@ -65,6 +54,7 @@ public class SPreplyTable extends TableBase {
                     result = null;
                 }
             }
+
             return result;
         }catch (SQLException e){
             this.getLogger().error(e);
@@ -75,7 +65,7 @@ public class SPreplyTable extends TableBase {
 
     public void insert(long id,String message,String messageReturn,String groupName,long groupId,String author) {
         try {
-            connection.createStatement().executeUpdate("INSERT INTO SPLICALREPLYTABLE(ID, MESSAGE,RETURN,GROUPNAME,GROUPID, AUTHOR)" +
+            TableHelper.getGobalConnection().createStatement().executeUpdate("INSERT INTO SPLICALREPLYTABLE(ID, MESSAGE,RETURN,GROUPNAME,GROUPID, AUTHOR)" +
                     "VALUES("+id+",'"+message+"','"+messageReturn+"','"+groupName+"','"+groupId+"','"+author+"');");
             /*
              * 注意statement执行结束后一定要关闭，否则可能会造成SQL_BUSY Exception,这里直接使用临时对象，结束后
@@ -93,7 +83,7 @@ public class SPreplyTable extends TableBase {
         }else {
             try {
                 this.getLogger().info("数据表<" + this.tableStd().getTableName()+ ">不存在，正在创建表");
-                this.connection.createStatement().execute("CREATE TABLE SPLICALREPLYTABLE(" +
+                TableHelper.getGobalConnection().createStatement().execute("CREATE TABLE SPLICALREPLYTABLE(" +
                         "ID INT  NOT NULL," +
                         "MESSAGE  TEXT  NOT NULL," +
                         "RETURN  TEXT  NOT NULL," +

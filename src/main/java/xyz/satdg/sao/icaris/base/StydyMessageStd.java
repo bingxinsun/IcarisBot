@@ -9,7 +9,7 @@ public class StydyMessageStd {
     private String messageReturn;
     private String senderNick;
     private String groupName;
-    private long grouopId;
+    private long groupId;
 
     @Override
     public String toString() {
@@ -19,7 +19,7 @@ public class StydyMessageStd {
                 ", messageReturn='" + messageReturn + '\'' +
                 ", senderNick='" + senderNick + '\'' +
                 ", groupName='" + groupName + '\'' +
-                ", grouopId=" + grouopId +
+                ", groupId=" + groupId +
                 '}';
     }
 
@@ -63,21 +63,21 @@ public class StydyMessageStd {
         this.groupName = groupName;
     }
 
-    public long getGrouopId() {
-        return grouopId;
+    public long getGroupId() {
+        return groupId;
     }
 
-    public void setGrouopId(long grouopId) {
-        this.grouopId = grouopId;
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
     }
 
-    public StydyMessageStd(long senderId, String message, String messageReturn, String senderNick, String groupName, long grouopId) {
+    public StydyMessageStd(long senderId, String message, String messageReturn, String senderNick, String groupName, long groupId) {
         this.senderId = senderId;
         this.message = message;
         this.messageReturn = messageReturn;
         this.senderNick = senderNick;
         this.groupName = groupName;
-        this.grouopId = grouopId;
+        this.groupId = groupId;
     }
 
 

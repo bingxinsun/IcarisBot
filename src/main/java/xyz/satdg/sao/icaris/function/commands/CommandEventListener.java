@@ -18,6 +18,7 @@ import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
  */
 public class CommandEventListener extends EventListenerBase {
 
+
     @Override
     public EventListenerGroupStd listenerStd() {
         return new EventListenerGroupStd("Ö¸Áî¼àÌıÆ÷", EventListenerType.STANDARD);

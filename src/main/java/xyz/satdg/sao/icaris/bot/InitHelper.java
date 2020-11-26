@@ -1,7 +1,7 @@
 package xyz.satdg.sao.icaris.bot;
 
 import net.mamoe.mirai.Bot;
-import xyz.satdg.sao.icaris.core.overlord.monitor.ConstantEventListener;
+import xyz.satdg.sao.icaris.core.observer.ConstantEventListener;
 import xyz.satdg.sao.icaris.database.PlayerTable;
 import xyz.satdg.sao.icaris.database.TableHelper;
 import xyz.satdg.sao.icaris.database.MessageTable;
@@ -17,6 +17,7 @@ import xyz.satdg.sao.icaris.function.studysystem.DialogueStudyListener;
 
 /**
  * 系统初始化
+ * 数据库系统->指令系统->命令系统
  * @author GongSunink
  */
 public class InitHelper {

@@ -31,25 +31,24 @@ public class DialogueStudyListener extends EventListenerBase {
 
     /**
      * 对话学习系统监听器，不支持多人异步处理
-     * 当监听到信息"调教魔理沙"时
-     * ->这次又要学什么对话daze~?
+     * 当监听到信息"对话学习"时
      * <-message
-     * ->遇到这种情况,我应该怎样回答呢daze~
-     * <-return
-     * ->好的,我明白了daze~
-     * @param event
+     * ->message
+     * <-reply
+     * ->return
+     * @param event 消息时间
      * @return
      */
     @EventHandler(priority = Listener.EventPriority.HIGH)
     public ListeningStatus dialogueStudyListener(MessageEvent event){
         if ("对话学习".equals(event.getMessage().contentToString())&&studySequence==-1){
             user=event.getSender();
-            event.getSubject().sendMessage("学习模式已开启");
+            event.getSubject().sendMessage("对话是什么");
             studySequence++;
             return ListeningStatus.LISTENING;
         }else if (studySequence==0&&event.getSender().getId()==(user.getId())){
             messageReq=event.getMessage().contentToString();
-            event.getSubject().sendMessage("如何回复");
+            event.getSubject().sendMessage("如何回复以上对话");
             studySequence++;
             return ListeningStatus.LISTENING;
         }else if (studySequence==1&&event.getSender().getId()==(user.getId())){
@@ -58,8 +57,10 @@ public class DialogueStudyListener extends EventListenerBase {
         if (studySequence==1){
             studySequence=-1;
             sPreplyTable.insert(event.getSender().getId(),this.messageReq,event.getMessage().contentToString()
-                    ,(event instanceof  GroupMessageEvent ? ((GroupMessageEvent) event).getGroup().getName() : null),
-                    (event instanceof  GroupMessageEvent ? ((GroupMessageEvent) event).getGroup().getId() : Integer.MIN_VALUE),
+                    ,(event instanceof  GroupMessageEvent ?
+                            ((GroupMessageEvent) event).getGroup().getName() : null),
+                    (event instanceof  GroupMessageEvent ?
+                            ((GroupMessageEvent) event).getGroup().getId() : Integer.MIN_VALUE),
                     event.getSender().getNick());
             event.intercept();
         }

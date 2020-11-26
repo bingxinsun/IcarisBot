@@ -29,10 +29,4 @@ public interface DataTable {
      * ->检查数据表是否正常
      */
     void initTable();
-
-    /**
-     * 获得连接
-     * @return 连接
-     */
-    Connection getConnection();
 }

@@ -48,13 +48,12 @@ public class TableHelper {
     }
 
     /**
-     * 获得全局数据库连接对象,此对象是公用的
+     * 获得全局数据库连接对象,此对象是公用的,使用synchronized封闭临界区
      * @return 全局数据库连接对象
      */
-    public static Connection getGobalConnection(){
+    public static synchronized Connection getGobalConnection(){
         return gobalConnection;
     }
-
 
     /**
      * 检查目标数据表是否存在，存在则返回true，不存在返回false
@@ -81,12 +80,11 @@ public class TableHelper {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:"+dbName+".db");
-            loger.info("数据库检查>>><"+dbName+">加载成功");
+            loger.info("数据库检查<"+dbName+">加载成功");
             return c;
         } catch ( Exception e ) {
-            loger.error("数据库检查>>><"+dbName+">加载失败",e);
+            loger.error("数据库检查<"+dbName+">加载失败",e);
         }
-
         return c;
     }
 

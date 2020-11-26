@@ -1,6 +1,7 @@
 package xyz.satdg.sao.icaris.database;
 
 import xyz.satdg.sao.icaris.api.bases.TableBase;
+import xyz.satdg.sao.icaris.base.PlayerStd;
 import xyz.satdg.sao.icaris.base.TableStd;
 
 import java.sql.SQLException;
@@ -22,11 +23,12 @@ public class PlayerTable extends TableBase {
     }
 
 
-    public void insert(long id,int level,String nick,int feelings,String callname){
+    public void insert(PlayerStd playerStd){
         try{
-            this.getConnection().createStatement().executeUpdate("INSERT INTO" +
+            TableHelper.getGobalConnection().createStatement().executeUpdate("INSERT INTO" +
                     " PLAYERTABLE(ID,LEVEL,NICK,FEELINGS,CALL_NAME) " +
-                    "VALUES("+id+","+level+",'"+nick+"',"+feelings+",'"+callname+"',");
+                    "VALUES("+playerStd.getQQid()+","+playerStd.getLevel()+"," +
+                    "'"+playerStd.getNick()+"',"+playerStd.getEXP()+",'"+playerStd.getCallName()+"',");
         }catch (SQLException e){
             getLogger().error(e);
        }
@@ -39,11 +41,11 @@ public class PlayerTable extends TableBase {
         } else {
             try {
                 this.getLogger().info("数据表<" + this.tableStd().getTableName() + ">不存在，正在创建表");
-                this.getConnection().createStatement().execute("CREATE TABLE PLAYERTABLE"
+                TableHelper.getGobalConnection().createStatement().execute("CREATE TABLE PLAYERTABLE"
                         + "(ID INTEGER NOT NULL," +
                         "LEVEL INTEGER DEFAULT 0," +
                         "NICK TEXT NOT NULL," +
-                        "FEELINGS INTEGER DEFAULT 10," +
+                        "EXP INTEGER DEFAULT 0," +
                         "CALL_NAME TEXT)");
                 this.getLogger().info("数据表<" + this.tableStd().getTableName() + ">创建成功");
             } catch (SQLException e) {

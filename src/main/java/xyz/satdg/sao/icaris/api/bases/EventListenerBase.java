@@ -24,6 +24,9 @@ public abstract class EventListenerBase extends SimpleListenerHost implements Ev
     }
     @Override
     public boolean equals(Object obj) {
-        return this.listenerStd().getListenerGroupName().equals(obj);
+        if (obj instanceof EventListenerBase){
+            return this.listenerStd().getListenerGroupName().equals(obj);
+        }
+        return false;
     }
 }

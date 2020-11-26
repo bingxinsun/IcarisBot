@@ -13,19 +13,9 @@ import java.sql.Connection;
  */
 public abstract class TableBase implements DataTable {
 
-    private Connection connection;
-
     @Override
     public MLoger getLogger() {
         return new MLoger();
     }
 
-    protected TableBase(){
-        this.connection=TableHelper.getGobalConnection();
-    }
-
-    @Override
-    public Connection getConnection() {
-        return connection;
-    }
 }

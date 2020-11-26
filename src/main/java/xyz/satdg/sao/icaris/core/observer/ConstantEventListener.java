@@ -1,4 +1,4 @@
-package xyz.satdg.sao.icaris.core.overlord.monitor;
+package xyz.satdg.sao.icaris.core.observer;
 
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Listener;

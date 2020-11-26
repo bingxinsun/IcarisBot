@@ -2,6 +2,7 @@ package xyz.satdg.sao.icaris.database;
 
 import xyz.satdg.sao.icaris.api.bases.TableBase;
 import xyz.satdg.sao.icaris.api.marks.TableActions;
+import xyz.satdg.sao.icaris.base.MessageStd;
 import xyz.satdg.sao.icaris.base.TableStd;
 
 import java.sql.Connection;
@@ -13,35 +14,24 @@ import java.sql.SQLException;
  */
 public class MessageTable extends TableBase {
 
-    private Connection connection;
-
-    @Override
-    public Connection getConnection() {
-        return connection;
-    }
 
     @Override
     public TableStd tableStd() {
         return new TableStd("MESSAGETABLE");
     }
 
-    public MessageTable() {
-        this.connection = TableHelper.getGobalConnection();
-    }
-
     /**
      * 插入函数
-     * @param id 发送者id
-     * @param message 信息
-     * @param author 发送者名字
-     * @param groupName 群名字
-     * @param groupId 群id
+     * @param messagestd message对象
      */
     @TableActions(TableName = "MESSAGETABLE",value = TableActions.actionType.INSERT)
-    public void insert(long id,String message,String author,String groupName,long groupId){
+    public void insert(MessageStd messagestd){
         try {
-            connection.createStatement().executeUpdate("INSERT INTO MESSAGETABLE(ID,MESSAGE,AUTHOR,GROUPNAME,GROUPID)"+
-                    "VALUES("+id+",'"+message+"','"+author+"','"+groupName+"','"+groupId+"');");
+            TableHelper.getGobalConnection().createStatement().executeUpdate("INSERT INTO " +
+                    "MESSAGETABLE(ID,MESSAGE,AUTHOR,GROUPNAME,GROUPID)"+
+                    "VALUES("+messagestd.getSenderId()+",'"+messagestd.getMessage()+"" +
+                    "','"+messagestd.getSenderNick()+"','"+messagestd.getGroupName()+"'" +
+                    ",'"+messagestd.getGrouopId()+"');");
             /*
              * 注意statement执行结束后一定要关闭，否则可能会造成SQL_BUSY Exception,这里直接使用临时对象，结束后
              * 对象直接被销毁
@@ -58,7 +48,7 @@ public class MessageTable extends TableBase {
         }else {
             try {
                 this.getLogger().info("数据表<" + this.tableStd().getTableName()+ ">不存在，正在创建表");
-                connection.createStatement().execute("CREATE TABLE MESSAGETABLE"
+                TableHelper.getGobalConnection().createStatement().execute("CREATE TABLE MESSAGETABLE"
                         + "(ID INTEGER NOT NULL," +
                         "MESSAGE  TEXT  NOT NULL," +
                         "AUTHOR TEXT NOT NULL," +
