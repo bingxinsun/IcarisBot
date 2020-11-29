@@ -32,12 +32,13 @@ public class CommandObserver extends ObserverBase {
      */
     private void dueCommands(MessageEvent event){
         Command command= CommandSystem.getCommand(event.getMessage().contentToString());
-        if (command!=null){
+        if (command!=null) {
             this.log(event.getBot());
             command.log(event.getBot());
-            command.excute(event.getMessage(), CommandSystem.getArgs(event.getMessage().contentToString()),event.getSender(),event.getSubject());
+            command.excute(event.getMessage(), CommandSystem.getArgs(event.getMessage().contentToString()), event.getSender(), event.getSubject());
             event.intercept();
         }
+
     }
 
     @EventHandler(priority = Listener.EventPriority.HIGH)

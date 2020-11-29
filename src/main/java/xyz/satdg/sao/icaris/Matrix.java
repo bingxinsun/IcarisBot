@@ -6,5 +6,6 @@ package xyz.satdg.sao.icaris;
 public class Matrix {
     public static void main(String[] args) {
         BotSystem.start();
+
     }
 }

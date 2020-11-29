@@ -14,6 +14,13 @@ import java.util.Date;
 public class MLoger extends MiraiLoggerPlatformBase {
     private Bot bot;
     private String botName;
+    private static MLoger instance= new MLoger();
+
+
+    public static MLoger getLoger(){
+        return instance;
+    }
+
 
     public MLoger(Bot bot,String botName){
         this.bot=bot;

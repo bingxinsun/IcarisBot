@@ -3,6 +3,9 @@ package xyz.satdg.sao.icaris.core;
 import xyz.satdg.sao.icaris.api.bases.TableBase;
 import xyz.satdg.sao.icaris.api.marks.Table;
 import xyz.satdg.sao.icaris.core.Mloger.MLoger;
+import xyz.satdg.sao.icaris.database.MessageTable;
+import xyz.satdg.sao.icaris.database.PlayerTable;
+import xyz.satdg.sao.icaris.database.SPreplyTable;
 
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -17,37 +20,45 @@ import java.util.Set;
  * @author GongSunink
  */
 public class DbSystem {
-    private static MLoger loger = new MLoger();
-
-    private static HashMap<String, Class<?>> tableMap = new HashMap<>();
+    private static HashMap<String, TableBase> tableMap = new HashMap<>();
 
     private static Connection gobalConnection;
 
+    @SuppressWarnings("unchecked")
     public static void jobStart(){
-        System.out.println(141414);
+        MLoger.getLoger().info("正在数据表进行自动挂载");
         checkDbs("BotDB");
-        System.out.println(141414);
         Set<Class<?>> classSet = null;
         try {
-            System.out.println(141414);
-            classSet = ClassScanner.getClasses("xyz.satdg.sao.icaris.database");
-            System.out.println(141414);
+            classSet = ClassScanner.scanPackage("xyz.satdg.sao.icaris.database");
         }catch (Exception e){
-            loger.error(e.getMessage());
+            MLoger.getLoger().error(e.getMessage());
         }
         if (classSet!=null&&!classSet.isEmpty()){
             for (Class c : classSet){
                 try {
-                    tableMap.put(c.getName(),c);
-                    Method initMethod = c.getMethod("initTable");
-                    System.out.println(141414);
-                    initMethod.invoke(c.newInstance(), (Object[]) null);
+                    if (c.newInstance() instanceof  TableBase){
+                        tableMap.put(c.getName(),(TableBase)(c.newInstance()));
+                        Method initMethod = c.getMethod("initTable");
+                        initMethod.invoke(c.newInstance(), (Object[]) null);
+                    }
                 }catch (Exception e){
-                    loger.error(e.getCause());
+                    MLoger.getLoger().error("数据表自动挂载失败,正在进行手动挂载",e.getCause());
+                    initByManual(new MessageTable(),new PlayerTable(),new SPreplyTable());
                 }
             }
+        }else {
+            MLoger.getLoger().error("数据表自动挂载失败,正在进行手动挂载");
+            initByManual(new MessageTable(),new PlayerTable(),new SPreplyTable());
+        }
+        MLoger.getLoger().info("数据表自动挂载完成!");
+    }
+    private static void initByManual(TableBase ...tableBases){
+        for (TableBase tableBase : tableBases) {
+            tableBase.initTable();
         }
     }
+
 
     /**
      * 检查数据库是否存在,暂时没有多个数据库
@@ -76,7 +87,7 @@ public class DbSystem {
         try{
             gobalConnection.createStatement().execute("select * from " +Table);
         }catch (Exception e){
-            loger.error("数据表<"+Table+">不存在",e);
+            MLoger.getLoger().error("数据表<"+Table+">不存在",e);
             return false;
         }
         return true;
@@ -88,10 +99,10 @@ public class DbSystem {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:"+dbName+".db");
-            loger.info("数据库检查<"+dbName+">加载成功");
+            MLoger.getLoger().info("数据库检查<"+dbName+">加载成功");
             return c;
         } catch ( Exception e ) {
-            loger.error("数据库检查<"+dbName+">加载失败",e);
+            MLoger.getLoger().error("数据库检查<"+dbName+">加载失败",e);
         }
         return c;
     }
@@ -99,11 +110,11 @@ public class DbSystem {
     /**
      * 手动关闭系统
      */
-    public void dumpDbSystem(){
+    public static void dumpDbSystem(){
         try{
             gobalConnection.close();
         }catch (SQLException e){
-            loger.error(e);
+            MLoger.getLoger().error(e);
         }
     }
 

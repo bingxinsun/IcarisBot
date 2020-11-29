@@ -1,4 +1,4 @@
-package xyz.satdg.sao.icaris.core.command.commandlmpl.universalcommand;
+package xyz.satdg.sao.icaris.core.command.commandlmpl;
 
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
