@@ -1,6 +1,6 @@
 package xyz.satdg.sao.icaris;
 
-import xyz.satdg.sao.icaris.bot.IcarisBot;
+import xyz.satdg.sao.icaris.core.IcarisBotSystem;
 
 import java.io.*;
 
@@ -10,7 +10,7 @@ import java.io.*;
  */
 public class Icaris {
 
-    public static void init() {
+    public static void init() throws IOException {
         try {
             StringBuffer buffer = new StringBuffer();
             String temp;
@@ -23,8 +23,7 @@ public class Icaris {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        IcarisBot.startBot(2662870569L,"iam33233");
+        IcarisBotSystem.start();
 
     }
 }
