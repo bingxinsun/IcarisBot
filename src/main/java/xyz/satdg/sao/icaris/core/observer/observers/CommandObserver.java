@@ -31,13 +31,13 @@ public class CommandObserver extends ObserverBase {
      * @param event 事件主体
      */
     private void dueCommands(MessageEvent event){
-        Command command= CommandSystem.getCommand(event.getMessage().contentToString());
-        if (command!=null) {
-            this.log(event.getBot());
-            command.log(event.getBot());
-            command.excute(event.getMessage(), CommandSystem.getArgs(event.getMessage().contentToString()), event.getSender(), event.getSubject());
-            event.intercept();
-        }
+//        Command command= CommandSystem.getCommand(event.getMessage().contentToString());
+//        if (command!=null) {
+//            this.log(event.getBot());
+//            command.log(event.getBot());
+//            command.execute(event.getMessage(), CommandSystem.getArgs(event.getMessage().contentToString()), event.getSender(), event.getSubject());
+//            event.intercept();
+//        }
 
     }
 

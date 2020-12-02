@@ -15,11 +15,6 @@ import java.util.List;
 public interface Command {
 
     /**
-     * 日志记录
-     * @param bot 机器人实例
-     */
-    void log(Bot bot);
-    /**
      * 命令实例
      * @return 命令实例
      */
@@ -32,5 +27,5 @@ public interface Command {
      * @param subject 事件主体
      * @return 执行结果
      */
-    boolean excute(Message message, List<String> args, User sender, @NotNull Contact subject);
+    boolean execute(Message message, List<String> args, User sender, @NotNull Contact subject);
 }

@@ -42,29 +42,28 @@ public class DialogueStudyObserver extends ObserverBase {
      */
     @EventHandler(priority = Listener.EventPriority.HIGH)
     public ListeningStatus dialogueStudyListener(MessageEvent event){
-        if ("对话学习".equals(event.getMessage().contentToString())&&studySequence==-1){
-            user=event.getSender();
-            event.getSubject().sendMessage("对话是什么");
-            studySequence++;
-            return ListeningStatus.LISTENING;
-        }else if (studySequence==0&&event.getSender().getId()==(user.getId())){
-            messageReq=event.getMessage().contentToString();
-            event.getSubject().sendMessage("如何回复以上对话");
-            studySequence++;
-            return ListeningStatus.LISTENING;
-        }else if (studySequence==1&&event.getSender().getId()==(user.getId())){
-            event.getSubject().sendMessage("明白");
-        }
-        if (studySequence==1){
-            studySequence=-1;
-            sPreplyTable.insert(new SpMessageStd(event.getSender().getId(),this.messageReq,event.getMessage().contentToString()
-                    ,(event instanceof  GroupMessageEvent ?
-                            ((GroupMessageEvent) event).getGroup().getName() : null),
-                    (event instanceof  GroupMessageEvent ?
-                            ((GroupMessageEvent) event).getGroup().getId() : Integer.MIN_VALUE),
-                    event.getSender().getNick()));
-            event.intercept();
-        }
+//        if ("对话学习".equals(event.getMessage().contentToString())&&studySequence==-1){
+//            user=event.getSender();
+//            studySequence++;
+//            return ListeningStatus.LISTENING;
+//        }else if (studySequence==0&&event.getSender().getId()==(user.getId())){
+//            messageReq=event.getMessage().contentToString();
+//            event.getSubject().sendMessage("如何回复以上对话");
+//            studySequence++;
+//            return ListeningStatus.LISTENING;
+//        }else if (studySequence==1&&event.getSender().getId()==(user.getId())){
+//            event.getSubject().sendMessage("明白");
+//        }
+//        if (studySequence==1){
+//            studySequence=-1;
+//            sPreplyTable.insert(new SpMessageStd(event.getSender().getId(),this.messageReq,event.getMessage().contentToString()
+//                    ,(event instanceof  GroupMessageEvent ?
+//                            ((GroupMessageEvent) event).getGroup().getName() : null),
+//                    (event instanceof  GroupMessageEvent ?
+//                            ((GroupMessageEvent) event).getGroup().getId() : Integer.MIN_VALUE),
+//                    event.getSender().getNick()));
+//            event.intercept();
+//        }
         return ListeningStatus.LISTENING;
     }
 }

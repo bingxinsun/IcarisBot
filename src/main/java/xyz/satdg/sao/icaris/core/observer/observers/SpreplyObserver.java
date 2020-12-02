@@ -13,7 +13,7 @@ import xyz.satdg.sao.icaris.database.SPreplyTable;
  */
 public class SpreplyObserver extends ObserverBase {
 
-    SPreplyTable sPreplyTable = new SPreplyTable();
+    private SPreplyTable sPreplyTable = new SPreplyTable();
 
     @Override
     public EventListenerGroupStd listenerStd() {
@@ -22,8 +22,8 @@ public class SpreplyObserver extends ObserverBase {
 
     @EventHandler(priority = Listener.EventPriority.LOW)
     public void spreplyListener(MessageEvent event){
-        if (sPreplyTable.select(event.getMessage().contentToString())!=null){
-            event.getSubject().sendMessage(sPreplyTable.select(event.getMessage().contentToString()));
-        }
+//        if (sPreplyTable.select(event.getMessage().contentToString())!=null){
+//            event.getSubject().sendMessage(sPreplyTable.select(event.getMessage().contentToString()));
+//        }
     }
 }

@@ -7,7 +7,6 @@ import net.mamoe.mirai.message.GroupMessageEvent;
 import xyz.satdg.sao.icaris.api.EventListenerType;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
-import xyz.satdg.sao.icaris.function.BasicFunction;
 
 /**
  * ¸´¶Á»ú
@@ -25,10 +24,11 @@ public class RepeatObserver extends ObserverBase {
 
     @EventHandler(priority = Listener.EventPriority.LOW)
     public ListeningStatus RepaterEvent(GroupMessageEvent event){
-        if (BasicFunction.getRand(repeaterP,1)==1){
-            this.log(event.getBot());
-            event.getSubject().sendMessage(event.getMessage());
-        }
+//        if (BasicFunction.getRand(repeaterP,1)==1){
+//            this.log(event.getBot());
+//            event.getSubject().sendMessage(event.getMessage());
+//        }
         return ListeningStatus.LISTENING;
     }
+
 }

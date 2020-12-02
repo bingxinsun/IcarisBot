@@ -14,12 +14,6 @@ import java.sql.Connection;
 public interface DataTable {
 
     /**
-     * 获得日志器
-     * @return 日志器
-     */
-    MLoger getLogger();
-
-    /**
      * 获得数据库对象
      * @return 数据库对象
      */
@@ -36,4 +30,11 @@ public interface DataTable {
      * @param object 数据
      */
     void insert(DbObject object);
+
+    /**
+     * 选择函数，返回选择的对象
+     * @param object 需要选择的对象
+     * @return 对象
+     */
+    DbObject select(DbObject object);
 }

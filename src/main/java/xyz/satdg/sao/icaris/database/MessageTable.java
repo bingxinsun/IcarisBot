@@ -7,6 +7,7 @@ import xyz.satdg.sao.icaris.api.marks.TableActions;
 import xyz.satdg.sao.icaris.base.MessageStd;
 import xyz.satdg.sao.icaris.base.TableStd;
 import xyz.satdg.sao.icaris.core.DbSystem;
+import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 
 import java.sql.SQLException;
 
@@ -21,6 +22,11 @@ public class MessageTable extends TableBase {
     @Override
     public TableStd tableStd() {
         return new TableStd("MESSAGETABLE");
+    }
+
+    @Override
+    public DbObject select(DbObject object) {
+        return null;
     }
 
     /**
@@ -44,7 +50,7 @@ public class MessageTable extends TableBase {
                  * 对象直接被销毁
                  */
             }catch (SQLException e){
-                this.getLogger().error("消息记录保存失败<" + this.tableStd().getTableName()+ ">",e);
+                MLoger.getLoger().error("消息记录保存失败<" + this.tableStd().getTableName()+ ">",e);
             }
         }
 
@@ -52,20 +58,20 @@ public class MessageTable extends TableBase {
 
     @Override
     public void initTable() {
-        if (DbSystem.isTableExsit(this.tableStd().getTableName())) {
-            this.getLogger().info("数据表<" +this.tableStd().getTableName() + ">加载完成");
+        if (DbSystem.isTableExist(this.tableStd().getTableName())) {
+            MLoger.getLoger().info("数据表<" +this.tableStd().getTableName() + ">加载完成");
         }else {
             try {
-                this.getLogger().info("数据表<" + this.tableStd().getTableName()+ ">不存在，正在创建表");
+                MLoger.getLoger().info("数据表<" + this.tableStd().getTableName()+ ">不存在，正在创建表");
                 DbSystem.getGobalConnection().createStatement().execute("CREATE TABLE MESSAGETABLE"
                         + "(ID INTEGER NOT NULL," +
                         "MESSAGE  TEXT  NOT NULL," +
                         "AUTHOR TEXT NOT NULL," +
                         "GROUPNAME TEXT," +
                         "GROUPID INTEGER)");
-                this.getLogger().info("数据表<" + this.tableStd().getTableName() + ">创建成功");
+                MLoger.getLoger().info("数据表<" + this.tableStd().getTableName() + ">创建成功");
             } catch (SQLException e) {
-                this.getLogger().error("数据表<" +this.tableStd().getTableName() + ">创建失败", e);
+                MLoger.getLoger().error("数据表<" +this.tableStd().getTableName() + ">创建失败", e);
             }
         }
     }

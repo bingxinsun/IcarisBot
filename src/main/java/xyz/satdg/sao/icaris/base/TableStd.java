@@ -9,7 +9,6 @@ import java.sql.Connection;
  */
 public class TableStd {
     private String tableName;
-    private Connection connection;
 
     public TableStd(String tableName) {
         this.tableName = tableName;
@@ -23,16 +22,7 @@ public class TableStd {
         this.tableName = tableName;
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
-
     public TableStd(String tableName, Connection connection) {
         this.tableName = tableName;
-        this.connection = connection;
     }
 }

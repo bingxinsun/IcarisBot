@@ -2,6 +2,7 @@ package xyz.satdg.sao.icaris.api.bases;
 
 import net.mamoe.mirai.Bot;
 import xyz.satdg.sao.icaris.api.Command;
+import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 
 /**
  * Command系统基础
@@ -9,9 +10,8 @@ import xyz.satdg.sao.icaris.api.Command;
  */
 public abstract class CommandBase implements Command {
 
-    @Override
-    public void log(Bot bot){
-        bot.getLogger().info("指令触发<"+this.command().getCommandName()+">");
+    public void log(){
+        MLoger.getLoger().info("指令触发<"+this.command().getCommandName()+">");
     }
     @Override
     public String toString() {

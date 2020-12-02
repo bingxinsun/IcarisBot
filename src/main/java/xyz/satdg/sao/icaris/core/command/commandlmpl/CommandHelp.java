@@ -20,7 +20,7 @@ public class CommandHelp extends CommandBase {
     }
 
     @Override
-    public boolean excute(Message message, List<String> args, User sender, @NotNull Contact Subject) {
+    public boolean execute(Message message, List<String> args, User sender, @NotNull Contact Subject) {
         Subject.sendMessage("暂时还没有帮助哦");
         return true;
     }

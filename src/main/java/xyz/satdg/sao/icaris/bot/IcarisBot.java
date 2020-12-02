@@ -15,24 +15,24 @@ import java.io.File;
 public class IcarisBot {
     /**
      * 机器人启动方法
-     * @param qqid QQ账号
+     * @param qqId QQ账号
      * @param qqpWd QQ密码
      */
-    public static void startBot(long qqid, String qqpWd) {
+    public static void startBot(long qqId, String qqpWd) {
         BotConfiguration config = new BotConfiguration();
-        Bot mbot;
+        Bot mBot;
         config.fileBasedDeviceInfo();
-        mbot = BotFactoryJvm.newBot(qqid, qqpWd, config);
-        //config.setProtocol(BotConfiguration.MiraiProtocol.ANDROID_PHONE);
-        config.setBotLoggerSupplier(bot -> new MLoger(mbot,"Icaris"));
-        config.setNetworkLoggerSupplier(bot -> new MLoger(mbot,"Icaris"));
+        mBot = BotFactoryJvm.newBot(qqId, qqpWd, config);
+        config.setProtocol(BotConfiguration.MiraiProtocol.ANDROID_PHONE);
+        config.setBotLoggerSupplier(bot -> new MLoger(mBot,"Icaris"));
+        config.setNetworkLoggerSupplier(bot -> new MLoger(mBot,"Icaris"));
 //      config.redirectNetworkLogToDirectory(new File("BotLog"));
 //      config.redirectBotLogToDirectory(new File("BotLog"));
-        Events.registerEvents(mbot,new BotSystemLoading());
-        mbot.login();
+        Events.registerEvents(mBot,new BotSystemLoading());
+        mBot.login();
 
         //尚未使用线程池
-        new Thread(mbot::join).start();
+        new Thread(mBot::join).start();
         
     }
 }

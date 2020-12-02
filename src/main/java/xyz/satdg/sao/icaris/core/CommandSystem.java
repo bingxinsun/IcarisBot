@@ -5,6 +5,7 @@ import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 import xyz.satdg.sao.icaris.core.command.commandlmpl.CommandDebug;
 import xyz.satdg.sao.icaris.core.command.commandlmpl.CommandHelp;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -20,7 +21,7 @@ public class CommandSystem {
         Set<Class<?>> classSet = null;
         try {
             classSet = ClassScanner.scanPackage("xyz.satdg.sao.icaris.core.command.commandlmpl");
-        }catch (Exception e){
+        }catch (ClassNotFoundException | IOException e){
             MLoger.getLoger().error(e.getMessage());
         }
         if (classSet!=null&&!classSet.isEmpty()){
@@ -29,8 +30,8 @@ public class CommandSystem {
                     if (c.newInstance() instanceof Command){
                         commandMap.put(((Command)c.newInstance()).command().getCommandHead(),(Command)c.newInstance());
                     }
-                }catch (Exception e){
-                    MLoger.getLoger().error("指令自动挂载失败,正在进行手动挂载",e.getCause());
+                }catch (InstantiationException | IllegalAccessException e){
+                    MLoger.getLoger().error("指令自动挂载失败,正在进行手动挂载",e);
                     initByManual(new CommandHelp(),new CommandDebug());
                 }
             }
@@ -42,9 +43,7 @@ public class CommandSystem {
     }
 
     private static void initByManual(Command ...commands) {
-        for (int i = 0; i < commands.length; i++) {
-            registCommands(commands);
-        }
+        registCommands(commands);
     }
 
 

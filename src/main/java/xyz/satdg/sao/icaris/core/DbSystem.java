@@ -1,7 +1,6 @@
 package xyz.satdg.sao.icaris.core;
 
 import xyz.satdg.sao.icaris.api.bases.TableBase;
-import xyz.satdg.sao.icaris.api.marks.Table;
 import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 import xyz.satdg.sao.icaris.database.MessageTable;
 import xyz.satdg.sao.icaris.database.PlayerTable;
@@ -11,12 +10,11 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 数据库系统
  * @author GongSunink
  */
 public class DbSystem {
@@ -38,7 +36,8 @@ public class DbSystem {
             for (Class c : classSet){
                 try {
                     if (c.newInstance() instanceof  TableBase){
-                        tableMap.put(c.getName(),(TableBase)(c.newInstance()));
+                        tableMap.put((((TableBase) c.newInstance()).tableStd().getTableName())
+                                ,(TableBase)(c.newInstance()));
                         Method initMethod = c.getMethod("initTable");
                         initMethod.invoke(c.newInstance(), (Object[]) null);
                     }
@@ -53,20 +52,21 @@ public class DbSystem {
         }
         MLoger.getLoger().info("数据表自动挂载完成!");
     }
+
     private static void initByManual(TableBase ...tableBases){
-        for (TableBase tableBase : tableBases) {
-            tableBase.initTable();
+        for (int i=0;i<tableBases.length;i++){
+            tableBases[i].initTable();
         }
     }
 
 
     /**
      * 检查数据库是否存在,暂时没有多个数据库
-     * @param dbFiles 数据库名
+     * @param dbFileNames 数据库名
      */
-    private static void checkDbs(String ...dbFiles){
-        for (String dbfile : dbFiles){
-            gobalConnection=creatorConnectDB(dbfile);
+    private static void checkDbs(String ...dbFileNames){
+        for (String dbFileName : dbFileNames){
+            gobalConnection= creatOrConnectDB(dbFileName);
         }
     }
 
@@ -83,7 +83,7 @@ public class DbSystem {
      * @param Table 数据表名称
      * @return 是否存在
      */
-    public static boolean isTableExsit(String Table){
+    public static boolean isTableExist(String Table){
         try{
             gobalConnection.createStatement().execute("select * from " +Table);
         }catch (Exception e){
@@ -94,7 +94,7 @@ public class DbSystem {
     }
 
 
-    private static Connection creatorConnectDB(String dbName){
+    private static Connection creatOrConnectDB(String dbName){
         Connection c = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -116,6 +116,10 @@ public class DbSystem {
         }catch (SQLException e){
             MLoger.getLoger().error(e);
         }
+    }
+
+    public static TableBase getTable(String name){
+        return tableMap.getOrDefault(name,null);
     }
 
 }

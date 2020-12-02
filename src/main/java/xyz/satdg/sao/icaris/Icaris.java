@@ -17,8 +17,6 @@ public class Icaris {
             BufferedReader reader = new BufferedReader(new FileReader("banner.txt"));
             while ((temp=reader.readLine())!=null){
                 buffer.append(temp+'\n');
-//                Thread.sleep(100);
-//                System.out.println(temp);
             }
             System.out.println(buffer);
             reader.close();

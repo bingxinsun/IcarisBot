@@ -8,11 +8,7 @@ import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
  * @author GongSunink
  */
 public interface Observer {
-    /**
-     * 日志记录
-     * @param bot 机器人实例
-     */
-    void log(Bot bot);
+
     /**
      * 事件实例，每个事件都需要有此对象
      * @return 事件实例
