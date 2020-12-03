@@ -1,12 +1,7 @@
 package xyz.satdg.sao.icaris.core;
 
-import xyz.satdg.sao.icaris.Icaris;
-import xyz.satdg.sao.icaris.Matrix;
-
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;

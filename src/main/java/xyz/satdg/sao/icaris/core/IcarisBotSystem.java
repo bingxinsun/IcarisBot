@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
+ * icaris bot system
  * @author GongSunink
  */
 public class IcarisBotSystem {
@@ -42,6 +43,9 @@ public class IcarisBotSystem {
         Bot bot= BotFactoryJvm.newBot(QQid,QQpwd,configuration);
         Events.registerEvents(bot,(SimpleListenerHost)loader);
         bot.login();
+        new Thread(()->{
+            bot.join();
+        }).start();
         return bot;
     }
 }

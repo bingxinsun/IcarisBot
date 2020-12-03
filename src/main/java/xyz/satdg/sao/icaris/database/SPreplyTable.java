@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * 特殊回复表
+ * special reply datatable
  * @author GongSunink
  */
 @Table(tableName = "SPLICALREPLYTABLE",dbName = "BotDB")
@@ -42,12 +42,12 @@ public class SPreplyTable extends TableBase {
 
 
     /**
-     * 选择流程
-     * 1.从表中获得一个由表中元素构成的Resultset
-     * 2.通过.next方法迭代遍历set,如果从MESSAGE行和请求的消息符合,则返回RETURN行的内容
-     * 单查
-     * @param message
-     * @return
+     * choose sequence:
+     * 1.choose a ResultSet for table
+     * 2.using next() to iterate the set
+     * if set dose not contain the require message,return null as "not found"
+     * @param message message which require
+     * @return message found
      */
     public String select(String message){
         try{
@@ -85,11 +85,10 @@ public class SPreplyTable extends TableBase {
                                 ((SpMessageStd)dbObject).getGrouopId(),
                                 ((SpMessageStd)dbObject).getSenderNick()));
                 /*
-                 * 注意statement执行结束后一定要关闭，否则可能会造成SQL_BUSY Exception,这里直接使用临时对象，结束后
-                 * 对象直接被销毁
+                 * consider the statement and connection,when finish using them, must release lock
                  */
             }catch (SQLException e){
-                MLoger.getLoger().error("消息记录保存失败<" + this.tableStd().getTableName()+ ">",e);
+                MLoger.getLoger().error("Message Record Failed<" + this.tableStd().getTableName()+ ">",e);
             }
         }
 
@@ -98,10 +97,10 @@ public class SPreplyTable extends TableBase {
     @Override
     public void initTable() {
         if (DbSystem.isTableExist(this.tableStd().getTableName())) {
-            MLoger.getLoger().info("数据表<" + this.tableStd().getTableName() + ">加载完成");
+            MLoger.getLoger().info("Data Table<" + this.tableStd().getTableName() + ">Load Successful");
         }else {
             try {
-                MLoger.getLoger().info("数据表<" + this.tableStd().getTableName()+ ">不存在，正在创建表");
+                MLoger.getLoger().info("Data Table<" + this.tableStd().getTableName()+ ">dose not Exist,Creating a new");
                 DbSystem.getGobalConnection().createStatement().execute("CREATE TABLE SPLICALREPLYTABLE(" +
                         "ID INT  NOT NULL," +
                         "MESSAGE  TEXT  NOT NULL," +
@@ -109,9 +108,9 @@ public class SPreplyTable extends TableBase {
                         "GROUPNAME TEXT," +
                         "GROUPID INTEGER," +
                         "AUTHOR TEXT NOT NULL)");
-                MLoger.getLoger().info("数据表<" + this.tableStd().getTableName() + ">创建成功");
+                MLoger.getLoger().info("Data Table<" + this.tableStd().getTableName() + ">Creat Successful");
             } catch (SQLException e) {
-                MLoger.getLoger().error("数据表<" + this.tableStd().getTableName() + ">创建失败", e);
+                MLoger.getLoger().error("Data Table<" + this.tableStd().getTableName() + ">Creat Successful", e);
             }
         }
     }
