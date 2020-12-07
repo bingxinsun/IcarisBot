@@ -14,7 +14,7 @@ public class UserStd implements DbObject {
         Nick = nick;
     }
 
-    public long getQQid() {
+    public long getQQId() {
         return QQid;
     }
 

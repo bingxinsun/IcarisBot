@@ -32,7 +32,7 @@ public class MessageTable extends TableBase {
     /**
      * ²åÈëº¯Êý
      */
-    @TableActions(TableName = "MESSAGETABLE",value = TableActions.actionType.INSERT)
+    @TableActions(TableName = "MESSAGETABLE", action = TableActions.actionType.INSERT)
     @Override
     public void insert(DbObject dbObject){
         if (dbObject instanceof MessageStd){

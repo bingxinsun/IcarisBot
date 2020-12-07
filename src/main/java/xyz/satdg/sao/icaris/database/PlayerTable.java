@@ -41,7 +41,7 @@ public class PlayerTable extends TableBase {
                 DbSystem.getGobalConnection().createStatement().executeUpdate(String.format("" +
                                 "INSERT INTO PLAYERTABLE(ID,LEVEL,NICK,FEELINGS,CALL_NAME)" +
                                 " VALUES(%d,%d,'%s',%d,'%s',",
-                                ((PlayerStd)dbObject).getQQid(),
+                                ((PlayerStd)dbObject).getQQId(),
                                 ((PlayerStd)dbObject).getLevel(),
                                 ((PlayerStd)dbObject).getNick(),
                                 ((PlayerStd)dbObject).getEXP(),

@@ -16,7 +16,7 @@ public class ClassScanner {
 
 
     /**
-     * 扫描指定包
+     * scan target package
      * @param packageName 包名
      * @return 包下的类集合
      * @throws IOException 错误
@@ -24,9 +24,9 @@ public class ClassScanner {
     public static Set<Class<?>> scanPackage(String packageName) throws IOException,ClassNotFoundException {
         Set<Class<?>> classSet = new HashSet<>();
         String path = ClassScanner.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        //获得代码所在的绝对路径，当为jar包时会返回jar包名
+        //get the absolute path of the package
         if (System.getProperty("os.name").contains("dows")&&!path.contains(".jar")) {
-            //如果路径中不包含.jar,且系统名称包含dows,说明正在调试环境中,直接进行扫描
+            //if path contain "dows" and dose not contain jar,define it in a develop environment
             classSet=getClasses(packageName);
         }
         else if (path.contains(".jar")) {
@@ -38,7 +38,7 @@ public class ClassScanner {
     }
 
     /**
-     * 在开发环境中进行扫描
+     * scan in a develop environment
      * @param targetPackage
      * @return
      */
@@ -63,7 +63,8 @@ public class ClassScanner {
     }
 
     /**
-     * 通过jar文件获得目标包下的类列表
+     * 1.JarFile-Reader is a base-on ZipFile-Reader,Use it to read Jar-file lists
+     * 2.logic as same as upon
      * @param file jar文件
      * @param targetPackage 目标包
      * @return
@@ -72,13 +73,13 @@ public class ClassScanner {
         Set<Class<?>> classSet = new HashSet<>();
         Enumeration<JarEntry> entry= file.entries();
         while(entry.hasMoreElements()){
-            //是否有更多的文件元素
+            //are there more elements
             JarEntry element= entry.nextElement();
             if (element.getName().replace("/",".").contains(targetPackage) &&element.getName().endsWith(".class")){
                 Class targetClass = Class.forName(targetPackage +
                         "."+element.getName().substring(element.getName().
                         lastIndexOf("/")+1, element.getName().lastIndexOf(".")));
-                    //截取xxxx.class中的xxxx
+                    //get xxx of xxx.class
                 classSet.add(targetClass);
             }
         }

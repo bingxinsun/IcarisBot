@@ -22,5 +22,5 @@ public @interface TableActions {
 
     String TableName();
 
-    actionType value();
+    actionType action();
 }

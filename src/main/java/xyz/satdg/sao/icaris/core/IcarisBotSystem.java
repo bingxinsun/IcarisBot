@@ -9,6 +9,7 @@ import net.mamoe.mirai.event.SimpleListenerHost;
 import net.mamoe.mirai.utils.BotConfiguration;
 import net.sf.json.JSONObject;
 import xyz.satdg.sao.icaris.api.BotSystemLoader;
+import xyz.satdg.sao.icaris.api.marks.SystemLoader;
 import xyz.satdg.sao.icaris.bot.IcarisLoader;
 import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 
@@ -20,6 +21,7 @@ import java.io.IOException;
  * icaris bot system
  * @author GongSunink
  */
+@SystemLoader(name = "IcarisSystem",type = SystemLoader.LoaderType.SYSTEMLOADER)
 public class IcarisBotSystem {
 
     public static void start() throws IOException  {
