@@ -16,7 +16,6 @@ import java.sql.SQLException;
 @Table(tableName = "PLAYERTABLE",dbName = "BotDB")
 public class PlayerTable extends TableBase {
 
-
     @Override
     public TableStd tableStd() {
         return new TableStd("PLAYERTABLE");
