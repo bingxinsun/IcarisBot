@@ -16,12 +16,12 @@ public class CommandDebug extends CommandBase {
 
     @Override
     public CommandStd command() {
-        return new CommandStd("debugÃüÁî","debug",1);
+        return new CommandStd("debugå‘½ä»¤","debug",1);
     }
 
     @Override
     public boolean execute(Message message, List<String> args, User sender, @NotNull Contact Subject) {
-        //Subject.sendMessage("µ±Ç°Ê±¼ä->\"+new Date().toString()+\"\\n\"+\"»úÆ÷ÈËÊµÀı->\"+Subject.getBot().toString()");
+        //Subject.sendMessage("å½“å‰æ—¶é—´->\"+new Date().toString()+\"\\n\"+\"æœºå™¨äººå®ä¾‹->\"+Subject.getBot().toString()");
         return true;
     }
 }

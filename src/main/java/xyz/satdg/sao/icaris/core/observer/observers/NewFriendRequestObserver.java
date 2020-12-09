@@ -14,7 +14,7 @@ public class NewFriendRequestObserver extends ObserverBase {
 
     @Override
     public EventListenerGroupStd listenerStd() {
-        return new EventListenerGroupStd("新好友添加事件监听组", EventListenerType.STANDARD);
+        return new EventListenerGroupStd("鏂板ソ鍙嬫坊鍔犱簨浠剁洃鍚粍", EventListenerType.STANDARD);
     }
 
     @EventHandler(priority = Listener.EventPriority.HIGH)

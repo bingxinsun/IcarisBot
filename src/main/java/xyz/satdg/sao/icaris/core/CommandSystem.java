@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Ö¸Áî¹¤¾ßÀà
+ * æŒ‡ä»¤å·¥å…·ç±»
  * @author GongSunink
  */
 public class CommandSystem {
@@ -17,10 +17,11 @@ public class CommandSystem {
     private static HashMap<String,Command> commandMap =new HashMap<>();
 
     public static void jobStart(){
-        MLoger.getLoger().info("ÕıÔÚ½øĞĞÖ¸ÁîÏµÍ³×Ô¶¯¹ÒÔØ");
+        MLoger.getLoger().info("æ­£åœ¨è¿›è¡ŒæŒ‡ä»¤ç³»ç»Ÿè‡ªåŠ¨æŒ‚è½½");
         Set<Class<?>> classSet = null;
         try {
-            classSet = ClassScanner.scanPackage("xyz.satdg.sao.icaris.core.command.commandlmpl");
+            classSet = ClassScanner.scanPackage(
+                    "xyz.satdg.sao.icaris.core.command.commandlmpl");
         }catch (ClassNotFoundException | IOException e){
             MLoger.getLoger().error(e.getMessage());
         }
@@ -31,15 +32,15 @@ public class CommandSystem {
                         commandMap.put(((Command)c.newInstance()).command().getCommandHead(),(Command)c.newInstance());
                     }
                 }catch (InstantiationException | IllegalAccessException e){
-                    MLoger.getLoger().error("Ö¸Áî×Ô¶¯¹ÒÔØÊ§°Ü,ÕıÔÚ½øĞĞÊÖ¶¯¹ÒÔØ",e);
+                    MLoger.getLoger().error("æŒ‡ä»¤è‡ªåŠ¨æŒ‚è½½å¤±è´¥,æ­£åœ¨è¿›è¡Œæ‰‹åŠ¨æŒ‚è½½",e);
                     initByManual(new CommandHelp(),new CommandDebug());
                 }
             }
         }else {
-            MLoger.getLoger().error("Ö¸Áî×Ô¶¯¹ÒÔØÊ§°Ü,ÕıÔÚ½øĞĞÊÖ¶¯¹ÒÔØ");
+            MLoger.getLoger().error("æŒ‡ä»¤è‡ªåŠ¨æŒ‚è½½å¤±è´¥,æ­£åœ¨è¿›è¡Œæ‰‹åŠ¨æŒ‚è½½");
             initByManual(new CommandHelp(),new CommandDebug());
         }
-        MLoger.getLoger().info("Ö¸ÁîÏµÍ³×Ô¶¯¹ÒÔØÍê³É!");
+        MLoger.getLoger().info("æŒ‡ä»¤ç³»ç»Ÿè‡ªåŠ¨æŒ‚è½½å®Œæˆ!");
     }
 
     private static void initByManual(Command ...commands) {
@@ -53,26 +54,26 @@ public class CommandSystem {
         }
     }
     /**
-     * Í¨¹ıÏûÏ¢»ñµÃÖ¸Áî²ÎÊıArgs
-     * @param message ÏûÏ¢
-     * @return Ö¸Áî²ÎÊıÁĞ±í
+     * é€šè¿‡æ¶ˆæ¯è·å¾—æŒ‡ä»¤å‚æ•°Args
+     * @param message æ¶ˆæ¯
+     * @return æŒ‡ä»¤å‚æ•°åˆ—è¡¨
      */
     public static List<String> getArgs(String message){
-        String[] messagesp=message.split(" ");
+        String[] messageSp=message.split(" ");
         List<String> args=new ArrayList<>();
-        if (messagesp.length==0){
+        if (messageSp.length==0){
             return new ArrayList<>();
         }
-        Collections.addAll(args,messagesp);
+        Collections.addAll(args,messageSp);
         return args;
     }
     /**
-     * 1.Çå³ı¿Õ¸ñ
-     * 2.ÅĞ¶ÏÊÇ·ñ°üº¬Ö¸±ê
-     * 3.°üº¬Ôò½øĞĞ·Ö¸î
-     * 4.ÅĞ¶Ï·Ö¸îµÄ²¿·ÖÊÇ²»ÊÇ°üº¬ÔÚcommandlistÖĞ£¬ÇÒÒ»¶¨ÊÇ°´ÕÕÖ¸±ê·Ö¸îµÄÓÒ²¿·ÖµÄµÚÒ»²¿·Ö
-     * @param message ÏûÏ¢
-     * @return Ö¸Áî¶ÔÏó£¬²»´æÔÚ¸ÃÖ¸ÁîÊ±·µ»Ønull
+     * 1.æ¸…é™¤ç©ºæ ¼
+     * 2.åˆ¤æ–­æ˜¯å¦åŒ…å«æŒ‡æ ‡
+     * 3.åŒ…å«åˆ™è¿›è¡Œåˆ†å‰²
+     * 4.åˆ¤æ–­åˆ†å‰²çš„éƒ¨åˆ†æ˜¯ä¸æ˜¯åŒ…å«åœ¨commandlistä¸­ï¼Œä¸”ä¸€å®šæ˜¯æŒ‰ç…§æŒ‡æ ‡åˆ†å‰²çš„å³éƒ¨åˆ†çš„ç¬¬ä¸€éƒ¨åˆ†
+     * @param message æ¶ˆæ¯
+     * @return æŒ‡ä»¤å¯¹è±¡ï¼Œä¸å­˜åœ¨è¯¥æŒ‡ä»¤æ—¶è¿”å›null
      */
     public static Command getCommand(String message){
         if (message.contains("-")) {
@@ -83,7 +84,7 @@ public class CommandSystem {
         }
         else if (message.contains(".")) {
             message = message.split("\\.")[1];
-            //×¢Òâ×ªÒå·û
+            //æ³¨æ„è½¬ä¹‰ç¬¦
             if (commandMap.containsKey(message)) {
                 return commandMap.get(message);
             }

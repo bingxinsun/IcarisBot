@@ -3,8 +3,8 @@ package xyz.satdg.sao.icaris.api.bases;
 import xyz.satdg.sao.icaris.api.DataTable;
 
 /**
- * Êı¾İ¿â»ù´¡Àà
+ * æ•°æ®åº“åŸºç¡€ç±»
  * @author GongSunink
  */
-public abstract class TableBase implements DataTable {
+public abstract class TableBase<T extends DbObject> implements DataTable<T> {
 }

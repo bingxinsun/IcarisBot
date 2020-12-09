@@ -1,6 +1,5 @@
 package xyz.satdg.sao.icaris.database;
 
-import xyz.satdg.sao.icaris.api.bases.DbObject;
 import xyz.satdg.sao.icaris.api.bases.TableBase;
 import xyz.satdg.sao.icaris.api.marks.Table;
 import xyz.satdg.sao.icaris.base.PlayerStd;
@@ -8,66 +7,64 @@ import xyz.satdg.sao.icaris.base.TableStd;
 import xyz.satdg.sao.icaris.core.DbSystem;
 import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
  * @author GongSunink
  */
-@Table(tableName = "PLAYERTABLE",dbName = "BotDB")
-public class PlayerTable extends TableBase {
+@Table(tableName = "PlayerTable",dbName = "BotDB")
+public class PlayerTable extends TableBase<PlayerStd> {
 
     @Override
     public TableStd tableStd() {
-        return new TableStd("PLAYERTABLE");
+        return new TableStd("PlayerTable");
     }
-
 
     @Override
-    public DbObject select(DbObject object) {
-        return null;
-    }
-
-    public String select(String name){
-        return null;
-    }
-
-
-
-    @Override
-    public void insert(DbObject dbObject){
-        if (dbObject instanceof PlayerStd){
-            try{
-                DbSystem.getGobalConnection().createStatement().executeUpdate(String.format("" +
-                                "INSERT INTO PLAYERTABLE(ID,LEVEL,NICK,FEELINGS,CALL_NAME)" +
-                                " VALUES(%d,%d,'%s',%d,'%s',",
-                                ((PlayerStd)dbObject).getQQId(),
-                                ((PlayerStd)dbObject).getLevel(),
-                                ((PlayerStd)dbObject).getNick(),
-                                ((PlayerStd)dbObject).getEXP(),
-                                ((PlayerStd)dbObject).getCallName()));
-            }catch (SQLException e){
-                MLoger.getLoger().error(e);
-            }
+    public void insert(PlayerStd playerStd) {
+        try{
+            PreparedStatement statement = DbSystem.getGlobalConnection().prepareStatement(
+                    "insert into PlayerTable values(?,?,?,?,?)"
+            );
+            statement.setLong(1,playerStd.getQQId());
+            statement.setInt(2,playerStd.getLevel());
+            statement.setString(3,playerStd.getNick());
+            statement.setInt(4,playerStd.getEXP());
+            statement.setString(5,playerStd.getCallName());
+        }catch (SQLException e){
+            MLoger.getLoger().error(e);
         }
-
     }
+
+    @Override
+    public PlayerStd select(PlayerStd object) {
+        return null;
+    }
+
+    @Override
+    public boolean update(PlayerStd object) {
+        return false;
+    }
+
 
     @Override
     public void initTable() {
         if (DbSystem.isTableExist(this.tableStd().getTableName())) {
-            MLoger.getLoger().info(" ˝æ›±Ì<" + this.tableStd().getTableName() + ">º”‘ÿÕÍ≥…");
+            MLoger.getLoger().info("Êï∞ÊçÆË°®<" + this.tableStd().getTableName() + ">Âä†ËΩΩÂÆåÊàê");
         } else {
             try {
-                MLoger.getLoger().info(" ˝æ›±Ì<" + this.tableStd().getTableName() + ">≤ª¥Ê‘⁄£¨’˝‘⁄¥¥Ω®±Ì");
-                DbSystem.getGobalConnection().createStatement().execute("CREATE TABLE PLAYERTABLE"
+                MLoger.getLoger().info("Êï∞ÊçÆË°®<" + this.tableStd().getTableName() + ">‰∏çÂ≠òÂú®ÔºåÊ≠£Âú®ÂàõÂª∫Ë°®");
+                DbSystem.getGlobalConnection().createStatement().execute("" +
+                        "CREATE TABLE PlayerTable"
                         + "(ID INTEGER NOT NULL," +
-                        "LEVEL INTEGER DEFAULT 0," +
-                        "NICK TEXT NOT NULL," +
+                        "Level INTEGER DEFAULT 0," +
+                        "Nick TEXT NOT NULL," +
                         "EXP INTEGER DEFAULT 0," +
-                        "CALL_NAME TEXT)");
-                MLoger.getLoger().info(" ˝æ›±Ì<" + this.tableStd().getTableName() + ">¥¥Ω®≥…π¶");
+                        "CallName TEXT)");
+                MLoger.getLoger().info("Êï∞ÊçÆË°®<" + this.tableStd().getTableName() + ">ÂàõÂª∫ÊàêÂäü");
             } catch (SQLException e) {
-                MLoger.getLoger().error(" ˝æ›±Ì<" + this.tableStd().getTableName() + ">¥¥Ω® ß∞‹", e);
+                MLoger.getLoger().error("Êï∞ÊçÆË°®<" + this.tableStd().getTableName() + ">ÂàõÂª∫Â§±Ë¥•", e);
             }
         }
     }

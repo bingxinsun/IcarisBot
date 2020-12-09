@@ -16,11 +16,10 @@ public class Matrix {
         String temp;
         BufferedReader reader = new BufferedReader(new FileReader("banner.txt"));
         while ((temp=reader.readLine())!=null){
-            buffer.append(temp+'\n');
+            buffer.append(temp).append('\n');
         }
         System.out.println(buffer);
         reader.close();
-
         IcarisBotSystem.start();
     }
 }

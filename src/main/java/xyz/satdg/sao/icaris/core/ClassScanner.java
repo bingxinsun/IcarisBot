@@ -9,7 +9,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * ÀàÉ¨ÃèÆ÷
+ * ç±»æ‰«æå™¨
  * @author GongSunink
  */
 public class ClassScanner {
@@ -17,9 +17,9 @@ public class ClassScanner {
 
     /**
      * scan target package
-     * @param packageName °üÃû
-     * @return °üÏÂµÄÀà¼¯ºÏ
-     * @throws IOException ´íÎó
+     * @param packageName åŒ…å
+     * @return åŒ…ä¸‹çš„ç±»é›†åˆ
+     * @throws IOException é”™è¯¯
      */
     public static Set<Class<?>> scanPackage(String packageName) throws IOException,ClassNotFoundException {
         Set<Class<?>> classSet = new HashSet<>();
@@ -30,7 +30,7 @@ public class ClassScanner {
             classSet=getClasses(packageName);
         }
         else if (path.contains(".jar")) {
-            //Èç¹ûÂ·¾¶ÖĞ´æÔÚ.jar£¬ËµÃ÷ÔËĞĞµÄÊ±ÔÚ´ò°üºó£¬ÕâÊ±ĞèÒªÊ¹ÓÃJarfileÀàÀ´½øĞĞ¶ÁÈ¡
+            //å¦‚æœè·¯å¾„ä¸­å­˜åœ¨.jarï¼Œè¯´æ˜è¿è¡Œçš„æ—¶åœ¨æ‰“åŒ…åï¼Œè¿™æ—¶éœ€è¦ä½¿ç”¨Jarfileç±»æ¥è¿›è¡Œè¯»å–
             File file = new File(path);
             classSet=getClasses(new JarFile(file.getName()),packageName);
         }
@@ -45,17 +45,17 @@ public class ClassScanner {
     public static Set<Class<?>> getClasses(String targetPackage)throws ClassNotFoundException{
         Set<Class<?>> classSet = new HashSet<>();
         String path = ClassScanner.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        //»ñµÃÔ´ÂëÎÄ¼şµÄÎ»ÖÃ
+        //è·å¾—æºç æ–‡ä»¶çš„ä½ç½®
         File dir = new File(path+targetPackage.replace(".","/"));
-        //´´½¨file¶ÔÏó
+        //åˆ›å»ºfileå¯¹è±¡
         if (dir.isDirectory()) {
-            //Èç¹ûÄ¿±ê°üÏÂÓĞÎÄ¼şÔòÖ´ĞĞ
+            //å¦‚æœç›®æ ‡åŒ…ä¸‹æœ‰æ–‡ä»¶åˆ™æ‰§è¡Œ
             File[] files = dir.listFiles();
             for (File file : files) {
-                //Ê¹ÓÃforecah½øĞĞ±éÀú
+                //ä½¿ç”¨forecahè¿›è¡Œéå†
                 String className = file.getName();
                 Class targetClass = Class.forName(targetPackage+ "." + className.split("\\.")[0]);
-                //³¢ÊÔ»ñÈ¡Àà¶ÔÏó
+                //å°è¯•è·å–ç±»å¯¹è±¡
                 classSet.add(targetClass);
             }
         }
@@ -65,8 +65,8 @@ public class ClassScanner {
     /**
      * 1.JarFile-Reader is a base-on ZipFile-Reader,Use it to read Jar-file lists
      * 2.logic as same as upon
-     * @param file jarÎÄ¼ş
-     * @param targetPackage Ä¿±ê°ü
+     * @param file jaræ–‡ä»¶
+     * @param targetPackage ç›®æ ‡åŒ…
      * @return
      */
     public static Set<Class<?>> getClasses(JarFile file,String targetPackage) throws ClassNotFoundException{

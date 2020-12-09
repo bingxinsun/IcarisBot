@@ -4,14 +4,14 @@ import net.mamoe.mirai.Bot;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 
 /**
- * ÊÂ¼ş½Ó¿Ú
+ * äº‹ä»¶æ¥å£
  * @author GongSunink
  */
 public interface Observer {
 
     /**
-     * ÊÂ¼şÊµÀı£¬Ã¿¸öÊÂ¼ş¶¼ĞèÒªÓĞ´Ë¶ÔÏó
-     * @return ÊÂ¼şÊµÀı
+     * äº‹ä»¶å®ä¾‹ï¼Œæ¯ä¸ªäº‹ä»¶éƒ½éœ€è¦æœ‰æ­¤å¯¹è±¡
+     * @return äº‹ä»¶å®ä¾‹
      */
     EventListenerGroupStd listenerStd();
 }

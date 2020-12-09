@@ -6,13 +6,13 @@ import xyz.satdg.sao.icaris.api.Observer;
 import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 
 /**
- * ÊÂ¼ş»ù´¡Àà
+ * äº‹ä»¶åŸºç¡€ç±»
  * @author GongSunink
  */
 public abstract class ObserverBase extends SimpleListenerHost implements Observer {
 
     public void log(){
-        MLoger.getLoger().info("¼àÌıÆ÷´¥·¢<"+this.listenerStd().getListenerGroupName()+">");
+        MLoger.getLoger().info("ç›‘å¬å™¨è§¦å‘<"+this.listenerStd().getListenerGroupName()+">");
     }
     @Override
     public String toString() {

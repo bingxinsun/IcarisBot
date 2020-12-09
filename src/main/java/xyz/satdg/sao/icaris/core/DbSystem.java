@@ -14,17 +14,17 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Êı¾İ¿âÏµÍ³
+ * æ•°æ®åº“ç³»ç»Ÿ
  * @author GongSunink
  */
 public class DbSystem {
     private static HashMap<String, TableBase> tableMap = new HashMap<>();
 
-    private static Connection gobalConnection;
+    private static Connection globalConnection;
 
     @SuppressWarnings("unchecked")
     public static void jobStart(){
-        MLoger.getLoger().info("ÕıÔÚÊı¾İ±í½øĞĞ×Ô¶¯¹ÒÔØ");
+        MLoger.getLoger().info("æ­£åœ¨æ•°æ®è¡¨è¿›è¡Œè‡ªåŠ¨æŒ‚è½½");
         checkDbs("BotDB");
         Set<Class<?>> classSet = null;
         try {
@@ -42,15 +42,15 @@ public class DbSystem {
                         initMethod.invoke(c.newInstance(), (Object[]) null);
                     }
                 }catch (Exception e){
-                    MLoger.getLoger().error("Êı¾İ±í×Ô¶¯¹ÒÔØÊ§°Ü,ÕıÔÚ½øĞĞÊÖ¶¯¹ÒÔØ",e.getCause());
+                    MLoger.getLoger().error("æ•°æ®è¡¨è‡ªåŠ¨æŒ‚è½½å¤±è´¥,æ­£åœ¨è¿›è¡Œæ‰‹åŠ¨æŒ‚è½½",e.getCause());
                     initByManual(new MessageTable(),new PlayerTable(),new SPreplyTable());
                 }
             }
         }else {
-            MLoger.getLoger().error("Êı¾İ±í×Ô¶¯¹ÒÔØÊ§°Ü,ÕıÔÚ½øĞĞÊÖ¶¯¹ÒÔØ");
+            MLoger.getLoger().error("æ•°æ®è¡¨è‡ªåŠ¨æŒ‚è½½å¤±è´¥,æ­£åœ¨è¿›è¡Œæ‰‹åŠ¨æŒ‚è½½");
             initByManual(new MessageTable(),new PlayerTable(),new SPreplyTable());
         }
-        MLoger.getLoger().info("Êı¾İ±í×Ô¶¯¹ÒÔØÍê³É!");
+        MLoger.getLoger().info("æ•°æ®è¡¨è‡ªåŠ¨æŒ‚è½½å®Œæˆ!");
     }
 
     private static void initByManual(TableBase ...tableBases){
@@ -61,33 +61,33 @@ public class DbSystem {
 
 
     /**
-     * ¼ì²éÊı¾İ¿âÊÇ·ñ´æÔÚ,ÔİÊ±Ã»ÓĞ¶à¸öÊı¾İ¿â
-     * @param dbFileNames Êı¾İ¿âÃû
+     * æ£€æŸ¥æ•°æ®åº“æ˜¯å¦å­˜åœ¨,æš‚æ—¶æ²¡æœ‰å¤šä¸ªæ•°æ®åº“
+     * @param dbFileNames æ•°æ®åº“å
      */
     private static void checkDbs(String ...dbFileNames){
         for (String dbFileName : dbFileNames){
-            gobalConnection= creatOrConnectDB(dbFileName);
+            globalConnection = creatOrConnectDB(dbFileName);
         }
     }
 
     /**
-     * »ñµÃÈ«¾ÖÊı¾İ¿âÁ¬½Ó¶ÔÏó,´Ë¶ÔÏóÊÇ¹«ÓÃµÄ,Ê¹ÓÃsynchronized·â±ÕÁÙ½çÇø
-     * @return È«¾ÖÊı¾İ¿âÁ¬½Ó¶ÔÏó
+     * è·å¾—å…¨å±€æ•°æ®åº“è¿æ¥å¯¹è±¡,æ­¤å¯¹è±¡æ˜¯å…¬ç”¨çš„,ä½¿ç”¨synchronizedå°é—­ä¸´ç•ŒåŒº
+     * @return å…¨å±€æ•°æ®åº“è¿æ¥å¯¹è±¡
      */
-    public static synchronized Connection getGobalConnection(){
-        return gobalConnection;
+    public static synchronized Connection getGlobalConnection(){
+        return globalConnection;
     }
 
     /**
-     * ¼ì²éÄ¿±êÊı¾İ±íÊÇ·ñ´æÔÚ£¬´æÔÚÔò·µ»Øtrue£¬²»´æÔÚ·µ»Øfalse
-     * @param Table Êı¾İ±íÃû³Æ
-     * @return ÊÇ·ñ´æÔÚ
+     * æ£€æŸ¥ç›®æ ‡æ•°æ®è¡¨æ˜¯å¦å­˜åœ¨ï¼Œå­˜åœ¨åˆ™è¿”å›trueï¼Œä¸å­˜åœ¨è¿”å›false
+     * @param Table æ•°æ®è¡¨åç§°
+     * @return æ˜¯å¦å­˜åœ¨
      */
     public static boolean isTableExist(String Table){
         try{
-            gobalConnection.createStatement().execute("select * from " +Table);
+            globalConnection.createStatement().execute("select * from " +Table);
         }catch (Exception e){
-            MLoger.getLoger().error("Êı¾İ±í<"+Table+">²»´æÔÚ",e);
+            MLoger.getLoger().error("æ•°æ®è¡¨<"+Table+">ä¸å­˜åœ¨",e);
             return false;
         }
         return true;
@@ -99,20 +99,20 @@ public class DbSystem {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:"+dbName+".db");
-            MLoger.getLoger().info("Êı¾İ¿â¼ì²é<"+dbName+">¼ÓÔØ³É¹¦");
+            MLoger.getLoger().info("æ•°æ®åº“æ£€æŸ¥<"+dbName+">åŠ è½½æˆåŠŸ");
             return c;
         } catch ( Exception e ) {
-            MLoger.getLoger().error("Êı¾İ¿â¼ì²é<"+dbName+">¼ÓÔØÊ§°Ü",e);
+            MLoger.getLoger().error("æ•°æ®åº“æ£€æŸ¥<"+dbName+">åŠ è½½å¤±è´¥",e);
         }
         return c;
     }
 
     /**
-     * ÊÖ¶¯¹Ø±ÕÏµÍ³
+     * æ‰‹åŠ¨å…³é—­ç³»ç»Ÿ
      */
     public static void dumpDbSystem(){
         try{
-            gobalConnection.close();
+            globalConnection.close();
         }catch (SQLException e){
             MLoger.getLoger().error(e);
         }

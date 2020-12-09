@@ -15,17 +15,17 @@ import java.util.List;
 public interface Command {
 
     /**
-     * ÃüÁîÊµÀı
-     * @return ÃüÁîÊµÀı
+     * å‘½ä»¤å®ä¾‹
+     * @return å‘½ä»¤å®ä¾‹
      */
     CommandStd command();
     /**
-     * Ö¸ÁîÖ´ĞĞÂß¼­
-     * @param message ÏûÏ¢
-     * @param args Ö¸Áî²ÎÊı
-     * @param sender ·¢ËÍÕß
-     * @param subject ÊÂ¼şÖ÷Ìå
-     * @return Ö´ĞĞ½á¹û
+     * æŒ‡ä»¤æ‰§è¡Œé€»è¾‘
+     * @param message æ¶ˆæ¯
+     * @param args æŒ‡ä»¤å‚æ•°
+     * @param sender å‘é€è€…
+     * @param subject äº‹ä»¶ä¸»ä½“
+     * @return æ‰§è¡Œç»“æœ
      */
     boolean execute(Message message, List<String> args, User sender, @NotNull Contact subject);
 }

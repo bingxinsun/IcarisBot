@@ -5,13 +5,13 @@ import xyz.satdg.sao.icaris.api.Command;
 import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 
 /**
- * Command系统基础
+ * Command绯荤粺鍩虹
  * @author GongSunink
  */
 public abstract class CommandBase implements Command {
 
     public void log(){
-        MLoger.getLoger().info("指令触发<"+this.command().getCommandName()+">");
+        MLoger.getLoger().info("鎸囦护瑙﹀彂<"+this.command().getCommandName()+">");
     }
     @Override
     public String toString() {

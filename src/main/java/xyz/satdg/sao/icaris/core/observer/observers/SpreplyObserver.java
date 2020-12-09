@@ -17,7 +17,7 @@ public class SpreplyObserver extends ObserverBase {
 
     @Override
     public EventListenerGroupStd listenerStd() {
-        return new EventListenerGroupStd("ÌØÊâ»Ø¸´¼àÌı×é", EventListenerType.STANDARD);
+        return new EventListenerGroupStd("ç‰¹æ®Šå›å¤ç›‘å¬ç»„", EventListenerType.STANDARD);
     }
 
     @EventHandler(priority = Listener.EventPriority.LOW)

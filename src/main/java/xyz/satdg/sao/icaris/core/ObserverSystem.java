@@ -25,7 +25,7 @@ public class ObserverSystem {
     }
 
     public static void jobStart(Bot botIn){
-        MLoger.getLoger().info("正在进行叮当系统自动挂载");
+        MLoger.getLoger().info("姝ｅ湪杩涜鍙綋绯荤粺鑷姩鎸傝浇");
         Set<Class<?>> classSet = null;
         try {
             classSet = ClassScanner.scanPackage("xyz.satdg.sao.icaris.core.observer.observers");
@@ -39,13 +39,13 @@ public class ObserverSystem {
                         observerSet.add((SimpleListenerHost) c.newInstance());
                     }
                 }catch (Exception e){
-                    MLoger.getLoger().error("叮当系统自动挂载失败,正在进行手动挂载",e.getCause());
+                    MLoger.getLoger().error("鍙綋绯荤粺鑷姩鎸傝浇澶辫触,姝ｅ湪杩涜鎵嬪姩鎸傝浇",e.getCause());
                     initByManual(botIn,new RepeatObserver(),new CommandObserver()
                             ,new ConstantObserver(),new DialogueStudyObserver(),new SpreplyObserver());
                 }
             }
         }else {
-            MLoger.getLoger().error("叮当系统自动挂载失败,正在进行手动挂载");
+            MLoger.getLoger().error("鍙綋绯荤粺鑷姩鎸傝浇澶辫触,姝ｅ湪杩涜鎵嬪姩鎸傝浇");
             initByManual(botIn,new RepeatObserver(),new CommandObserver()
                     ,new ConstantObserver(),new DialogueStudyObserver(),new SpreplyObserver());
         }
@@ -53,7 +53,7 @@ public class ObserverSystem {
             Events.registerEvents(botIn,observer);
         }
 
-        MLoger.getLoger().info("叮当系统自动挂载完成!");
+        MLoger.getLoger().info("鍙綋绯荤粺鑷姩鎸傝浇瀹屾垚!");
     }
     private static void initByManual(Bot bot,SimpleListenerHost ...observers){
         for (SimpleListenerHost observer : observers){

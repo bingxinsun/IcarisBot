@@ -3,7 +3,7 @@ package xyz.satdg.sao.icaris.base;
 import xyz.satdg.sao.icaris.api.EventListenerType;
 
 /**
- * ÊÂ¼ş¼àÌı×éÊµÀı
+ * äº‹ä»¶ç›‘å¬ç»„å®ä¾‹
  * @author GongSunink
  */
 public class EventListenerGroupStd {

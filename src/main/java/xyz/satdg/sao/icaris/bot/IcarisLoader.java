@@ -11,15 +11,15 @@ import xyz.satdg.sao.icaris.core.DbSystem;
 import xyz.satdg.sao.icaris.core.ObserverSystem;
 
 /**
- * ¼ÓÔØ»úÆ÷ÈËÏµÍ³
- * ->ÔÚ»úÆ÷ÈËµÚÒ»´ÎµÇÂ¼Ö®ºó½øĞĞ¼ÓÔØ
+ * åŠ è½½æœºå™¨äººç³»ç»Ÿ
+ * ->åœ¨æœºå™¨äººç¬¬ä¸€æ¬¡ç™»å½•ä¹‹åè¿›è¡ŒåŠ è½½
  * @author GongSunink
  */
 public class IcarisLoader extends SimpleListenerHost implements BotSystemLoader {
 
     @EventHandler(priority = Listener.EventPriority.HIGHEST)
     public ListeningStatus onBotFristLogin(BotOnlineEvent event){
-        event.getBot().getLogger().info("»úÆ÷ÈËÊ×´ÎµÇÂ¼Íê³É£¬¿ªÊ¼½øĞĞÏµÍ³¼ÓÔØ");
+        event.getBot().getLogger().info("æœºå™¨äººé¦–æ¬¡ç™»å½•å®Œæˆï¼Œå¼€å§‹è¿›è¡Œç³»ç»ŸåŠ è½½");
         DbSystem.jobStart();
         CommandSystem.jobStart();
         ObserverSystem.jobStart(event.getBot());

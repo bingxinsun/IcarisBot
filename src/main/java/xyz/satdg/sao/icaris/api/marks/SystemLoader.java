@@ -11,6 +11,12 @@ public @interface SystemLoader {
 
     String name() default "N/A";
 
+    /**
+     * SystemLoader
+     * ObserverLoader
+     * EventLoader
+     * CommandLoader
+     */
     enum LoaderType{
         SYSTEMLOADER,
         OBSERVERLOADER,

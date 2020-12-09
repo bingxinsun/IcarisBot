@@ -1,77 +1,77 @@
 package xyz.satdg.sao.icaris.database;
 
-import xyz.satdg.sao.icaris.api.bases.DbObject;
 import xyz.satdg.sao.icaris.api.bases.TableBase;
 import xyz.satdg.sao.icaris.api.marks.Table;
-import xyz.satdg.sao.icaris.api.marks.TableActions;
 import xyz.satdg.sao.icaris.base.MessageStd;
 import xyz.satdg.sao.icaris.base.TableStd;
 import xyz.satdg.sao.icaris.core.DbSystem;
 import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * ÏûÏ¢´æ´¢±í
+ * æ¶ˆæ¯å­˜å‚¨è¡¨
  * @author GongSunink
  */
-@Table(tableName = "MESSAGETABLE",dbName = "BotDB")
-public class MessageTable extends TableBase {
-
-
-    @Override
-    public TableStd tableStd() {
-        return new TableStd("MESSAGETABLE");
-    }
+@Table(tableName = "MessageTable",dbName = "BotDB")
+public class MessageTable extends TableBase<MessageStd> {
 
     @Override
-    public DbObject select(DbObject object) {
+    public MessageStd select(MessageStd object) {
         return null;
     }
 
-    /**
-     * ²åÈëº¯Êı
-     */
-    @TableActions(TableName = "MESSAGETABLE", action = TableActions.actionType.INSERT)
     @Override
-    public void insert(DbObject dbObject){
-        if (dbObject instanceof MessageStd){
+    public boolean update(MessageStd object) {
+        return false;
+    }
+
+    @Override
+    public TableStd tableStd() {
+        return new TableStd("MessageTable");
+    }
+
+    /**
+     * æ’å…¥å‡½æ•°
+     */
+    @Override
+    public void insert(MessageStd messageStd){
             try {
-                DbSystem.getGobalConnection().createStatement().executeUpdate(String.format("" +
-                                "INSERT INTO MESSAGETABLE(ID,MESSAGE,AUTHOR,GROUPNAME,GROUPID)VALUES(" +
-                                "%d,'%s','%s','%s','%d');",
-                                ((MessageStd)dbObject).getSenderId(),
-                                ((MessageStd)dbObject).getMessage(),
-                                ((MessageStd)dbObject).getSenderNick(),
-                                ((MessageStd)dbObject).getGroupName(),
-                                ((MessageStd)dbObject).getGrouopId()));
+                PreparedStatement statement = DbSystem.getGlobalConnection().prepareStatement("" +
+                        "insert into MESSAGETABLE values(?,?,?,?,?)");
+                statement.setLong(1,messageStd.getSenderId());
+                statement.setString(2,messageStd.getMessage());
+                statement.setString(3,messageStd.getSenderNick());
+                statement.setString(4,messageStd.getGroupName());
+                statement.setLong(5,messageStd.getGrouopId());
+                statement.execute();
+                statement.close();
                 /*
-                 * ×¢ÒâstatementÖ´ĞĞ½áÊøºóÒ»¶¨Òª¹Ø±Õ£¬·ñÔò¿ÉÄÜ»áÔì³ÉSQL_BUSY Exception,ÕâÀïÖ±½ÓÊ¹ÓÃÁÙÊ±¶ÔÏó£¬½áÊøºó
-                 * ¶ÔÏóÖ±½Ó±»Ïú»Ù
+                 * æ³¨æ„statementæ‰§è¡Œç»“æŸåä¸€å®šè¦å…³é—­ï¼Œå¦åˆ™å¯èƒ½ä¼šé€ æˆSQL_BUSY Exception,è¿™é‡Œç›´æ¥ä½¿ç”¨ä¸´æ—¶å¯¹è±¡ï¼Œç»“æŸå
+                 * å¯¹è±¡ç›´æ¥è¢«é”€æ¯
                  */
             }catch (SQLException e){
-                MLoger.getLoger().error("ÏûÏ¢¼ÇÂ¼±£´æÊ§°Ü<" + this.tableStd().getTableName()+ ">",e);
+                MLoger.getLoger().error("æ¶ˆæ¯è®°å½•ä¿å­˜å¤±è´¥<" + this.tableStd().getTableName()+ ">",e);
             }
         }
-
-    }
 
     @Override
     public void initTable() {
         if (DbSystem.isTableExist(this.tableStd().getTableName())) {
-            MLoger.getLoger().info("Êı¾İ±í<" +this.tableStd().getTableName() + ">¼ÓÔØÍê³É");
+            MLoger.getLoger().info("æ•°æ®è¡¨<" +this.tableStd().getTableName() + ">åŠ è½½å®Œæˆ");
         }else {
             try {
-                MLoger.getLoger().info("Êı¾İ±í<" + this.tableStd().getTableName()+ ">²»´æÔÚ£¬ÕıÔÚ´´½¨±í");
-                DbSystem.getGobalConnection().createStatement().execute("CREATE TABLE MESSAGETABLE"
+                MLoger.getLoger().info("æ•°æ®è¡¨<" + this.tableStd().getTableName()+ ">ä¸å­˜åœ¨ï¼Œæ­£åœ¨åˆ›å»ºè¡¨");
+                DbSystem.getGlobalConnection().createStatement().execute("CREATE TABLE MessageTable"
                         + "(ID INTEGER NOT NULL," +
-                        "MESSAGE  TEXT  NOT NULL," +
-                        "AUTHOR TEXT NOT NULL," +
-                        "GROUPNAME TEXT," +
-                        "GROUPID INTEGER)");
-                MLoger.getLoger().info("Êı¾İ±í<" + this.tableStd().getTableName() + ">´´½¨³É¹¦");
+                        "Message  TEXT  NOT NULL," +
+                        "Author TEXT NOT NULL," +
+                        "GroupName TEXT," +
+                        "GroupId INTEGER)");
+                MLoger.getLoger().info("æ•°æ®è¡¨<" + this.tableStd().getTableName() + ">åˆ›å»ºæˆåŠŸ");
             } catch (SQLException e) {
-                MLoger.getLoger().error("Êı¾İ±í<" +this.tableStd().getTableName() + ">´´½¨Ê§°Ü", e);
+                MLoger.getLoger().error("æ•°æ®è¡¨<" +this.tableStd().getTableName() + ">åˆ›å»ºå¤±è´¥", e);
             }
         }
     }

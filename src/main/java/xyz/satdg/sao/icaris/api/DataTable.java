@@ -8,33 +8,40 @@ import xyz.satdg.sao.icaris.core.Mloger.MLoger;
 import java.sql.Connection;
 
 /**
- * Êı¾İ¿â½Ó¿Ú
+ * æ•°æ®åº“æ¥å£
  * @author GongSunink
  */
-public interface DataTable {
+public interface DataTable<T extends DbObject> {
 
     /**
-     * »ñµÃÊı¾İ¿â¶ÔÏó
-     * @return Êı¾İ¿â¶ÔÏó
+     * è·å¾—æ•°æ®åº“å¯¹è±¡
+     * @return æ•°æ®åº“å¯¹è±¡
      */
     TableStd tableStd();
 
     /**
-     * ³õÊ¼»¯Êı¾İ±í
-     * ->¼ì²éÊı¾İ±íÊÇ·ñÕı³£
+     * åˆå§‹åŒ–æ•°æ®è¡¨
+     * ->æ£€æŸ¥æ•°æ®è¡¨æ˜¯å¦æ­£å¸¸
      */
     void initTable();
 
     /**
-     * ²åÈëº¯Êı
-     * @param object Êı¾İ
+     * æ’å…¥å‡½æ•°
+     * @param object æ•°æ®
      */
-    void insert(DbObject object);
+    void insert(T object);
 
     /**
-     * Ñ¡Ôñº¯Êı£¬·µ»ØÑ¡ÔñµÄ¶ÔÏó
-     * @param object ĞèÒªÑ¡ÔñµÄ¶ÔÏó
-     * @return ¶ÔÏó
+     * é€‰æ‹©å‡½æ•°ï¼Œè¿”å›é€‰æ‹©çš„å¯¹è±¡
+     * @param object éœ€è¦é€‰æ‹©çš„å¯¹è±¡
+     * @return å¯¹è±¡
      */
-    DbObject select(DbObject object);
+    T select(T object);
+
+    /**
+     * motif func
+     * @param object
+     * @return
+     */
+    boolean update(T object);
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * 指令对象
+ * 鎸囦护瀵硅薄
  * @author GongSunink
  */
 public class CommandStd {

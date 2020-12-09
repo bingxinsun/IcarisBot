@@ -16,12 +16,12 @@ public class CommandHelp extends CommandBase {
 
     @Override
     public CommandStd command() {
-        return new CommandStd("帮助指令","help");
+        return new CommandStd("甯姪鎸囦护","help");
     }
 
     @Override
     public boolean execute(Message message, List<String> args, User sender, @NotNull Contact Subject) {
-        Subject.sendMessage("暂时还没有帮助哦");
+        Subject.sendMessage("鏆傛椂杩樻病鏈夊府鍔╁摝");
         return true;
     }
 }

@@ -9,7 +9,7 @@ import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 
 /**
- * ¸´¶Á»ú
+ * å¤è¯»æœº
  * @author GongSunink
  */
 public class RepeatObserver extends ObserverBase {
@@ -18,7 +18,7 @@ public class RepeatObserver extends ObserverBase {
 
     @Override
     public EventListenerGroupStd listenerStd() {
-        return new EventListenerGroupStd("¸´¶Á¼àÌı×é", EventListenerType.STANDARD);
+        return new EventListenerGroupStd("å¤è¯»ç›‘å¬ç»„", EventListenerType.STANDARD);
     }
 
 

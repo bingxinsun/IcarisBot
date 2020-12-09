@@ -15,7 +15,7 @@ import xyz.satdg.sao.icaris.database.SPreplyTable;
 
 
 /**
- * ¶Ô»°Ñ§Ï°ÊÂ¼ş¼àÌıÆ÷
+ * å¯¹è¯å­¦ä¹ äº‹ä»¶ç›‘å¬å™¨
  * @author GongSunink
  */
 public class DialogueStudyObserver extends ObserverBase {
@@ -27,32 +27,32 @@ public class DialogueStudyObserver extends ObserverBase {
 
     @Override
     public EventListenerGroupStd listenerStd() {
-        return new EventListenerGroupStd("¶Ô»°Ñ§Ï°¼àÌı×é", EventListenerType.STANDARD);
+        return new EventListenerGroupStd("å¯¹è¯å­¦ä¹ ç›‘å¬ç»„", EventListenerType.STANDARD);
     }
 
     /**
-     * ¶Ô»°Ñ§Ï°ÏµÍ³¼àÌıÆ÷£¬²»Ö§³Ö¶àÈËÒì²½´¦Àí
-     * µ±¼àÌıµ½ĞÅÏ¢"¶Ô»°Ñ§Ï°"Ê±
+     * å¯¹è¯å­¦ä¹ ç³»ç»Ÿç›‘å¬å™¨ï¼Œä¸æ”¯æŒå¤šäººå¼‚æ­¥å¤„ç†
+     * å½“ç›‘å¬åˆ°ä¿¡æ¯"å¯¹è¯å­¦ä¹ "æ—¶
      * <-message
      * ->message
      * <-reply
      * ->return
-     * @param event ÏûÏ¢Ê±¼ä
+     * @param event æ¶ˆæ¯æ—¶é—´
      * @return
      */
     @EventHandler(priority = Listener.EventPriority.HIGH)
     public ListeningStatus dialogueStudyListener(MessageEvent event){
-//        if ("¶Ô»°Ñ§Ï°".equals(event.getMessage().contentToString())&&studySequence==-1){
+//        if ("å¯¹è¯å­¦ä¹ ".equals(event.getMessage().contentToString())&&studySequence==-1){
 //            user=event.getSender();
 //            studySequence++;
 //            return ListeningStatus.LISTENING;
 //        }else if (studySequence==0&&event.getSender().getId()==(user.getId())){
 //            messageReq=event.getMessage().contentToString();
-//            event.getSubject().sendMessage("ÈçºÎ»Ø¸´ÒÔÉÏ¶Ô»°");
+//            event.getSubject().sendMessage("å¦‚ä½•å›å¤ä»¥ä¸Šå¯¹è¯");
 //            studySequence++;
 //            return ListeningStatus.LISTENING;
 //        }else if (studySequence==1&&event.getSender().getId()==(user.getId())){
-//            event.getSubject().sendMessage("Ã÷°×");
+//            event.getSubject().sendMessage("æ˜ç™½");
 //        }
 //        if (studySequence==1){
 //            studySequence=-1;

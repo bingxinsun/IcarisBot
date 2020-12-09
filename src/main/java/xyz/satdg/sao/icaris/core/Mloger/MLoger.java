@@ -8,7 +8,7 @@ import java.io.BufferedWriter;
 import java.util.Date;
 
 /**
- * ×Ô¶¨Òåloger
+ * è‡ªå®šä¹‰loger
  * @author GongSunink
  */
 public class MLoger extends MiraiLoggerPlatformBase {
@@ -16,11 +16,9 @@ public class MLoger extends MiraiLoggerPlatformBase {
     private String botName;
     private static MLoger instance= new MLoger();
 
-
     public static MLoger getLoger(){
         return instance;
     }
-
 
     public MLoger(Bot bot,String botName){
         this.bot=bot;
@@ -82,6 +80,5 @@ public class MLoger extends MiraiLoggerPlatformBase {
     public String getIdentity() {
         return "Bot_Marisa";
     }
-
 
 }

@@ -7,14 +7,15 @@ import xyz.satdg.sao.icaris.database.MessageTable;
 
 
 /**
- * ÏûÏ¢±£´æ
+ * æ¶ˆæ¯ä¿å­˜
  * @author GongSunink
  */
 public class SaveMessages {
 
 
+    @SuppressWarnings("unchecked")
     public static void save(long id, String message, String author,String groupName,long groupId){
-        DbSystem.getTable("MESSAGETABLE")
+        DbSystem.getTable("MessageTable")
                 .insert(new MessageStd(id,message,author,groupName,groupId));
     }
 

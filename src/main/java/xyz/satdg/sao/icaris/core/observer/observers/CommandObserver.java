@@ -14,7 +14,7 @@ import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 import xyz.satdg.sao.icaris.core.CommandSystem;
 
 /**
- * ÃüÁîÊÂ¼ş¼àÌıÆ÷
+ * å‘½ä»¤äº‹ä»¶ç›‘å¬å™¨
  * @author GongSunink
  */
 public class CommandObserver extends ObserverBase {
@@ -22,13 +22,13 @@ public class CommandObserver extends ObserverBase {
 
     @Override
     public EventListenerGroupStd listenerStd() {
-        return new EventListenerGroupStd("Ö¸Áî¼àÌıÆ÷", EventListenerType.STANDARD);
+        return new EventListenerGroupStd("æŒ‡ä»¤ç›‘å¬å™¨", EventListenerType.STANDARD);
     }
 
 
     /**
-     * ´¦ÀíÃüÁî
-     * @param event ÊÂ¼şÖ÷Ìå
+     * å¤„ç†å‘½ä»¤
+     * @param event äº‹ä»¶ä¸»ä½“
      */
     private void dueCommands(MessageEvent event){
 //        Command command= CommandSystem.getCommand(event.getMessage().contentToString());
