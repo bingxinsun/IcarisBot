@@ -2,26 +2,40 @@ package xyz.satdg.sao.icaris.core;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * 类扫描器
+ * class scanner
  * @author GongSunink
  */
 public class ClassScanner {
 
+    public static Set<Class<?>> scanPackage(String packageName) throws IOException,ClassNotFoundException{
+        Set<Class<?>> classSet = new HashSet<>(20);
+        String path = ClassScanner.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        //get the absolute path of the package
+        if (System.getProperty("os.name").contains("dows")&&!path.contains(".jar")) {
+            //if path contain "dows" and dose not contain jar,define it in a develop environment
+            getClasses(path+packageName.replace(".","/"),
+                    packageName,classSet);
+        }
+        else if (path.contains(".jar")) {
+            //if path contain "jar"
+            File file = new File(path);
+            classSet = getClasses(new JarFile(file.getName()),packageName);
+        }
+        return classSet;
+    }
 
     /**
-     * scan target package
-     * @param packageName 包名
-     * @return 包下的类集合
+     * scan target package(package dose not has subPackages)
+     * @param packageName package name
+     * @return a ClassesSet under target package
      * @throws IOException 错误
      */
-    public static Set<Class<?>> scanPackage(String packageName) throws IOException,ClassNotFoundException {
+    public static Set<Class<?>> scanSinglePackage(String packageName) throws IOException,ClassNotFoundException {
         Set<Class<?>> classSet = new HashSet<>();
         String path = ClassScanner.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         //get the absolute path of the package
@@ -30,7 +44,7 @@ public class ClassScanner {
             classSet=getClasses(packageName);
         }
         else if (path.contains(".jar")) {
-            //如果路径中存在.jar，说明运行的时在打包后，这时需要使用Jarfile类来进行读取
+            //if path contain "jar"
             File file = new File(path);
             classSet=getClasses(new JarFile(file.getName()),packageName);
         }
@@ -39,25 +53,26 @@ public class ClassScanner {
 
     /**
      * scan in a develop environment
-     * @param targetPackage
-     * @return
+     * @param targetPackage package need to scan
+     * @return a ClassSet with classes under target package
      */
-    public static Set<Class<?>> getClasses(String targetPackage)throws ClassNotFoundException{
+    private static Set<Class<?>> getClasses(String targetPackage)throws ClassNotFoundException{
         Set<Class<?>> classSet = new HashSet<>();
         String path = ClassScanner.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        //获得源码文件的位置
+        //get the path of target class(int windows file system and in a develop environment)
         File dir = new File(path+targetPackage.replace(".","/"));
-        //创建file对象
-        if (dir.isDirectory()) {
-            //如果目标包下有文件则执行
+        if (dir.isDirectory()) {    
             File[] files = dir.listFiles();
-            for (File file : files) {
-                //使用forecah进行遍历
-                String className = file.getName();
-                Class targetClass = Class.forName(targetPackage+ "." + className.split("\\.")[0]);
-                //尝试获取类对象
-                classSet.add(targetClass);
+            if (files!=null){
+                for (File file : files) {
+                    //using for-each stantment to iterate files list
+                    String className = file.getName();
+                    Class targetClass = Class.forName(targetPackage+ "." + className.split("\\.")[0]);
+                    //try to get instance of the Class
+                    classSet.add(targetClass);
+                }
             }
+
         }
         return classSet;
     }
@@ -67,15 +82,16 @@ public class ClassScanner {
      * 2.logic as same as upon
      * @param file jar文件
      * @param targetPackage 目标包
-     * @return
+     * @return classSet
      */
-    public static Set<Class<?>> getClasses(JarFile file,String targetPackage) throws ClassNotFoundException{
+    private static Set<Class<?>> getClasses(JarFile file,String targetPackage) throws ClassNotFoundException{
         Set<Class<?>> classSet = new HashSet<>();
         Enumeration<JarEntry> entry= file.entries();
         while(entry.hasMoreElements()){
             //are there more elements
             JarEntry element= entry.nextElement();
-            if (element.getName().replace("/",".").contains(targetPackage) &&element.getName().endsWith(".class")){
+            if (element.getName().replace("/",".").contains(targetPackage)
+                    &&element.getName().endsWith(".class")){
                 Class targetClass = Class.forName(targetPackage +
                         "."+element.getName().substring(element.getName().
                         lastIndexOf("/")+1, element.getName().lastIndexOf(".")));
@@ -85,4 +101,51 @@ public class ClassScanner {
         }
         return classSet;
     }
+
+    /**
+     * get file names under the target package,and add them to a List
+     * @param path 扫描路径
+     * @param classSet 返回的类对象集合
+     */
+    private static void getClasses(String path, String packageName, Set<Class<?>> classSet) throws ClassNotFoundException, IOException {
+        File file = new File(path);
+        if (file.isDirectory()){
+            File[] files = file.listFiles();
+            if (files!=null){
+                for (int i = 0; i < files.length; i++) {
+                    //it iterates packageName plus the dir file name as the father packageName of class
+                    getClasses(files[i].getPath(),packageName+"."+files[i].getName(),classSet);
+                }
+            }
+        }else {
+            if (file.getName().endsWith(".class")){
+                String classNameSps = packageName.substring(0,packageName.lastIndexOf("."));
+                //using for-each statement to iterate files list
+                try {
+                    Class targetClass = Class.forName(classNameSps);
+                    //try to get instance of the Class
+                    classSet.add(targetClass);
+                }catch (ClassNotFoundException e){
+                    System.out.println(classNameSps+"未找到");
+                }
+            }
+        }
+    }
+
+//    private static void getClasses(JarFile file){
+//        Set<Class<?>> classSet = new HashSet<>();
+//        Enumeration<JarEntry> entry= file.entries();
+//        while(entry.hasMoreElements()){
+//            JarEntry fileEntry = entry.nextElement();
+//            if (fileEntry.getName().endsWith(".class")){
+//                try{
+//                    Class targetClass = Class.forName(fileEntry.getName().replace(
+//                            "\\","."
+//                    ).substring(0,fileEntry.getName().lastIndexOf(".")));
+//                }catch (ClassNotFoundException e){
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }
+//    }
 }

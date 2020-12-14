@@ -5,12 +5,10 @@ import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.ListeningStatus;
-import net.mamoe.mirai.message.GroupMessageEvent;
 import net.mamoe.mirai.message.MessageEvent;
-import xyz.satdg.sao.icaris.api.EventListenerType;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
+import xyz.satdg.sao.icaris.base.EventListenerType;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
-import xyz.satdg.sao.icaris.base.SpMessageStd;
 import xyz.satdg.sao.icaris.database.SPreplyTable;
 
 

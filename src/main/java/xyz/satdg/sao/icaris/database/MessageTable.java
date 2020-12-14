@@ -5,7 +5,7 @@ import xyz.satdg.sao.icaris.api.marks.Table;
 import xyz.satdg.sao.icaris.base.MessageStd;
 import xyz.satdg.sao.icaris.base.TableStd;
 import xyz.satdg.sao.icaris.core.DbSystem;
-import xyz.satdg.sao.icaris.core.Mloger.MLoger;
+import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -52,26 +52,31 @@ public class MessageTable extends TableBase<MessageStd> {
                  * 对象直接被销毁
                  */
             }catch (SQLException e){
-                MLoger.getLoger().error("消息记录保存失败<" + this.tableStd().getTableName()+ ">",e);
+                IcarisLoger.getLoger().error("消息记录保存失败<" +
+                        this.tableStd().getTableName()+ ">",e);
             }
         }
 
     @Override
     public void initTable() {
         if (DbSystem.isTableExist(this.tableStd().getTableName())) {
-            MLoger.getLoger().info("数据表<" +this.tableStd().getTableName() + ">加载完成");
+            IcarisLoger.getLoger().info("数据表<" +this.tableStd().getTableName() + ">加载完成");
         }else {
             try {
-                MLoger.getLoger().info("数据表<" + this.tableStd().getTableName()+ ">不存在，正在创建表");
-                DbSystem.getGlobalConnection().createStatement().execute("CREATE TABLE MessageTable"
+                IcarisLoger.getLoger().info("数据表<" + this.tableStd().getTableName()+
+                        ">不存在，正在创建表");
+                DbSystem.getGlobalConnection().createStatement().execute("CREATE " +
+                        "TABLE MessageTable"
                         + "(ID INTEGER NOT NULL," +
                         "Message  TEXT  NOT NULL," +
                         "Author TEXT NOT NULL," +
                         "GroupName TEXT," +
                         "GroupId INTEGER)");
-                MLoger.getLoger().info("数据表<" + this.tableStd().getTableName() + ">创建成功");
+                IcarisLoger.getLoger().info("数据表<" + this.tableStd().getTableName() +
+                        ">创建成功");
             } catch (SQLException e) {
-                MLoger.getLoger().error("数据表<" +this.tableStd().getTableName() + ">创建失败", e);
+                IcarisLoger.getLoger().error("数据表<" +this.tableStd().getTableName() +
+                        ">创建失败", e);
             }
         }
     }

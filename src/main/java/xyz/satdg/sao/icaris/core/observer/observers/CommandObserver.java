@@ -7,11 +7,9 @@ import net.mamoe.mirai.message.FriendMessageEvent;
 import net.mamoe.mirai.message.GroupMessageEvent;
 import net.mamoe.mirai.message.MessageEvent;
 import net.mamoe.mirai.message.TempMessageEvent;
-import xyz.satdg.sao.icaris.api.Command;
-import xyz.satdg.sao.icaris.api.EventListenerType;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
+import xyz.satdg.sao.icaris.base.EventListenerType;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
-import xyz.satdg.sao.icaris.core.CommandSystem;
 
 /**
  * 命令事件监听器

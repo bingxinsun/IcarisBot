@@ -1,4 +1,4 @@
-package xyz.satdg.sao.icaris.core.Mloger;
+package xyz.satdg.sao.icaris.core.Loger;
 
 /**
  * @author GongSunink

@@ -1,31 +1,30 @@
-package xyz.satdg.sao.icaris.core.Mloger;
+package xyz.satdg.sao.icaris.core.Loger;
 
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.utils.MiraiLoggerPlatformBase;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.BufferedWriter;
 import java.util.Date;
 
 /**
  * 自定义loger
  * @author GongSunink
  */
-public class MLoger extends MiraiLoggerPlatformBase {
+public class IcarisLoger extends MiraiLoggerPlatformBase {
     private Bot bot;
     private String botName;
-    private static MLoger instance= new MLoger();
+    private static IcarisLoger instance= new IcarisLoger();
 
-    public static MLoger getLoger(){
+    public static IcarisLoger getLoger(){
         return instance;
     }
 
-    public MLoger(Bot bot,String botName){
+    public IcarisLoger(Bot bot, String botName){
         this.bot=bot;
         this.botName=botName;
     }
 
-    public MLoger(){
+    public IcarisLoger(){
         this(null,"Gobal");
     }
 
@@ -78,7 +77,7 @@ public class MLoger extends MiraiLoggerPlatformBase {
     @Nullable
     @Override
     public String getIdentity() {
-        return "Bot_Marisa";
+        return "Icaris_Bot";
     }
 
 }

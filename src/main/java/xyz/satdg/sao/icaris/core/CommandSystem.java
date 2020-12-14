@@ -1,7 +1,7 @@
 package xyz.satdg.sao.icaris.core;
 
 import xyz.satdg.sao.icaris.api.Command;
-import xyz.satdg.sao.icaris.core.Mloger.MLoger;
+import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
 import xyz.satdg.sao.icaris.core.command.commandlmpl.CommandDebug;
 import xyz.satdg.sao.icaris.core.command.commandlmpl.CommandHelp;
 
@@ -17,13 +17,13 @@ public class CommandSystem {
     private static HashMap<String,Command> commandMap =new HashMap<>();
 
     public static void jobStart(){
-        MLoger.getLoger().info("正在进行指令系统自动挂载");
+        IcarisLoger.getLoger().info("正在进行指令系统自动挂载");
         Set<Class<?>> classSet = null;
         try {
-            classSet = ClassScanner.scanPackage(
+            classSet = ClassScanner.scanSinglePackage(
                     "xyz.satdg.sao.icaris.core.command.commandlmpl");
         }catch (ClassNotFoundException | IOException e){
-            MLoger.getLoger().error(e.getMessage());
+            IcarisLoger.getLoger().error(e.getMessage());
         }
         if (classSet!=null&&!classSet.isEmpty()){
             for (Class c : classSet){
@@ -32,15 +32,15 @@ public class CommandSystem {
                         commandMap.put(((Command)c.newInstance()).command().getCommandHead(),(Command)c.newInstance());
                     }
                 }catch (InstantiationException | IllegalAccessException e){
-                    MLoger.getLoger().error("指令自动挂载失败,正在进行手动挂载",e);
+                    IcarisLoger.getLoger().error("指令自动挂载失败,正在进行手动挂载",e);
                     initByManual(new CommandHelp(),new CommandDebug());
                 }
             }
         }else {
-            MLoger.getLoger().error("指令自动挂载失败,正在进行手动挂载");
+            IcarisLoger.getLoger().error("指令自动挂载失败,正在进行手动挂载");
             initByManual(new CommandHelp(),new CommandDebug());
         }
-        MLoger.getLoger().info("指令系统自动挂载完成!");
+        IcarisLoger.getLoger().info("指令系统自动挂载完成!");
     }
 
     private static void initByManual(Command ...commands) {

@@ -1,7 +1,6 @@
 package xyz.satdg.sao.icaris.core;
 
 
-import kotlinx.serialization.json.JsonObject;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactoryJvm;
 import net.mamoe.mirai.event.Events;
@@ -11,7 +10,7 @@ import net.sf.json.JSONObject;
 import xyz.satdg.sao.icaris.api.BotSystemLoader;
 import xyz.satdg.sao.icaris.api.marks.SystemLoader;
 import xyz.satdg.sao.icaris.bot.IcarisLoader;
-import xyz.satdg.sao.icaris.core.Mloger.MLoger;
+import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -40,8 +39,8 @@ public class IcarisBotSystem {
     private static Bot creatBotAndLogin(long QQid, String QQpwd, BotSystemLoader loader){
         BotConfiguration configuration = new BotConfiguration();
         configuration.fileBasedDeviceInfo();
-        configuration.setNetworkLoggerSupplier(bot-> new MLoger());
-        configuration.setBotLoggerSupplier(bot-> new MLoger());
+        configuration.setNetworkLoggerSupplier(bot-> new IcarisLoger());
+        configuration.setBotLoggerSupplier(bot-> new IcarisLoger());
         Bot bot= BotFactoryJvm.newBot(QQid,QQpwd,configuration);
         Events.registerEvents(bot,(SimpleListenerHost)loader);
         bot.login();

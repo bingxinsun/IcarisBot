@@ -1,7 +1,5 @@
 package xyz.satdg.sao.icaris.base;
 
-import xyz.satdg.sao.icaris.api.EventListenerType;
-
 /**
  * 事件监听组实例
  * @author GongSunink
