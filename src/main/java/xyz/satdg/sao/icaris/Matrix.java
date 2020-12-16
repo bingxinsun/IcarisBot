@@ -21,8 +21,8 @@ public class Matrix {
         }
         System.out.println(buffer);
         reader.close();
-        LoadAll.start();
+       // LoadAll.start();
 
-        //IcarisBotSystem.start();
+        IcarisBotSystem.start();
     }
 }

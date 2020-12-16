@@ -3,5 +3,6 @@ package xyz.satdg.sao.icaris.api;
 /**
  * @author GongSunink
  */
-public interface BotSystemLoader{
+public interface DbObject {
+
 }

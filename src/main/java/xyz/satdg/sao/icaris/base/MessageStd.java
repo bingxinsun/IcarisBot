@@ -1,6 +1,6 @@
 package xyz.satdg.sao.icaris.base;
 
-import xyz.satdg.sao.icaris.api.bases.DbObject;
+import xyz.satdg.sao.icaris.api.DbObject;
 
 /**
  * @author GongSunink
@@ -53,7 +53,8 @@ public class MessageStd implements DbObject {
         this.grouopId = grouopId;
     }
 
-    public MessageStd(long senderId, String message, String senderNick, String groupName, long grouopId) {
+    public MessageStd(long senderId, String message, String senderNick, String groupName
+            , long grouopId) {
         this.senderId = senderId;
         this.message = message;
         this.senderNick = senderNick;

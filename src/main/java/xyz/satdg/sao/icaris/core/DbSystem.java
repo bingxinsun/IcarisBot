@@ -1,7 +1,6 @@
 package xyz.satdg.sao.icaris.core;
 
 import xyz.satdg.sao.icaris.api.bases.TableBase;
-import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
 import xyz.satdg.sao.icaris.database.MessageTable;
 import xyz.satdg.sao.icaris.database.PlayerTable;
 import xyz.satdg.sao.icaris.database.SPreplyTable;
@@ -15,6 +14,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Set;
 
+import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 /**
  * 数据库系统
  * @author GongSunink
@@ -26,13 +26,13 @@ public class DbSystem {
 
     @SuppressWarnings("unchecked")
     public static void jobStart(){
-        IcarisLoger.getLoger().info("正在数据表进行自动挂载");
+        ICARIS_LOGGER.info("正在数据表进行自动挂载");
         checkDbs("BotDB");
         Set<Class<?>> classSet = null;
         try {
             classSet = ClassScanner.scanSinglePackage("xyz.satdg.sao.icaris.database");
         }catch (ClassNotFoundException | IOException e){
-            IcarisLoger.getLoger().error("Package scanner error"+e);
+            ICARIS_LOGGER.error("Package scanner error"+e);
         }
         if (classSet!=null&&!classSet.isEmpty()){
             for (Class c : classSet){
@@ -45,20 +45,20 @@ public class DbSystem {
                     }
                 }catch (NoSuchMethodException |InstantiationException |IllegalAccessException |
                 InvocationTargetException e){
-                    IcarisLoger.getLoger().error("数据表自动挂载失败,正在进行手动挂载",e);
+                    ICARIS_LOGGER.error("数据表自动挂载失败,正在进行手动挂载",e);
                     initByManual(new MessageTable(),new PlayerTable(),new SPreplyTable());
                 }
             }
         }else {
-            IcarisLoger.getLoger().error("数据表自动挂载失败,正在进行手动挂载");
+            ICARIS_LOGGER.error("数据表自动挂载失败,正在进行手动挂载");
             initByManual(new MessageTable(),new PlayerTable(),new SPreplyTable());
         }
-        IcarisLoger.getLoger().info("数据表自动挂载完成!");
+        ICARIS_LOGGER.info("数据表自动挂载完成!");
     }
 
     private static void initByManual(TableBase ...tableBases){
-        for (int i=0;i<tableBases.length;i++){
-            tableBases[i].initTable();
+        for (TableBase tableBase : tableBases) {
+            tableBase.initTable();
         }
     }
 
@@ -83,14 +83,14 @@ public class DbSystem {
 
     /**
      * 检查目标数据表是否存在，存在则返回true，不存在返回false
-     * @param Table 数据表名称
+     * @param table 数据表名称
      * @return 是否存在
      */
-    public static boolean isTableExist(String Table){
+    public static boolean isTableExist(String table){
         try{
-            globalConnection.createStatement().execute("select * from " +Table);
+            globalConnection.createStatement().execute("select * from " +table);
         }catch (Exception e){
-            IcarisLoger.getLoger().error("数据表<"+Table+">不存在",e);
+            ICARIS_LOGGER.error("数据表<"+table+">不存在",e);
             return false;
         }
         return true;
@@ -102,10 +102,10 @@ public class DbSystem {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:"+dbName+".db");
-            IcarisLoger.getLoger().info("数据库检查<"+dbName+">加载成功");
+            ICARIS_LOGGER.info("数据库检查<"+dbName+">加载成功");
             return c;
         } catch ( Exception e ) {
-            IcarisLoger.getLoger().error("数据库检查<"+dbName+">加载失败",e);
+            ICARIS_LOGGER.error("数据库检查<"+dbName+">加载失败",e);
         }
         return c;
     }
@@ -117,7 +117,7 @@ public class DbSystem {
         try{
             globalConnection.close();
         }catch (SQLException e){
-            IcarisLoger.getLoger().error(e);
+            ICARIS_LOGGER.error(e);
         }
     }
 

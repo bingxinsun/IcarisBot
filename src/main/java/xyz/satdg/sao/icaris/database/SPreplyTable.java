@@ -5,11 +5,12 @@ import xyz.satdg.sao.icaris.api.marks.Table;
 import xyz.satdg.sao.icaris.base.SpMessageStd;
 import xyz.satdg.sao.icaris.base.TableStd;
 import xyz.satdg.sao.icaris.core.DbSystem;
-import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 
 /**
  * special reply datatable
@@ -23,7 +24,6 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
         return new TableStd("SpReplyTable");
     }
 
-
     @Override
     public SpMessageStd select(SpMessageStd object) {
         return null;
@@ -34,19 +34,16 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
         return false;
     }
 
-
     public boolean delete(String message){
         try{
             DbSystem.getGlobalConnection().createStatement().executeUpdate(
                     "DELETE from SpReplyTable where Message ="+message);
             return true;
         }catch (SQLException e){
-            IcarisLoger.getLoger().error(e);
+            ICARIS_LOGGER.error("SpMessage delete failed in table ",e);
             return false;
         }
-
     }
-
 
     /**
      * choose sequence:
@@ -58,7 +55,8 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
      */
     public String select(String message){
         try{
-            ResultSet set= DbSystem.getGlobalConnection().createStatement().executeQuery("SELECT " +
+            ResultSet set= DbSystem.getGlobalConnection().createStatement().executeQuery(
+                    "SELECT " +
                     "* FROM SpReplyTable");
             String result = null;
             while(set.next()){
@@ -66,13 +64,11 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
                     result = set.getString("ReturnMessage");
                     set.close();
                     return result;
-                }else {
-                    result = null;
                 }
             }
             return result;
         }catch (SQLException e){
-            IcarisLoger.getLoger().error(e);
+            ICARIS_LOGGER.error(e);
         }
         return null;
     }
@@ -89,10 +85,11 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
                 statement.setLong(5,spMessageStd.getGrouopId());
                 statement.setString(6,spMessageStd.getSenderNick());
                 /*
-                 * consider the statement and connection,when finish using them, must release lock
+                 * consider the statement and connection
+                 * ,when finish using them, must release lock
                  */
             }catch (SQLException e){
-                IcarisLoger.getLoger().error("Message Record Failed<" +
+                ICARIS_LOGGER.error("Message Record Failed<" +
                         this.tableStd().getTableName()+ ">",e);
             }
     }
@@ -100,11 +97,11 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
     @Override
     public void initTable() {
         if (DbSystem.isTableExist(this.tableStd().getTableName())) {
-            IcarisLoger.getLoger().info("Data Table<" + this.tableStd().getTableName() +
+            ICARIS_LOGGER.info("Data Table<" + this.tableStd().getTableName() +
                     ">Load Successful");
         }else {
             try {
-                IcarisLoger.getLoger().info("Data Table<" + this.tableStd().getTableName()+
+                ICARIS_LOGGER.info("Data Table<" + this.tableStd().getTableName()+
                         ">dose not Exist,Creating a new");
                 DbSystem.getGlobalConnection().createStatement().execute("CREATE TABLE " +
                         "SpReplyTable(" +
@@ -114,10 +111,10 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
                         "FromGroupName TEXT," +
                         "FromGroupId INTEGER," +
                         "Author TEXT NOT NULL)");
-                IcarisLoger.getLoger().info("Data Table<" + this.tableStd().getTableName() +
+                ICARIS_LOGGER.info("Data Table<" + this.tableStd().getTableName() +
                         ">Creat Successful");
             } catch (SQLException e) {
-                IcarisLoger.getLoger().error("Data Table<" + this.tableStd().getTableName() +
+                ICARIS_LOGGER.error("Data Table<" + this.tableStd().getTableName() +
                         ">Creat Successful", e);
             }
         }

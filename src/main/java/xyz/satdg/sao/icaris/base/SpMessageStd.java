@@ -1,6 +1,6 @@
 package xyz.satdg.sao.icaris.base;
 
-import xyz.satdg.sao.icaris.api.bases.DbObject;
+import xyz.satdg.sao.icaris.api.DbObject;
 
 /**
  * @author GongSunink

@@ -5,10 +5,11 @@ import xyz.satdg.sao.icaris.api.marks.Table;
 import xyz.satdg.sao.icaris.base.PlayerStd;
 import xyz.satdg.sao.icaris.base.TableStd;
 import xyz.satdg.sao.icaris.core.DbSystem;
-import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 
 /**
  * @author GongSunink
@@ -33,7 +34,7 @@ public class PlayerTable extends TableBase<PlayerStd> {
             statement.setInt(4,playerStd.getEXP());
             statement.setString(5,playerStd.getCallName());
         }catch (SQLException e){
-            IcarisLoger.getLoger().error(e);
+            ICARIS_LOGGER.error(e);
         }
     }
 
@@ -51,10 +52,10 @@ public class PlayerTable extends TableBase<PlayerStd> {
     @Override
     public void initTable() {
         if (DbSystem.isTableExist(this.tableStd().getTableName())) {
-            IcarisLoger.getLoger().info("数据表<" + this.tableStd().getTableName() + ">加载完成");
+            ICARIS_LOGGER.info("数据表<" + this.tableStd().getTableName() + ">加载完成");
         } else {
             try {
-                IcarisLoger.getLoger().info("数据表<" + this.tableStd().getTableName() + ">不存在，正在创建表");
+                ICARIS_LOGGER.info("数据表<" + this.tableStd().getTableName() + ">不存在，正在创建表");
                 DbSystem.getGlobalConnection().createStatement().execute("" +
                         "CREATE TABLE PlayerTable"
                         + "(ID INTEGER NOT NULL," +
@@ -62,9 +63,9 @@ public class PlayerTable extends TableBase<PlayerStd> {
                         "Nick TEXT NOT NULL," +
                         "EXP INTEGER DEFAULT 0," +
                         "CallName TEXT)");
-                IcarisLoger.getLoger().info("数据表<" + this.tableStd().getTableName() + ">创建成功");
+                ICARIS_LOGGER.info("数据表<" + this.tableStd().getTableName() + ">创建成功");
             } catch (SQLException e) {
-                IcarisLoger.getLoger().error("数据表<" + this.tableStd().getTableName() + ">创建失败", e);
+                ICARIS_LOGGER.error("数据表<" + this.tableStd().getTableName() + ">创建失败", e);
             }
         }
     }

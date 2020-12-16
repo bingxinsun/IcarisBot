@@ -7,12 +7,12 @@ import java.lang.annotation.Target;
  * @author GongSunink
  */
 @Target(ElementType.TYPE)
-public @interface SystemLoader {
+public @interface Loader {
 
     String name() default "N/A";
 
     /**
-     * SystemLoader
+     * Loader
      * ObserverLoader
      * EventLoader
      * CommandLoader

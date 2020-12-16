@@ -65,7 +65,7 @@ public class ClassScanner {
             File[] files = dir.listFiles();
             if (files!=null){
                 for (File file : files) {
-                    //using for-each stantment to iterate files list
+                    //using for-each statement to iterate files list
                     String className = file.getName();
                     Class targetClass = Class.forName(targetPackage+ "." + className.split("\\.")[0]);
                     //try to get instance of the Class
@@ -76,9 +76,8 @@ public class ClassScanner {
         }
         return classSet;
     }
-
     /**
-     * 1.JarFile-Reader is a base-on ZipFile-Reader,Use it to read Jar-file lists
+     * 1.JarFile-Reader is base-on ZipFile-Reader,Use it to read Jar-file lists
      * 2.logic as same as upon
      * @param file jar文件
      * @param targetPackage 目标包
@@ -97,6 +96,7 @@ public class ClassScanner {
                         lastIndexOf("/")+1, element.getName().lastIndexOf(".")));
                     //get xxx of xxx.class
                 classSet.add(targetClass);
+
             }
         }
         return classSet;
@@ -107,14 +107,15 @@ public class ClassScanner {
      * @param path 扫描路径
      * @param classSet 返回的类对象集合
      */
-    private static void getClasses(String path, String packageName, Set<Class<?>> classSet) throws ClassNotFoundException, IOException {
+    private static void getClasses(String path, String packageName, Set<Class<?>> classSet) {
         File file = new File(path);
         if (file.isDirectory()){
             File[] files = file.listFiles();
             if (files!=null){
-                for (int i = 0; i < files.length; i++) {
+                for (File value : files) {
                     //it iterates packageName plus the dir file name as the father packageName of class
-                    getClasses(files[i].getPath(),packageName+"."+files[i].getName(),classSet);
+                    getClasses(value.getPath(), packageName + "." +
+                            value.getName(), classSet);
                 }
             }
         }else {

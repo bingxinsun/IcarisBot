@@ -4,7 +4,6 @@ import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.message.MessageEvent;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
-import xyz.satdg.sao.icaris.base.EventListenerType;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 import xyz.satdg.sao.icaris.database.SPreplyTable;
 
@@ -13,11 +12,11 @@ import xyz.satdg.sao.icaris.database.SPreplyTable;
  */
 public class SpreplyObserver extends ObserverBase {
 
-    private SPreplyTable sPreplyTable = new SPreplyTable();
 
     @Override
     public EventListenerGroupStd listenerStd() {
-        return new EventListenerGroupStd("特殊回复监听组", EventListenerType.STANDARD);
+        return new EventListenerGroupStd(
+                "特殊回复监听组", ObserverType.STANDARD);
     }
 
     @EventHandler(priority = Listener.EventPriority.LOW)

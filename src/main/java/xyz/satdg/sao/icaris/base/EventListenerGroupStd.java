@@ -1,5 +1,7 @@
 package xyz.satdg.sao.icaris.base;
 
+import xyz.satdg.sao.icaris.api.Observer;
+
 /**
  * 事件监听组实例
  * @author GongSunink
@@ -7,9 +9,9 @@ package xyz.satdg.sao.icaris.base;
 public class EventListenerGroupStd {
 
     private String listenerGroupName;
-    private EventListenerType eventListenerType;
+    private Observer.ObserverType eventListenerType;
 
-    public EventListenerType getEventListenerType() {
+    public Observer.ObserverType getEventListenerType() {
         return eventListenerType;
     }
 
@@ -29,12 +31,12 @@ public class EventListenerGroupStd {
                 '}';
     }
 
-    public void setEventListenerType(EventListenerType eventListenerType) {
+    public EventListenerGroupStd(String listenerGroupName, Observer.ObserverType eventListenerType) {
+        this.listenerGroupName = listenerGroupName;
         this.eventListenerType = eventListenerType;
     }
 
-    public EventListenerGroupStd(String listenerGroupName, EventListenerType eventListenerType){
-        this.eventListenerType=eventListenerType;
-        this.listenerGroupName =listenerGroupName;
+    public EventListenerGroupStd(String listenerGroupName) {
+        this.listenerGroupName = listenerGroupName;
     }
 }

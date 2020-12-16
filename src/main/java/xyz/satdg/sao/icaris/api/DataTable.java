@@ -1,7 +1,6 @@
 package xyz.satdg.sao.icaris.api;
 
 
-import xyz.satdg.sao.icaris.api.bases.DbObject;
 import xyz.satdg.sao.icaris.base.TableStd;
 
 /**

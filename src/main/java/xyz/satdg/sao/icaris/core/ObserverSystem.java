@@ -3,7 +3,6 @@ package xyz.satdg.sao.icaris.core;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.event.Events;
 import net.mamoe.mirai.event.SimpleListenerHost;
-import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
 import xyz.satdg.sao.icaris.core.observer.observers.ConstantObserver;
 import xyz.satdg.sao.icaris.core.observer.observers.CommandObserver;
 import xyz.satdg.sao.icaris.core.observer.observers.DialogueStudyObserver;
@@ -13,7 +12,7 @@ import xyz.satdg.sao.icaris.core.observer.observers.SpreplyObserver;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-
+import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 /**
  * @author GongSunink
  */
@@ -26,12 +25,12 @@ public class ObserverSystem {
     }
 
     public static void jobStart(Bot botIn){
-        IcarisLoger.getLoger().info("正在进行叮当系统自动挂载");
+        ICARIS_LOGGER.info("正在进行叮当系统自动挂载");
         Set<Class<?>> classSet = null;
         try {
             classSet = ClassScanner.scanSinglePackage("xyz.satdg.sao.icaris.core.observer.observers");
         }catch (ClassNotFoundException | IOException e){
-            IcarisLoger.getLoger().error("Package scanner error"+e);
+            ICARIS_LOGGER.error("Package scanner error"+e);
         }
         if (classSet!=null&&!classSet.isEmpty()){
             for (Class c : classSet){
@@ -40,13 +39,13 @@ public class ObserverSystem {
                         observerSet.add((SimpleListenerHost) c.newInstance());
                     }
                 }catch (InstantiationException|IllegalAccessException e){
-                    IcarisLoger.getLoger().error("叮当系统自动挂载失败,正在进行手动挂载",e.getCause());
+                    ICARIS_LOGGER.error("叮当系统自动挂载失败,正在进行手动挂载",e);
                     initByManual(botIn,new RepeatObserver(),new CommandObserver()
                             ,new ConstantObserver(),new DialogueStudyObserver(),new SpreplyObserver());
                 }
             }
         }else {
-            IcarisLoger.getLoger().error("叮当系统自动挂载失败,正在进行手动挂载");
+            ICARIS_LOGGER.error("叮当系统自动挂载失败,正在进行手动挂载");
             initByManual(botIn,new RepeatObserver(),new CommandObserver()
                     ,new ConstantObserver(),new DialogueStudyObserver(),new SpreplyObserver());
         }
@@ -54,7 +53,7 @@ public class ObserverSystem {
             Events.registerEvents(botIn,observer);
         }
 
-        IcarisLoger.getLoger().info("叮当系统自动挂载完成!");
+        ICARIS_LOGGER.info("叮当系统自动挂载完成!");
     }
     private static void initByManual(Bot bot,SimpleListenerHost ...observers){
         for (SimpleListenerHost observer : observers){

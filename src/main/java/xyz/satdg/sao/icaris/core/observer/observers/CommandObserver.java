@@ -8,7 +8,6 @@ import net.mamoe.mirai.message.GroupMessageEvent;
 import net.mamoe.mirai.message.MessageEvent;
 import net.mamoe.mirai.message.TempMessageEvent;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
-import xyz.satdg.sao.icaris.base.EventListenerType;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 
 /**
@@ -20,7 +19,8 @@ public class CommandObserver extends ObserverBase {
 
     @Override
     public EventListenerGroupStd listenerStd() {
-        return new EventListenerGroupStd("指令监听器", EventListenerType.STANDARD);
+        return new EventListenerGroupStd(
+                "指令监听器", ObserverType.STANDARD);
     }
 
 

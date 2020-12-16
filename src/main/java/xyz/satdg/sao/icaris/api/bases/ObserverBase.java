@@ -2,7 +2,8 @@ package xyz.satdg.sao.icaris.api.bases;
 
 import net.mamoe.mirai.event.SimpleListenerHost;
 import xyz.satdg.sao.icaris.api.Observer;
-import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
+
+import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 
 /**
  * 事件基础类
@@ -11,7 +12,7 @@ import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
 public abstract class ObserverBase extends SimpleListenerHost implements Observer {
 
     public void log(){
-        IcarisLoger.getLoger().info("监听器触发<"+this.listenerStd().getListenerGroupName()+">");
+        ICARIS_LOGGER.info("监听器触发<"+this.listenerStd().getListenerGroupName()+">");
     }
     @Override
     public String toString() {

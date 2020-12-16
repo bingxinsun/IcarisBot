@@ -1,7 +1,8 @@
 package xyz.satdg.sao.icaris.api.bases;
 
 import xyz.satdg.sao.icaris.api.Command;
-import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
+
+import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 
 /**
  * Command系统基础
@@ -10,7 +11,7 @@ import xyz.satdg.sao.icaris.core.Loger.IcarisLoger;
 public abstract class CommandBase implements Command {
 
     public void log(){
-        IcarisLoger.getLoger().info("指令触发<"+this.command().getCommandName()+">");
+        ICARIS_LOGGER.info("指令触发<"+this.command().getCommandName()+">");
     }
     @Override
     public String toString() {
