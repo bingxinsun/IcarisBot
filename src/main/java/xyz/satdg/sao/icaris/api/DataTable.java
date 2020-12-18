@@ -9,6 +9,11 @@ import xyz.satdg.sao.icaris.base.TableStd;
  */
 public interface DataTable<T extends DbObject> {
 
+    enum TableState {
+        NOT_FOUND,
+        CREATING,
+        CREATE_SUCCESS,
+    }
     /**
      * 获得数据库对象
      * @return 数据库对象

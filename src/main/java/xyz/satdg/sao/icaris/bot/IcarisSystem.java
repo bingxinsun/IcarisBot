@@ -5,7 +5,6 @@ import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.ListeningStatus;
 import net.mamoe.mirai.event.SimpleListenerHost;
 import net.mamoe.mirai.event.events.BotOnlineEvent;
-import xyz.satdg.sao.icaris.api.Loader;
 import xyz.satdg.sao.icaris.core.CommandSystem;
 import xyz.satdg.sao.icaris.core.DbSystem;
 import xyz.satdg.sao.icaris.core.ObserverSystem;
@@ -15,11 +14,11 @@ import xyz.satdg.sao.icaris.core.ObserverSystem;
  * ->在机器人第一次登录之后进行加载
  * @author GongSunink
  */
-public class IcarisLoader extends SimpleListenerHost implements Loader {
+public class IcarisSystem extends SimpleListenerHost implements xyz.satdg.sao.icaris.api.IcarisSystem {
 
     @EventHandler(priority = Listener.EventPriority.HIGHEST)
     public ListeningStatus onBotFristLogin(BotOnlineEvent event){
-        event.getBot().getLogger().info("initializing Icaris System pre-loading...");
+        event.getBot().getLogger().info("initializing Icaris IcarisSystem pre-loading...");
         DbSystem.jobStart();
         CommandSystem.jobStart();
         ObserverSystem.jobStart(event.getBot());

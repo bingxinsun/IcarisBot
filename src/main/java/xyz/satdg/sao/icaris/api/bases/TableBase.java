@@ -8,10 +8,5 @@ import xyz.satdg.sao.icaris.api.DbObject;
  * @author GongSunink
  */
 public abstract class TableBase<T extends DbObject> implements DataTable<T> {
-    enum TableState{
-        NOT_FOUND,
-        CREATING,
-        CREATE_SUCCESS,
 
-    }
 }

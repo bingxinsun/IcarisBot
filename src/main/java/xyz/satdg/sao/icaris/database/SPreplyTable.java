@@ -76,7 +76,8 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
     @Override
     public void insert(SpMessageStd spMessageStd) {
             try {
-                PreparedStatement statement = DbSystem.getGlobalConnection().prepareStatement(
+                PreparedStatement statement = DbSystem.getGlobalConnection().
+                        prepareStatement(
                         "insert into SpReplyTable " + "values(?,?,?,?,?,?)");
                 statement.setLong(1,spMessageStd.getSenderId());
                 statement.setString(2,spMessageStd.getMessage());
@@ -84,6 +85,7 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
                 statement.setString(4,spMessageStd.getGroupName());
                 statement.setLong(5,spMessageStd.getGrouopId());
                 statement.setString(6,spMessageStd.getSenderNick());
+
                 /*
                  * consider the statement and connection
                  * ,when finish using them, must release lock
@@ -103,7 +105,8 @@ public class SPreplyTable extends TableBase<SpMessageStd> {
             try {
                 ICARIS_LOGGER.info("Data Table<" + this.tableStd().getTableName()+
                         ">dose not Exist,Creating a new");
-                DbSystem.getGlobalConnection().createStatement().execute("CREATE TABLE " +
+                DbSystem.getGlobalConnection().createStatement().execute("" +
+                        "CREATE TABLE " +
                         "SpReplyTable(" +
                         "ID INT  NOT NULL," +
                         "Message  TEXT  NOT NULL," +

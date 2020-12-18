@@ -1,5 +1,6 @@
 package xyz.satdg.sao.icaris.core;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import xyz.satdg.sao.icaris.api.bases.TableBase;
 import xyz.satdg.sao.icaris.database.MessageTable;
 import xyz.satdg.sao.icaris.database.PlayerTable;
@@ -19,7 +20,7 @@ import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
  * 数据库系统
  * @author GongSunink
  */
-public class DbSystem {
+public final class DbSystem extends Loader {
     private static HashMap<String, TableBase> tableMap = new HashMap<>();
 
     private static Connection globalConnection;

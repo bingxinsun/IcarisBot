@@ -3,5 +3,5 @@ package xyz.satdg.sao.icaris.api;
 /**
  * @author GongSunink
  */
-public interface Loader {
+public interface IcarisSystem {
 }

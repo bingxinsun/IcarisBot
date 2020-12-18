@@ -11,10 +11,10 @@ import java.util.*;
 import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 
 /**
- * 指令工具类
+ * command system
  * @author GongSunink
  */
-public class CommandSystem {
+public final class CommandSystem {
 
     private static HashMap<String,Command> commandMap =new HashMap<>();
 
@@ -46,10 +46,10 @@ public class CommandSystem {
     }
 
     private static void initByManual(Command ...commands) {
-        registCommands(commands);
+        registerCommands(commands);
     }
 
-    private static void registCommands(Command ...commands){
+    private static void registerCommands(Command... commands) {
         for (Command command: commands) {
             CommandSystem.commandMap.put(command.command().getCommandHead(),command);
         }
