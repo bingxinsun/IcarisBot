@@ -1,6 +1,5 @@
 package xyz.satdg.sao.icaris.api;
 
-import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;

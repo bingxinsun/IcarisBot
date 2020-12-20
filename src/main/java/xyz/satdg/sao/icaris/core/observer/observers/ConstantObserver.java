@@ -43,8 +43,8 @@ public class ConstantObserver extends ObserverBase {
      */
 //    @EventHandler(priority = Listener.EventPriority.HIGHEST)
 //    public ListeningStatus constantMessageListener(MessageEvent event){
-//        if (firstThread &&IcarisSystem.currentTimeMillis()-timeNow >= 5000){
-//            timeNow=IcarisSystem.currentTimeMillis();
+//        if (firstThread &&IcarisLoader.currentTimeMillis()-timeNow >= 5000){
+//            timeNow=IcarisLoader.currentTimeMillis();
 //            firstThread =false;
 //            try{
 //                String message = event.getMessage().contentToString();

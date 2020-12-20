@@ -16,7 +16,7 @@ import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 /**
  * @author GongSunink
  */
-public class ObserverSystem {
+public final class ObserverSystem {
 
     private static Set<SimpleListenerHost> observerSet = new HashSet<>();
 
