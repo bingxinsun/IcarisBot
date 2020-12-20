@@ -19,6 +19,7 @@ public class CommandDebug extends CommandBase {
         return new CommandStd("debug命令","debug",1);
     }
 
+
     @Override
     public boolean execute(Message message, List<String> args, User sender, @NotNull Contact Subject) {
         //Subject.sendMessage("当前时间->\"+new Date().toString()+\"\\n\"+\"机器人实例->\"+Subject.getBot().toString()");
