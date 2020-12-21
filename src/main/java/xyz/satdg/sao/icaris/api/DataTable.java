@@ -34,7 +34,7 @@ public interface DataTable<T extends DbObject> {
 
     /**
      * 选择函数，返回选择的对象
-     * @param object 需要选择的对象
+     * @param object 需要选择的键
      * @return 对象
      */
     T select(T object);

@@ -8,7 +8,7 @@ import net.mamoe.mirai.event.ListeningStatus;
 import net.mamoe.mirai.message.MessageEvent;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
-import xyz.satdg.sao.icaris.database.SPreplyTable;
+import xyz.satdg.sao.icaris.database.sPreplytable;
 
 
 /**
@@ -19,7 +19,7 @@ public class DialogueStudyObserver extends ObserverBase {
 
     private int studySequence=-1;
     private User user;
-    SPreplyTable sPreplyTable= new SPreplyTable();
+    sPreplytable sPreplyTable = new sPreplytable();
     String messageReq;
 
     @Override
@@ -54,7 +54,7 @@ public class DialogueStudyObserver extends ObserverBase {
 //        }
 //        if (studySequence==1){
 //            studySequence=-1;
-//            sPreplyTable.insert(new SpMessageStd(event.getSender().getId(),this.messageReq,event.getMessage().contentToString()
+//            sPreplytable.insert(new SpMessageStd(event.getSender().getId(),this.messageReq,event.getMessage().contentToString()
 //                    ,(event instanceof  GroupMessageEvent ?
 //                            ((GroupMessageEvent) event).getGroup().getName() : null),
 //                    (event instanceof  GroupMessageEvent ?

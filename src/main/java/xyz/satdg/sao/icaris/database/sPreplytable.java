@@ -17,7 +17,7 @@ import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
  * @author GongSunink
  */
 @Table(tableName = "SpReplyTable",dbName = "BotDB")
-public class SPreplyTable extends TableBase<SpMessageStd> {
+public class sPreplytable extends TableBase<SpMessageStd> {
 
     @Override
     public TableStd tableStd() {

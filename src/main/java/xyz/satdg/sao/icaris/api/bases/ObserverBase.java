@@ -6,12 +6,12 @@ import xyz.satdg.sao.icaris.api.Observer;
 import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 
 /**
- * 事件基础类
+ * 监听器基础类
  * @author GongSunink
  */
 public abstract class ObserverBase extends SimpleListenerHost implements Observer {
 
-    public void log(){
+    protected void log() {
         ICARIS_LOGGER.info("监听器触发<"+this.listenerStd().getListenerGroupName()+">");
     }
     @Override
