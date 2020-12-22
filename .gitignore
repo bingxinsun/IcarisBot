@@ -6,4 +6,10 @@
 .idea
 *.iml
 out
-gen
+BotLog
+BotDB.db
+.gradle
+helper
+META-INF
+device.json
+gr
