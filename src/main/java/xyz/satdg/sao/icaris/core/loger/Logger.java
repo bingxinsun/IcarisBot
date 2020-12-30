@@ -71,7 +71,7 @@ public class Logger extends MiraiLoggerPlatformBase {
                 }else {
                     return file;
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
                 this.error(e);
             }
         }
@@ -79,10 +79,33 @@ public class Logger extends MiraiLoggerPlatformBase {
     }
 
 
+    static class LoggerMessageBuilder {
+        private String message;
+        private LogType logType;
+
+        public LoggerMessageBuilder() {
+        }
+
+        public LoggerMessageBuilder(String message) {
+            this.message = message;
+        }
+
+        public LoggerMessageBuilder(String message, LogType logType) {
+            this.message = message;
+            this.logType = logType;
+        }
+
+        public void append(String message) {
+            this.message.toCharArray()[this.message.lastIndexOf("↑")] = '↓';
+            this.message += message + "↑";
+        }
+    }
+
+
     /**
      * log Type
      */
-    enum LogType{
+    enum LogType {
         /**
          * debug,verbose,error,info,warning is five conditions for log message
          */

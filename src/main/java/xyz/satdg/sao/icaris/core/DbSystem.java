@@ -125,5 +125,4 @@ public final class DbSystem extends Loader {
     public static TableBase getTable(String name){
         return tableMap.getOrDefault(name,null);
     }
-
 }

@@ -12,3 +12,6 @@ BotDB.db
 helper
 META-INF
 device.json
+gradlew.bat
+icaris.drawio
+icaris.properties
