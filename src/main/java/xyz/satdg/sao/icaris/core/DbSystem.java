@@ -20,6 +20,7 @@ import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
  * 数据库系统
  * @author GongSunink
  */
+@SuppressWarnings("rawtypes")
 public final class DbSystem extends Loader {
     private static HashMap<String, TableBase> tableMap = new HashMap<>();
 
@@ -40,9 +41,8 @@ public final class DbSystem extends Loader {
                 try {
                     if (c.newInstance() instanceof  TableBase){
                         tableMap.put((((TableBase) c.newInstance()).tableStd().getTableName())
-                                ,(TableBase)(c.newInstance()));
-                        Method initMethod = c.getMethod("initTable");
-                        initMethod.invoke(c.newInstance(), (Object[]) null);
+                                , (TableBase) (c.newInstance()));
+                        c.getMethod("initTable").invoke(c.newInstance(), (Object[]) null);
                     }
                 }catch (NoSuchMethodException |InstantiationException |IllegalAccessException |
                 InvocationTargetException e){
