@@ -42,6 +42,6 @@
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/satdg/sao/icaris/core/observer/observers/SpreplyObserver.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/satdg/sao/icaris/database/MessageTable.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/xyz/satdg/sao/icaris/database/PlayerTable.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/xyz/satdg/sao/icaris/database/sPreplytable.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/xyz/satdg/sao/icaris/database/Spreplytable.java" charset="UTF-8" />
   </component>
 </project>

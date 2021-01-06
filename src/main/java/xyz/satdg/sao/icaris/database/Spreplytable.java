@@ -14,10 +14,11 @@ import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 
 /**
  * special reply datatable
+ *
  * @author GongSunink
  */
-@Table(tableName = "SpReplyTable",dbName = "BotDB")
-public class sPreplytable extends TableBase<SpMessageStd> {
+@Table(tableName = "SpReplyTable", dbName = "BotDB")
+public class Spreplytable extends TableBase<SpMessageStd> {
 
     @Override
     public TableStd tableStd() {

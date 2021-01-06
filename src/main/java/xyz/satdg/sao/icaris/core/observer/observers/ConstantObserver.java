@@ -1,19 +1,22 @@
 package xyz.satdg.sao.icaris.core.observer.observers;
 
+
+import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.ListeningStatus;
-import net.mamoe.mirai.message.GroupMessageEvent;
 import net.mamoe.mirai.message.MessageEvent;
+import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.Image;
+import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.sf.json.JSONObject;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
-import xyz.satdg.sao.icaris.core.loger.exception.IceAPIException;
-import xyz.satdg.sao.icaris.core.observer.SaveMessages;
-import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -21,8 +24,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import static sun.plugin.javascript.navig.JSType.Image;
+
 /**
- *常监听器，优先级最高，不能打断或是取消
+ * 常监听器，优先级最高，不能打断或是取消
+ *
  * @author GongSunink
  */
 public class ConstantObserver extends ObserverBase {
@@ -39,12 +45,22 @@ public class ConstantObserver extends ObserverBase {
 
     /**
      * 记录消息以及回复消息（通过小冰api）暂时，标注synchronized避免多线程占用，同时原子化操作防止2次引用
+     *
      * @param event 消息事件
      */
-//    @EventHandler(priority = Listener.EventPriority.HIGHEST)
-//    public ListeningStatus constantMessageListener(MessageEvent event){
-//        if (firstThread &&IcarisLoader.currentTimeMillis()-timeNow >= 5000){
-//            timeNow=IcarisLoader.currentTimeMillis();
+    @EventHandler(priority = Listener.EventPriority.HIGHEST)
+    public ListeningStatus constantMessageListener(MessageEvent event) {
+        System.out.println(MiraiCode.parseMiraiCode(event.getMessage().toString()).get(1));
+        event.getSubject().sendMessage(
+                new MessageChainBuilder().append(event.getMessage().get(1)).asMessageChain());
+        System.out.println(event.getBot().queryImageUrl((net.mamoe.mirai.message.data.Image)
+                event.getMessage().get(1)));
+        System.out.println(event.getBot().queryImageUrl((
+                event.getSubject().uploadImage(new File("C:\\Users\\18202\\Desktop\\1\\123.jpg")))));
+
+        return ListeningStatus.LISTENING;
+//        if (firstThread &&System.currentTimeMillis()-timeNow >= 5000){
+//            timeNow=System.currentTimeMillis();
 //            firstThread =false;
 //            try{
 //                String message = event.getMessage().contentToString();
@@ -102,7 +118,7 @@ public class ConstantObserver extends ObserverBase {
 //                        event).getGroup().getName():"NULL",(event instanceof GroupMessageEvent) ?
 //                        ((GroupMessageEvent) event).getGroup().getId():0);
 //        return ListeningStatus.LISTENING;
-//    }
+    }
 
 
     private void tryAnother(MessageEvent event) throws IOException {

@@ -4,11 +4,10 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import xyz.satdg.sao.icaris.api.bases.TableBase;
 import xyz.satdg.sao.icaris.database.MessageTable;
 import xyz.satdg.sao.icaris.database.PlayerTable;
-import xyz.satdg.sao.icaris.database.sPreplytable;
+import xyz.satdg.sao.icaris.database.Spreplytable;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -46,13 +45,13 @@ public final class DbSystem extends Loader {
                     }
                 }catch (NoSuchMethodException |InstantiationException |IllegalAccessException |
                 InvocationTargetException e){
-                    ICARIS_LOGGER.error("数据表自动挂载失败,正在进行手动挂载",e);
-                    initByManual(new MessageTable(), new PlayerTable(), new sPreplytable());
+                    ICARIS_LOGGER.error("数据表自动挂载失败,正在进行手动挂载", e);
+                    initByManual(new MessageTable(), new PlayerTable(), new Spreplytable());
                 }
             }
         }else {
             ICARIS_LOGGER.error("数据表自动挂载失败,正在进行手动挂载");
-            initByManual(new MessageTable(), new PlayerTable(), new sPreplytable());
+            initByManual(new MessageTable(), new PlayerTable(), new Spreplytable());
         }
         ICARIS_LOGGER.info("数据表自动挂载完成!");
     }

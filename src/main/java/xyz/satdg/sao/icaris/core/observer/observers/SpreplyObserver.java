@@ -19,7 +19,7 @@ public class SpreplyObserver extends ObserverBase {
     }
 
     @EventHandler(priority = Listener.EventPriority.LOW)
-    public void spreplyListener(MessageEvent event){
+    public void spreplyListener(MessageEvent event) {
 //        if (sPreplytable.select(event.getMessage().contentToString())!=null){
 //            event.getSubject().sendMessage(sPreplytable.select(event.getMessage().contentToString()));
 //        }
