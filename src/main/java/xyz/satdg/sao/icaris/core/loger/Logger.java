@@ -37,30 +37,38 @@ public class Logger extends MiraiLoggerPlatformBase {
 
     public void redirectLogToDir(File redirectTo) {
         this.redirectTo = creatLogFile(redirectTo);
-        try{
-            this.writer = new FileWriter(this.redirectTo);
+        try {
+            if (this.redirectTo != null) {
+                this.writer = new FileWriter(this.redirectTo);
+            }
             this.debug("logger is now recording with file");
-        }catch (IOException e){
+        } catch (IOException e) {
             this.error(e);
         }
         this.needReDirect = true;
     }
 
-    private File creatLogFile(File file){
-        if (file.exists()){
-            if (file.isDirectory()){
-                try{
-                    file = new File(file.getPath()+File.separator+loggerName+
-                            new SimpleDateFormat("MM-dd").format(new Date()) +".txt");
-                    if (file.exists()){
+    /**
+     * 创建日志文件，提供父目录，如果文件创建成功则继续执行，失败则抛出异常
+     *
+     * @param file 父目录文件
+     * @return log文件
+     */
+    private File creatLogFile(File file) {
+        if (file.exists()) {
+            if (file.isDirectory()) {
+                try {
+                    file = new File(file.getPath() + File.separator + loggerName +
+                            new SimpleDateFormat("MM-dd-hh").format(new Date()) + ".log");
+                    if (file.exists()) {
                         return file;
                     }
-                    if (!file.createNewFile()){
+                    if (!file.createNewFile()) {
                         throw new FileSystemException("logger file creat failed");
-                    }else {
+                    } else {
                         return file;
                     }
-                }catch (IOException e){
+                } catch (IOException e) {
                     this.error(e);
                 }
             }
