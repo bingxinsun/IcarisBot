@@ -67,7 +67,6 @@ public class Spreplytable extends TableBase<SpMessageStd> {
                     return result;
                 }
             }
-            return result;
         }catch (SQLException e){
             ICARIS_LOGGER.error(e);
         }
@@ -83,9 +82,9 @@ public class Spreplytable extends TableBase<SpMessageStd> {
                 statement.setLong(1,spMessageStd.getSenderId());
                 statement.setString(2,spMessageStd.getMessage());
                 statement.setString(3,spMessageStd.getReturnMessage());
-                statement.setString(4,spMessageStd.getGroupName());
-                statement.setLong(5,spMessageStd.getGrouopId());
-                statement.setString(6,spMessageStd.getSenderNick());
+                statement.setString(4, spMessageStd.getGroupName());
+                statement.setLong(5, spMessageStd.getGroupId());
+                statement.setString(6, spMessageStd.getSenderNick());
 
                 /*
                  * consider the statement and connection

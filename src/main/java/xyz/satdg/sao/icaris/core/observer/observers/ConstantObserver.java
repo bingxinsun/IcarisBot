@@ -4,11 +4,16 @@ package xyz.satdg.sao.icaris.core.observer.observers;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.ListeningStatus;
+import net.mamoe.mirai.message.GroupMessageEvent;
 import net.mamoe.mirai.message.MessageEvent;
 import net.mamoe.mirai.message.code.MiraiCode;
+import net.mamoe.mirai.message.data.Face;
+import net.mamoe.mirai.message.data.Image;
 import net.sf.json.JSONObject;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
+import xyz.satdg.sao.icaris.core.IcarisBotSystem;
+import xyz.satdg.sao.icaris.core.observer.SaveMessages;
 
 
 import java.io.BufferedReader;
@@ -19,6 +24,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+
+import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
+
 /**
  * 常监听器，优先级最高，不能打断或是取消
  *
@@ -32,7 +40,7 @@ public class ConstantObserver extends ObserverBase {
                 "常监听器", ObserverType.CONSTANT);
     }
 
-    private boolean firstThread = true;
+    private boolean firstInThread = true;
 
     private long timeNow;
 
@@ -43,14 +51,23 @@ public class ConstantObserver extends ObserverBase {
      */
     @EventHandler(priority = Listener.EventPriority.HIGHEST)
     public ListeningStatus constantMessageListener(MessageEvent event) {
-        System.out.println(MiraiCode.parseMiraiCode(event.getMessage().toString()).get(1));
+        for (int i = 0; i < event.getMessage().size(); i++) {
+            if (event.getMessage().get(i) instanceof Image) {
+                ICARIS_LOGGER.info(event.getBot().queryImageUrl((Image) event.getMessage().get(i)));
+            }
+        }
+        SaveMessages.save(event.getSender().getId(), event.getMessage().contentToString(),
+                event.getSender().getNick(), (event instanceof GroupMessageEvent) ? ((GroupMessageEvent)
+                        event).getGroup().getName() : "NULL", (event instanceof GroupMessageEvent) ?
+                        ((GroupMessageEvent) event).getGroup().getId() : 0);
+
+//        System.out.println(MiraiCode.parseMiraiCode(event.getMessage().toString()).get(1));
 //        event.getSubject().sendMessage(
 //                new MessageChainBuilder().append(event.getMessage().get(1)).asMessageChain());
-        System.out.println(event.getBot().queryImageUrl((net.mamoe.mirai.message.data.Image)
-                event.getMessage().get(1)));
-        System.out.println(event.getMessage().get(0));
-        System.out.println(event.getBot().queryImageUrl((
-                event.getSubject().uploadImage(new File("C:\\Users\\18202\\Desktop\\1\\test3.bmp")))));
+
+//        System.out.println(event.getMessage().get(0));
+//        System.out.println(event.getBot().queryImageUrl((
+//                event.getSubject().uploadImage(new File("C:\\Users\\18202\\Desktop\\1\\test3.bmp")))));
         return ListeningStatus.LISTENING;
 //        if (firstThread &&System.currentTimeMillis()-timeNo000){
 ////            timeNow=System.currentTimeMillis();
@@ -106,10 +123,7 @@ public class ConstantObserver extends ObserverBase {
 //                ICARIS_LOGGER.error("retrying...",new IceAPIException(e));
 //            }
 //        }
-//        SaveMessages.save(event.getSender().getId(),event.getMessage().contentToString(),
-//                event.getSender().getNick(),(event instanceof GroupMessageEvent) ? ((GroupMessageEvent)
-//                        event).getGroup().getName():"NULL",(event instanceof GroupMessageEvent) ?
-//                        ((GroupMessageEvent) event).getGroup().getId():0);
+
 //        return ListeningStatus.LISTENING;
     }
 

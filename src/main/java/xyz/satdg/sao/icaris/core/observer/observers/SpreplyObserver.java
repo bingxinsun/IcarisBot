@@ -5,6 +5,9 @@ import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.message.MessageEvent;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
+import xyz.satdg.sao.icaris.base.SpMessageStd;
+import xyz.satdg.sao.icaris.core.DbSystem;
+import xyz.satdg.sao.icaris.database.Spreplytable;
 
 /**
  * @author GongSunink
@@ -20,8 +23,6 @@ public class SpreplyObserver extends ObserverBase {
 
     @EventHandler(priority = Listener.EventPriority.LOW)
     public void spreplyListener(MessageEvent event) {
-//        if (sPreplytable.select(event.getMessage().contentToString())!=null){
-//            event.getSubject().sendMessage(sPreplytable.select(event.getMessage().contentToString()));
-//        }
+        // DbSystem.getTable("SpReplyTable").select(new SpMessageStd())
     }
 }

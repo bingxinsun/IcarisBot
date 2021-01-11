@@ -12,6 +12,8 @@ public interface ActiveLoader {
 
     /**
      * this method drops system
+     *
+     * @return this return which the func running state
      */
     boolean drop();
 

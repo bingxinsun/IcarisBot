@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -173,9 +174,12 @@ public class Logger extends MiraiLoggerPlatformBase {
                             "\n[CheckMessage:%s]↓" +
                             "\n<Exception:%s>↓" +
                             "\n<ExceptionCheckMessage:%s>↓" +
+                            "\n<Traces:%s>↓" +
                             "\n<CauseBy:%s>↑"
-                    , loggerName,new Date(),logType,message,
-                    throwable.toString(),throwable.getMessage(),throwable.getCause());
+                    , loggerName, new Date(), logType, message,
+                    throwable.toString(), throwable.getMessage(),
+                    Arrays.toString(throwable.getStackTrace())
+                    , throwable.getCause());
         }
     }
 

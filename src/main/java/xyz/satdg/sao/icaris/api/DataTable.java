@@ -16,6 +16,7 @@ public interface DataTable<T extends DbObject> {
     }
     /**
      * 获得数据库对象
+     *
      * @return 数据库对象
      */
     TableStd tableStd();

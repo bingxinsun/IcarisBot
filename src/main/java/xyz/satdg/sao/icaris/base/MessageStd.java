@@ -11,7 +11,7 @@ public class MessageStd implements DbObject {
     private String message;
     private String senderNick;
     private String groupName;
-    private long grouopId;
+    private long groupId;
 
     public long getSenderId() {
         return senderId;
@@ -45,12 +45,12 @@ public class MessageStd implements DbObject {
         this.groupName = groupName;
     }
 
-    public long getGrouopId() {
-        return grouopId;
+    public long getGroupId() {
+        return groupId;
     }
 
-    public void setGrouopId(long grouopId) {
-        this.grouopId = grouopId;
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
     }
 
     public MessageStd(long senderId, String message, String senderNick, String groupName
@@ -59,7 +59,7 @@ public class MessageStd implements DbObject {
         this.message = message;
         this.senderNick = senderNick;
         this.groupName = groupName;
-        this.grouopId = grouopId;
+        this.groupId = grouopId;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class MessageStd implements DbObject {
                 ", message='" + message + '\'' +
                 ", senderNick='" + senderNick + '\'' +
                 ", groupName='" + groupName + '\'' +
-                ", grouopId=" + grouopId +
+                ", grouopId=" + groupId +
                 '}';
     }
 }

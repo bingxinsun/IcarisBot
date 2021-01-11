@@ -41,14 +41,15 @@ public class MessageTable extends TableBase<MessageStd> {
     @Override
     public void insert(MessageStd messageStd){
             try {
-                PreparedStatement statement = DbSystem.getGlobalConnection().prepareStatement("" +
-                        "insert into MESSAGETABLE values(?,?,?,?,?)");
-                statement.setLong(1,messageStd.getSenderId());
-                statement.setString(2,messageStd.getMessage());
-                statement.setString(3,messageStd.getSenderNick());
-                statement.setString(4,messageStd.getGroupName());
-                statement.setLong(5,messageStd.getGrouopId());
-
+                PreparedStatement statement = DbSystem.getGlobalConnection().
+                        prepareStatement("" +
+                                "insert into MessageTable(QQ_ID,Message,Author" +
+                                ",GroupName,GroupId) values(?,?,?,?,?);");
+                statement.setLong(1, messageStd.getSenderId());
+                statement.setString(2, messageStd.getMessage());
+                statement.setString(3, messageStd.getSenderNick());
+                statement.setString(4, messageStd.getGroupName());
+                statement.setLong(5, messageStd.getGroupId());
                 statement.execute();
                 statement.close();
                 /*
@@ -56,7 +57,7 @@ public class MessageTable extends TableBase<MessageStd> {
                  * 对象直接被销毁
                  */
             }catch (SQLException e){
-                ICARIS_LOGGER.error(new MessageSaveFailedException(this));
+                ICARIS_LOGGER.error(new MessageSaveFailedException(this, e));
             }
         }
 
@@ -66,15 +67,16 @@ public class MessageTable extends TableBase<MessageStd> {
             ICARIS_LOGGER.info("数据表<" +this.tableStd().getTableName() + ">加载完成");
         }else {
             try {
-                ICARIS_LOGGER.info("数据表<" + this.tableStd().getTableName()+
+                ICARIS_LOGGER.info("数据表<" + this.tableStd().getTableName() +
                         ">不存在，正在创建表");
                 DbSystem.getGlobalConnection().createStatement().execute("CREATE " +
                         "TABLE MessageTable"
-                        + "(ID INTEGER NOT NULL," +
+                        + "(Global_ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                        "QQ_ID INTEGER NOT NULL," +
                         "Message  TEXT  NOT NULL," +
                         "Author TEXT NOT NULL," +
                         "GroupName TEXT," +
-                        "GroupId INTEGER)");
+                        "GroupId INTEGER);");
                 ICARIS_LOGGER.info("数据表<" + this.tableStd().getTableName() +
                         ">创建成功");
             } catch (SQLException e) {

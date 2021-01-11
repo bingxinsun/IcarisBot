@@ -2,7 +2,6 @@ package xyz.satdg.sao.icaris;
 
 
 import xyz.satdg.sao.icaris.core.IcarisBotSystem;
-import xyz.satdg.sao.icaris.core.LoadAll;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
