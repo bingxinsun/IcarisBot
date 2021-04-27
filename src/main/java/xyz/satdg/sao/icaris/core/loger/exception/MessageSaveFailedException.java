@@ -9,10 +9,10 @@ import java.sql.SQLException;
  */
 public class MessageSaveFailedException extends SQLException {
 
-    private TableBase tableBase;
+    private TableBase<?> tableBase;
     private Throwable throwable;
 
-    public MessageSaveFailedException(TableBase tableBase, Throwable throwable) {
+    public MessageSaveFailedException(TableBase<?> tableBase, Throwable throwable) {
         this.tableBase = tableBase;
         this.throwable = throwable;
     }

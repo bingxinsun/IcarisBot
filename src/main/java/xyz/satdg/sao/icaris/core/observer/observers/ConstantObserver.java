@@ -42,6 +42,7 @@ public class ConstantObserver extends ObserverBase {
 
     private boolean firstInThread = true;
 
+
     private long timeNow;
 
     /**
@@ -56,6 +57,7 @@ public class ConstantObserver extends ObserverBase {
                 ICARIS_LOGGER.info(event.getBot().queryImageUrl((Image) event.getMessage().get(i)));
             }
         }
+
         SaveMessages.save(event.getSender().getId(), event.getMessage().contentToString(),
                 event.getSender().getNick(), (event instanceof GroupMessageEvent) ? ((GroupMessageEvent)
                         event).getGroup().getName() : "NULL", (event instanceof GroupMessageEvent) ?

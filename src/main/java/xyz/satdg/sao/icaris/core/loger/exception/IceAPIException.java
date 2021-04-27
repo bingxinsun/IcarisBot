@@ -1,6 +1,5 @@
 package xyz.satdg.sao.icaris.core.loger.exception;
 
-import javafx.scene.control.IndexedCell;
 
 /**
  * @author GongSunink

@@ -59,7 +59,5 @@ public final class ObserverSystem {
         for (SimpleListenerHost observer : observers){
             Events.registerEvents(bot,observer);
         }
-
     }
-
 }

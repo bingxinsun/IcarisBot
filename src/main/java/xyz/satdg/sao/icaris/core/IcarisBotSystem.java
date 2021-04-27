@@ -1,12 +1,11 @@
 package xyz.satdg.sao.icaris.core;
 
-
-import innercore.systemscheduler.loader.Loader;
-import innercore.systemscheduler.loader.PassiveLoader;
+import finalcore.Loader;
+import finalcore.PassiveLoader;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactoryJvm;
-import net.mamoe.mirai.event.Events;
-import net.mamoe.mirai.event.SimpleListenerHost;
+import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.utils.BotConfiguration;
 import xyz.satdg.sao.icaris.bot.IcarisLoader;
 import xyz.satdg.sao.icaris.core.loger.Logger;
@@ -40,8 +39,9 @@ public final class IcarisBotSystem {
         configuration.fileBasedDeviceInfo();
         configuration.setNetworkLoggerSupplier(bot-> ICARIS_LOGGER);
         configuration.setBotLoggerSupplier(bot-> ICARIS_LOGGER);
+        configuration.setProtocol(BotConfiguration.MiraiProtocol.ANDROID_WATCH);
         Bot bot= BotFactoryJvm.newBot(QQid,QQpwd,configuration);
-        Events.registerEvents(bot, (SimpleListenerHost) icarisSystem);
+        //Events.registerEvents(bot, (SimpleListenerHost) icarisSystem);
         bot.login();
         new Thread(()->{
             bot.join();

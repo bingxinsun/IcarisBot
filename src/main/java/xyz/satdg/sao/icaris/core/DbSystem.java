@@ -1,6 +1,6 @@
 package xyz.satdg.sao.icaris.core;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
+
 import xyz.satdg.sao.icaris.api.bases.TableBase;
 import xyz.satdg.sao.icaris.database.MessageTable;
 import xyz.satdg.sao.icaris.database.PlayerTable;
@@ -20,15 +20,18 @@ import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
  * @author GongSunink
  */
 @SuppressWarnings("rawtypes")
-public final class DbSystem extends Loader {
+public final class DbSystem{
     private static HashMap<String, TableBase> tableMap = new HashMap<>();
 
     private static Connection globalConnection;
 
     @SuppressWarnings("unchecked")
-    public static void jobStart(){
+    public static boolean jobStart(){
         ICARIS_LOGGER.info("正在数据表进行自动挂载");
         checkDbs("BotDB");
+        if (globalConnection == null){
+            return false;
+        }
         Set<Class<?>> classSet = null;
         try {
             classSet = ClassScanner.scanSinglePackage("xyz.satdg.sao.icaris.database");
@@ -46,20 +49,22 @@ public final class DbSystem extends Loader {
                 }catch (NoSuchMethodException |InstantiationException |IllegalAccessException |
                 InvocationTargetException e){
                     ICARIS_LOGGER.error("数据表自动挂载失败,正在进行手动挂载", e);
-                    initByManual(new MessageTable(), new PlayerTable(), new Spreplytable());
+                    return  initByManual(new MessageTable(), new PlayerTable(), new Spreplytable());
                 }
             }
         }else {
             ICARIS_LOGGER.error("数据表自动挂载失败,正在进行手动挂载");
-            initByManual(new MessageTable(), new PlayerTable(), new Spreplytable());
+            return initByManual(new MessageTable(), new PlayerTable(), new Spreplytable());
         }
         ICARIS_LOGGER.info("数据表自动挂载完成!");
+        return true;
     }
 
-    private static void initByManual(TableBase ...tableBases){
+    private static boolean initByManual(TableBase ...tableBases){
         for (TableBase tableBase : tableBases) {
             tableBase.initTable();
         }
+        return true;
     }
 
 

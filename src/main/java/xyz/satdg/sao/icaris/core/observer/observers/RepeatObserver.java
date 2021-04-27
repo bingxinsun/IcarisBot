@@ -22,11 +22,10 @@ public class RepeatObserver extends ObserverBase {
 
 
     @EventHandler(priority = Listener.EventPriority.LOW)
-    public ListeningStatus repaterevent(GroupMessageEvent event) {
+    public ListeningStatus repeaterEvent(GroupMessageEvent event) {
         int repeaterP = 70;
         if (BasicFunction.getRand(repeaterP, 1) == 1) {
             this.log();
-
             event.getSubject().sendMessage(event.getMessage());
         }
         return ListeningStatus.LISTENING;

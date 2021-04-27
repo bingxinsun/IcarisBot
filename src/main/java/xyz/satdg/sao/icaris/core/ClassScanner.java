@@ -12,7 +12,7 @@ import java.util.jar.JarFile;
  */
 public class ClassScanner {
 
-    public static Set<Class<?>> scanPackage(String packageName) throws IOException,ClassNotFoundException{
+    public static Set<Class<?>> scanFullPackage(String packageName) throws IOException,ClassNotFoundException{
         Set<Class<?>> classSet = new HashSet<>(20);
         String path = ClassScanner.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         //get the absolute path of the package
@@ -26,6 +26,7 @@ public class ClassScanner {
             File file = new File(path);
             classSet = getClasses(new JarFile(file.getName()),packageName);
         }
+
         return classSet;
     }
 
@@ -39,6 +40,7 @@ public class ClassScanner {
         Set<Class<?>> classSet = new HashSet<>();
         String path = ClassScanner.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         //get the absolute path of the package
+
         if (System.getProperty("os.name").contains("dows")&&!path.contains(".jar")) {
             //if path contain "dows" and dose not contain jar,define it in a develop environment
             classSet=getClasses(packageName);
@@ -61,13 +63,14 @@ public class ClassScanner {
         String path = ClassScanner.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         //get the path of target class(int windows file system and in a develop environment)
         File dir = new File(path+targetPackage.replace(".","/"));
-        if (dir.isDirectory()) {    
+        if (dir.isDirectory()) {
             File[] files = dir.listFiles();
             if (files!=null){
                 for (File file : files) {
                     //using for-each statement to iterate files list
                     String className = file.getName();
-                    Class targetClass = Class.forName(targetPackage+ "." + className.split("\\.")[0]);
+                    Class<?> targetClass = Class.forName(targetPackage+ "."
+                            + className.split("\\.")[0]);
                     //try to get instance of the Class
                     classSet.add(targetClass);
                 }
@@ -91,9 +94,10 @@ public class ClassScanner {
             JarEntry element= entry.nextElement();
             if (element.getName().replace("/",".").contains(targetPackage)
                     &&element.getName().endsWith(".class")){
-                Class targetClass = Class.forName(targetPackage +
+                Class<?> targetClass = Class.forName(targetPackage +
                         "."+element.getName().substring(element.getName().
                         lastIndexOf("/")+1, element.getName().lastIndexOf(".")));
+                //1.目标类的全限定符名为目标名+
                     //get xxx of xxx.class
                 classSet.add(targetClass);
 
@@ -116,14 +120,15 @@ public class ClassScanner {
                     //it iterates packageName plus the dir file name as the father packageName of class
                     getClasses(value.getPath(), packageName + "." +
                             value.getName(), classSet);
+                    //insert last packageName path to next func stack
                 }
             }
-        }else {
+        }else { 
             if (file.getName().endsWith(".class")){
                 String classNameSps = packageName.substring(0,packageName.lastIndexOf("."));
                 //using for-each statement to iterate files list
                 try {
-                    Class targetClass = Class.forName(classNameSps);
+                    Class<?> targetClass = Class.forName(classNameSps);
                     //try to get instance of the Class
                     classSet.add(targetClass);
                 }catch (ClassNotFoundException e){

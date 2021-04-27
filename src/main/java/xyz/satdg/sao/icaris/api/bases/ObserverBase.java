@@ -25,7 +25,8 @@ public abstract class ObserverBase extends SimpleListenerHost implements Observe
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof ObserverBase){
-            return this.listenerStd().getListenerGroupName().equals(obj);
+            return this.listenerStd().getListenerGroupName().
+                    equals(((ObserverBase)obj).listenerStd().getListenerGroupName());
         }
         return false;
     }
