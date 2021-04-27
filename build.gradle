@@ -29,7 +29,7 @@ dependencies {
     compile 'net.sf.json-lib:json-lib:2.4:jdk15'
     compile 'org.xerial:sqlite-jdbc:3.21.0.1'
 
-    compile fileTree(dir: 'H:\\develop\\java\\Icaris\\finalcore\\src\\main\\java\\finalcore'
+    compile fileTree(dir: 'finalcore/src/main/java/finalcore'
             ,includes: ['*.java'])
 }
 
