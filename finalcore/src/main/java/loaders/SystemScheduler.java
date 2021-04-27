@@ -1,4 +1,4 @@
-package finalcore;
+package loaders;
 
 /**
  * to load systems

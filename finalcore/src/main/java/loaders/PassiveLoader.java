@@ -1,4 +1,4 @@
-package finalcore;
+package loaders;
 
 /**
  * this is a Passive activation loader interface

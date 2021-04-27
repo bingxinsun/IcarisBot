@@ -1,12 +1,13 @@
 package xyz.satdg.sao.icaris.core.observer.observers;
 
 import net.mamoe.mirai.event.EventHandler;
+import net.mamoe.mirai.event.EventPriority;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.ListeningStatus;
-import net.mamoe.mirai.message.FriendMessageEvent;
-import net.mamoe.mirai.message.GroupMessageEvent;
-import net.mamoe.mirai.message.MessageEvent;
-import net.mamoe.mirai.message.TempMessageEvent;
+import net.mamoe.mirai.event.events.FriendMessageEvent;
+import net.mamoe.mirai.event.events.GroupMessageEvent;
+import net.mamoe.mirai.event.events.MessageEvent;
+import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 
@@ -39,26 +40,26 @@ public class CommandObserver extends ObserverBase {
 
     }
 
-    @EventHandler(priority = Listener.EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public ListeningStatus messageListener(MessageEvent event){
         dueCommands(event);
         return ListeningStatus.LISTENING;
     }
 
-    @EventHandler(priority = Listener.EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public ListeningStatus groupListener(GroupMessageEvent event){
         dueCommands(event);
         return ListeningStatus.LISTENING;
     }
 
-    @EventHandler(priority = Listener.EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public ListeningStatus friendListener(FriendMessageEvent event){
         dueCommands(event);
         return ListeningStatus.LISTENING;
     }
 
-    @EventHandler(priority = Listener.EventPriority.HIGH)
-    public ListeningStatus tempListener(TempMessageEvent event){
+    @EventHandler(priority = EventPriority.HIGH)
+    public ListeningStatus tempListener(GroupTempMessageEvent event){
         dueCommands(event);
         return ListeningStatus.LISTENING;
     }

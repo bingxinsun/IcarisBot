@@ -1,13 +1,15 @@
 package xyz.satdg.sao.icaris.core.observer.observers;
 
 
+import net.mamoe.mirai.IMirai;
 import net.mamoe.mirai.event.EventHandler;
+import net.mamoe.mirai.event.EventPriority;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.ListeningStatus;
-import net.mamoe.mirai.message.GroupMessageEvent;
-import net.mamoe.mirai.message.MessageEvent;
-import net.mamoe.mirai.message.code.MiraiCode;
-import net.mamoe.mirai.message.data.Face;
+import net.mamoe.mirai.event.events.MessageEvent;
+import net.mamoe.mirai.event.events.GroupMessageEvent;
+import net.mamoe.mirai.event.events.FriendMessageEvent;
+import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import net.mamoe.mirai.message.data.Image;
 import net.sf.json.JSONObject;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
@@ -50,11 +52,11 @@ public class ConstantObserver extends ObserverBase {
      *
      * @param event 消息事件
      */
-    @EventHandler(priority = Listener.EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public ListeningStatus constantMessageListener(MessageEvent event) {
         for (int i = 0; i < event.getMessage().size(); i++) {
             if (event.getMessage().get(i) instanceof Image) {
-                ICARIS_LOGGER.info(event.getBot().queryImageUrl((Image) event.getMessage().get(i)));
+                ICARIS_LOGGER.info(Image.queryUrl((Image) event.getMessage().get(i)));
             }
         }
 

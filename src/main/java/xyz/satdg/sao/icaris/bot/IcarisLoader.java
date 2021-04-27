@@ -1,10 +1,7 @@
 package xyz.satdg.sao.icaris.bot;
 
-import finalcore.PassiveLoader;
-import net.mamoe.mirai.event.EventHandler;
-import net.mamoe.mirai.event.Listener;
-import net.mamoe.mirai.event.ListeningStatus;
-import net.mamoe.mirai.event.SimpleListenerHost;
+import loaders.PassiveLoader;
+import net.mamoe.mirai.event.*;
 import net.mamoe.mirai.event.events.BotOnlineEvent;
 import xyz.satdg.sao.icaris.core.CommandSystem;
 import xyz.satdg.sao.icaris.core.DbSystem;
@@ -22,7 +19,7 @@ import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
  */
 public class IcarisLoader extends SimpleListenerHost implements PassiveLoader {
 
-    @EventHandler(priority = Listener.EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public ListeningStatus onBotFirstLogin(BotOnlineEvent event){
         event.getBot().getLogger().info("initializing Icaris Systems pre-loading...");
         if (DbSystem.jobStart()){

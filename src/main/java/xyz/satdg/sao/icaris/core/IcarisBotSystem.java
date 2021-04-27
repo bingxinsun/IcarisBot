@@ -1,11 +1,11 @@
 package xyz.satdg.sao.icaris.core;
 
-import finalcore.Loader;
-import finalcore.PassiveLoader;
+import loaders.Loader;
+import loaders.PassiveLoader;
 import net.mamoe.mirai.Bot;
-import net.mamoe.mirai.BotFactoryJvm;
-import net.mamoe.mirai.contact.Group;
-import net.mamoe.mirai.message.data.At;
+import net.mamoe.mirai.BotFactory;
+import net.mamoe.mirai.event.Event;
+import net.mamoe.mirai.event.EventChannel;
 import net.mamoe.mirai.utils.BotConfiguration;
 import xyz.satdg.sao.icaris.bot.IcarisLoader;
 import xyz.satdg.sao.icaris.core.loger.Logger;
@@ -27,6 +27,7 @@ public final class IcarisBotSystem {
 
     public final static Properties ICARIS_PROPERTIES = new Properties();
 
+
     public static void start() throws IOException  {
         ICARIS_PROPERTIES.load(new FileReader("Icaris.properties"));
         creatBotAndLogin(Long.parseLong(ICARIS_PROPERTIES.getProperty("QQid")),
@@ -39,8 +40,8 @@ public final class IcarisBotSystem {
         configuration.fileBasedDeviceInfo();
         configuration.setNetworkLoggerSupplier(bot-> ICARIS_LOGGER);
         configuration.setBotLoggerSupplier(bot-> ICARIS_LOGGER);
-        configuration.setProtocol(BotConfiguration.MiraiProtocol.ANDROID_WATCH);
-        Bot bot= BotFactoryJvm.newBot(QQid,QQpwd,configuration);
+        configuration.setProtocol(BotConfiguration.MiraiProtocol.ANDROID_PHONE);
+        Bot bot= BotFactory.INSTANCE.newBot(QQid, QQpwd, configuration);
         //Events.registerEvents(bot, (SimpleListenerHost) icarisSystem);
         bot.login();
         new Thread(()->{

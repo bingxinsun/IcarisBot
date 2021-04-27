@@ -3,9 +3,10 @@ package xyz.satdg.sao.icaris.core.observer.observers;
 
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.event.EventHandler;
+import net.mamoe.mirai.event.EventPriority;
 import net.mamoe.mirai.event.Listener;
 import net.mamoe.mirai.event.ListeningStatus;
-import net.mamoe.mirai.message.MessageEvent;
+import net.mamoe.mirai.event.events.MessageEvent;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 import xyz.satdg.sao.icaris.database.Spreplytable;
@@ -38,7 +39,7 @@ public class DialogueStudyObserver extends ObserverBase {
      * @param event 消息时间
      * @return
      */
-    @EventHandler(priority = Listener.EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public ListeningStatus dialogueStudyListener(MessageEvent event){
 //        if ("对话学习".equals(event.getMessage().contentToString())&&studySequence==-1){
 //            user=event.getSender();

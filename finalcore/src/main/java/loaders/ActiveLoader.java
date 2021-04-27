@@ -1,4 +1,4 @@
-package finalcore;
+package loaders;
 
 /**
  * @author GongSunink
