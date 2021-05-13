@@ -48,7 +48,7 @@ public class ConstantObserver extends ObserverBase {
     private long timeNow;
 
     /**
-     * 记录消息以及回复消息（通过小冰api）暂时，标注synchronized避免多线程占用，同时原子化操作防止2次引用
+     * 记录消息以及回复消息（通过小冰api）避免多线程占用，同时原子化操作防止2次引用
      *
      * @param event 消息事件
      */

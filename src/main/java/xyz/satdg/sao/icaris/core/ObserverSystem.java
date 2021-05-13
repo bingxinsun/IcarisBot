@@ -1,10 +1,6 @@
 package xyz.satdg.sao.icaris.core;
 
-import kotlin.coroutines.EmptyCoroutineContext;
 import net.mamoe.mirai.Bot;
-import net.mamoe.mirai.event.Event;
-import net.mamoe.mirai.event.EventChannel;
-import net.mamoe.mirai.event.Events;
 import net.mamoe.mirai.event.SimpleListenerHost;
 import xyz.satdg.sao.icaris.core.observer.observers.ConstantObserver;
 import xyz.satdg.sao.icaris.core.observer.observers.CommandObserver;
@@ -15,7 +11,6 @@ import xyz.satdg.sao.icaris.core.observer.observers.SpreplyObserver;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
 /**

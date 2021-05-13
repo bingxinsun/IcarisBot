@@ -100,7 +100,6 @@ public class ClassScanner {
                 //1.目标类的全限定符名为目标名+
                     //get xxx of xxx.class
                 classSet.add(targetClass);
-
             }
         }
         return classSet;

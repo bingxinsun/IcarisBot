@@ -11,12 +11,8 @@ plugins {
 //    prop.load(it)
 //    project.ext.config = new ConfigSlurper().parse prop
 //}
-
-
 version '1.0-SNAPSHOT'
 group 'xyz.satdg.sao.icaris'
-
-sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -31,7 +27,7 @@ dependencies {
     runtimeOnly "net.mamoe:mirai-core:"+ miraiVersion // 运行时使用
 
     runtimeOnly "net.mamoe:mirai-login-solver-selenium:1.0-dev-17"
-  //  api 'net.mamoe:mirai-core-qqandroid:1.3.1'
+    //api 'net.mamoe:mirai-core-qqandroid:1.3.1'
     //runtimeOnly "net.mamoe:mirai-core:1.3.2"
 
     api 'net.sf.json-lib:json-lib:2.4:jdk15'
