@@ -33,6 +33,7 @@ public class PlayerTable extends TableBase<PlayerStd> {
             statement.setString(3,playerStd.getNick());
             statement.setInt(4,playerStd.getEXP());
             statement.setString(5,playerStd.getCallName());
+            statement.close();
         }catch (SQLException e){
             ICARIS_LOGGER.error(e);
         }

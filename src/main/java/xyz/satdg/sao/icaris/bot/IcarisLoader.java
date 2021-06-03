@@ -1,6 +1,5 @@
 package xyz.satdg.sao.icaris.bot;
 
-import loaders.PassiveLoader;
 import net.mamoe.mirai.event.*;
 import net.mamoe.mirai.event.events.BotOnlineEvent;
 import xyz.satdg.sao.icaris.core.CommandSystem;
@@ -17,7 +16,7 @@ import static xyz.satdg.sao.icaris.core.IcarisBotSystem.ICARIS_LOGGER;
  * ->在机器人第一次登录之后进行加载
  * @author GongSunink
  */
-public class IcarisLoader extends SimpleListenerHost implements PassiveLoader {
+public class IcarisLoader extends SimpleListenerHost  {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public ListeningStatus onBotFirstLogin(BotOnlineEvent event){

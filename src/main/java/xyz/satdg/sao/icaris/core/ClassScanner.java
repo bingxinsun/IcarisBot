@@ -2,6 +2,7 @@ package xyz.satdg.sao.icaris.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.DriverManager;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -54,7 +55,8 @@ public class ClassScanner {
     }
 
     /**
-     * scan in a develop environment
+     * scan in develop environment
+     * witch is in /src/java
      * @param targetPackage package need to scan
      * @return a ClassSet with classes under target package
      */
@@ -75,7 +77,6 @@ public class ClassScanner {
                     classSet.add(targetClass);
                 }
             }
-
         }
         return classSet;
     }

@@ -113,7 +113,7 @@ public final class DbSystem{
             ICARIS_LOGGER.error("数据库检查<"+dbName+">加载失败",e);
         }
         return c;
-    }
+        }
 
     /**
      * 手动关闭系统

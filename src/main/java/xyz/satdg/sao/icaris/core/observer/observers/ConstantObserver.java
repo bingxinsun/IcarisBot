@@ -11,7 +11,6 @@ import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.event.events.GroupTempMessageEvent;
 import net.mamoe.mirai.message.data.Image;
-import net.sf.json.JSONObject;
 import xyz.satdg.sao.icaris.api.bases.ObserverBase;
 import xyz.satdg.sao.icaris.base.EventListenerGroupStd;
 import xyz.satdg.sao.icaris.core.IcarisBotSystem;
@@ -64,7 +63,7 @@ public class ConstantObserver extends ObserverBase {
                 event.getSender().getNick(), (event instanceof GroupMessageEvent) ? ((GroupMessageEvent)
                         event).getGroup().getName() : "NULL", (event instanceof GroupMessageEvent) ?
                         ((GroupMessageEvent) event).getGroup().getId() : 0);
-
+        
 //        System.out.println(MiraiCode.parseMiraiCode(event.getMessage().toString()).get(1));
 //        event.getSubject().sendMessage(
 //                new MessageChainBuilder().append(event.getMessage().get(1)).asMessageChain());
@@ -152,14 +151,14 @@ public class ConstantObserver extends ObserverBase {
         // 断开连接
         String sub = sb.toString();
         //sub=sub.split(":")[2];
-        JSONObject json = JSONObject.fromObject(sub);
-        if (json.get("text") != " ") {
+//        JSONObject json = JSONObject.fromObject(sub);
+//        if (json.get("text") != " ") {
 //                    event.getSubject().sendMessage(json.get("text").toString().replace(
 //                            "\n","")+"da"+
 //                            URLDecoder.decode("\u2b50","unicode")+"ze~");
-            event.getSubject().sendMessage(json.get("text").toString().
-                            replace("\n", "").trim()
-                    /*+"da⭐ze~"*/);
+//            event.getSubject().sendMessage(json.get("text").toString().
+//                            replace("\n", "").trim()
+//                    /*+"da⭐ze~"*/);
         }
     }
-}
+//}
